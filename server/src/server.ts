@@ -1,11 +1,13 @@
 import express from "express"
 import authRoutes from "./routes/authRoutes.ts"
+import auctionRoutes from "./routes/auctionRoutes.ts"
 import { authMiddleware } from "./middleware/authMiddlware.ts"
 
 const app = express()
 
 app.use(express.json())
 app.use("/auth", authRoutes)
+app.use("/auction", auctionRoutes)
 
 // Temporary protected route to test authorization
 app.get("/protected", authMiddleware, (req, res) => {
