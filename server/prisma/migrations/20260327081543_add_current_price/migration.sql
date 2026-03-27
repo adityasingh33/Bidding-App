@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Auction" ADD COLUMN     "currentPrice" DOUBLE PRECISION NOT NULL DEFAULT 0;

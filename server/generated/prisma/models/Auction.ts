@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums"
-import type * as Prisma from "../internal/prismaNamespace"
+import type * as $Enums from "../enums.ts"
+import type * as Prisma from "../internal/prismaNamespace.ts"
 
 /**
  * Model Auction
@@ -29,12 +29,14 @@ export type AggregateAuction = {
 export type AuctionAvgAggregateOutputType = {
   id: number | null
   startingPrice: number | null
+  currentPrice: number | null
   sellerId: number | null
 }
 
 export type AuctionSumAggregateOutputType = {
   id: number | null
   startingPrice: number | null
+  currentPrice: number | null
   sellerId: number | null
 }
 
@@ -42,6 +44,7 @@ export type AuctionMinAggregateOutputType = {
   id: number | null
   title: string | null
   startingPrice: number | null
+  currentPrice: number | null
   sellerId: number | null
 }
 
@@ -49,6 +52,7 @@ export type AuctionMaxAggregateOutputType = {
   id: number | null
   title: string | null
   startingPrice: number | null
+  currentPrice: number | null
   sellerId: number | null
 }
 
@@ -56,6 +60,7 @@ export type AuctionCountAggregateOutputType = {
   id: number
   title: number
   startingPrice: number
+  currentPrice: number
   sellerId: number
   _all: number
 }
@@ -64,12 +69,14 @@ export type AuctionCountAggregateOutputType = {
 export type AuctionAvgAggregateInputType = {
   id?: true
   startingPrice?: true
+  currentPrice?: true
   sellerId?: true
 }
 
 export type AuctionSumAggregateInputType = {
   id?: true
   startingPrice?: true
+  currentPrice?: true
   sellerId?: true
 }
 
@@ -77,6 +84,7 @@ export type AuctionMinAggregateInputType = {
   id?: true
   title?: true
   startingPrice?: true
+  currentPrice?: true
   sellerId?: true
 }
 
@@ -84,6 +92,7 @@ export type AuctionMaxAggregateInputType = {
   id?: true
   title?: true
   startingPrice?: true
+  currentPrice?: true
   sellerId?: true
 }
 
@@ -91,6 +100,7 @@ export type AuctionCountAggregateInputType = {
   id?: true
   title?: true
   startingPrice?: true
+  currentPrice?: true
   sellerId?: true
   _all?: true
 }
@@ -185,6 +195,7 @@ export type AuctionGroupByOutputType = {
   id: number
   title: string
   startingPrice: number
+  currentPrice: number
   sellerId: number
   _count: AuctionCountAggregateOutputType | null
   _avg: AuctionAvgAggregateOutputType | null
@@ -215,6 +226,7 @@ export type AuctionWhereInput = {
   id?: Prisma.IntFilter<"Auction"> | number
   title?: Prisma.StringFilter<"Auction"> | string
   startingPrice?: Prisma.FloatFilter<"Auction"> | number
+  currentPrice?: Prisma.FloatFilter<"Auction"> | number
   sellerId?: Prisma.IntFilter<"Auction"> | number
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bids?: Prisma.BidListRelationFilter
@@ -224,6 +236,7 @@ export type AuctionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
+  currentPrice?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   seller?: Prisma.UserOrderByWithRelationInput
   bids?: Prisma.BidOrderByRelationAggregateInput
@@ -236,6 +249,7 @@ export type AuctionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.AuctionWhereInput | Prisma.AuctionWhereInput[]
   title?: Prisma.StringFilter<"Auction"> | string
   startingPrice?: Prisma.FloatFilter<"Auction"> | number
+  currentPrice?: Prisma.FloatFilter<"Auction"> | number
   sellerId?: Prisma.IntFilter<"Auction"> | number
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bids?: Prisma.BidListRelationFilter
@@ -245,6 +259,7 @@ export type AuctionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
+  currentPrice?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   _count?: Prisma.AuctionCountOrderByAggregateInput
   _avg?: Prisma.AuctionAvgOrderByAggregateInput
@@ -260,12 +275,14 @@ export type AuctionScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Auction"> | number
   title?: Prisma.StringWithAggregatesFilter<"Auction"> | string
   startingPrice?: Prisma.FloatWithAggregatesFilter<"Auction"> | number
+  currentPrice?: Prisma.FloatWithAggregatesFilter<"Auction"> | number
   sellerId?: Prisma.IntWithAggregatesFilter<"Auction"> | number
 }
 
 export type AuctionCreateInput = {
   title: string
   startingPrice: number
+  currentPrice?: number
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
 }
@@ -274,6 +291,7 @@ export type AuctionUncheckedCreateInput = {
   id?: number
   title: string
   startingPrice: number
+  currentPrice?: number
   sellerId: number
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
 }
@@ -281,6 +299,7 @@ export type AuctionUncheckedCreateInput = {
 export type AuctionUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
 }
@@ -289,6 +308,7 @@ export type AuctionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
 }
@@ -297,18 +317,21 @@ export type AuctionCreateManyInput = {
   id?: number
   title: string
   startingPrice: number
+  currentPrice?: number
   sellerId: number
 }
 
 export type AuctionUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type AuctionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -326,12 +349,14 @@ export type AuctionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
+  currentPrice?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
 
 export type AuctionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
+  currentPrice?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
 
@@ -339,6 +364,7 @@ export type AuctionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
+  currentPrice?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
 
@@ -346,12 +372,14 @@ export type AuctionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
+  currentPrice?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
 
 export type AuctionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
+  currentPrice?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
 
@@ -427,6 +455,7 @@ export type AuctionUpdateOneRequiredWithoutBidsNestedInput = {
 export type AuctionCreateWithoutSellerInput = {
   title: string
   startingPrice: number
+  currentPrice?: number
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
 }
 
@@ -434,6 +463,7 @@ export type AuctionUncheckedCreateWithoutSellerInput = {
   id?: number
   title: string
   startingPrice: number
+  currentPrice?: number
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
 }
 
@@ -470,12 +500,14 @@ export type AuctionScalarWhereInput = {
   id?: Prisma.IntFilter<"Auction"> | number
   title?: Prisma.StringFilter<"Auction"> | string
   startingPrice?: Prisma.FloatFilter<"Auction"> | number
+  currentPrice?: Prisma.FloatFilter<"Auction"> | number
   sellerId?: Prisma.IntFilter<"Auction"> | number
 }
 
 export type AuctionCreateWithoutBidsInput = {
   title: string
   startingPrice: number
+  currentPrice?: number
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
 }
 
@@ -483,6 +515,7 @@ export type AuctionUncheckedCreateWithoutBidsInput = {
   id?: number
   title: string
   startingPrice: number
+  currentPrice?: number
   sellerId: number
 }
 
@@ -505,6 +538,7 @@ export type AuctionUpdateToOneWithWhereWithoutBidsInput = {
 export type AuctionUpdateWithoutBidsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
 }
 
@@ -512,6 +546,7 @@ export type AuctionUncheckedUpdateWithoutBidsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -519,11 +554,13 @@ export type AuctionCreateManySellerInput = {
   id?: number
   title: string
   startingPrice: number
+  currentPrice?: number
 }
 
 export type AuctionUpdateWithoutSellerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
 }
 
@@ -531,6 +568,7 @@ export type AuctionUncheckedUpdateWithoutSellerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
 }
 
@@ -538,6 +576,7 @@ export type AuctionUncheckedUpdateManyWithoutSellerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 
@@ -575,6 +614,7 @@ export type AuctionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   title?: boolean
   startingPrice?: boolean
+  currentPrice?: boolean
   sellerId?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bids?: boolean | Prisma.Auction$bidsArgs<ExtArgs>
@@ -585,6 +625,7 @@ export type AuctionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   title?: boolean
   startingPrice?: boolean
+  currentPrice?: boolean
   sellerId?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["auction"]>
@@ -593,6 +634,7 @@ export type AuctionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   title?: boolean
   startingPrice?: boolean
+  currentPrice?: boolean
   sellerId?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["auction"]>
@@ -601,10 +643,11 @@ export type AuctionSelectScalar = {
   id?: boolean
   title?: boolean
   startingPrice?: boolean
+  currentPrice?: boolean
   sellerId?: boolean
 }
 
-export type AuctionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "startingPrice" | "sellerId", ExtArgs["result"]["auction"]>
+export type AuctionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "startingPrice" | "currentPrice" | "sellerId", ExtArgs["result"]["auction"]>
 export type AuctionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bids?: boolean | Prisma.Auction$bidsArgs<ExtArgs>
@@ -627,6 +670,7 @@ export type $AuctionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: number
     title: string
     startingPrice: number
+    currentPrice: number
     sellerId: number
   }, ExtArgs["result"]["auction"]>
   composites: {}
@@ -1056,6 +1100,7 @@ export interface AuctionFieldRefs {
   readonly id: Prisma.FieldRef<"Auction", 'Int'>
   readonly title: Prisma.FieldRef<"Auction", 'String'>
   readonly startingPrice: Prisma.FieldRef<"Auction", 'Float'>
+  readonly currentPrice: Prisma.FieldRef<"Auction", 'Float'>
   readonly sellerId: Prisma.FieldRef<"Auction", 'Int'>
 }
     

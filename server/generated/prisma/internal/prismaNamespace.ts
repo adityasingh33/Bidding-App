@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models"
-import { type PrismaClient } from "./class"
+import type * as Prisma from "../models.ts"
+import { type PrismaClient } from "./class.ts"
 
-export type * from '../models'
+export type * from '../models.ts'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -680,6 +680,7 @@ export const AuctionScalarFieldEnum = {
   id: 'id',
   title: 'title',
   startingPrice: 'startingPrice',
+  currentPrice: 'currentPrice',
   sellerId: 'sellerId'
 } as const
 

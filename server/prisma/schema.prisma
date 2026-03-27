@@ -18,6 +18,7 @@ model Auction {
   id            Int      @id @default(autoincrement())
   title         String
   startingPrice Float
+  currentPrice  Float    @default(0)
   sellerId      Int
   seller        User     @relation(fields: [sellerId], references: [id])
   bids          Bid[]
