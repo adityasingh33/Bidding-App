@@ -7,11 +7,12 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
-  auctions Auction[]
-  bids     Bid[]
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  password    String
+  auctions    Auction[] @relation("SellerAuctions")
+  bids        Bid[]
+  wonAuctions Auction[] @relation("WonAuctions")
 }
 
 model Auction {
@@ -19,8 +20,13 @@ model Auction {
   title         String
   startingPrice Float
   currentPrice  Float    @default(0)
+  status        String   @default("ACTIVE")
+  endTime       DateTime
+  createdAt     DateTime @default(now())
+  winnerId      Int?
   sellerId      Int
-  seller        User     @relation(fields: [sellerId], references: [id])
+  seller        User     @relation("SellerAuctions", fields: [sellerId], references: [id])
+  winner        User?    @relation("WonAuctions", fields: [winnerId], references: [id])
   bids          Bid[]
 }
 

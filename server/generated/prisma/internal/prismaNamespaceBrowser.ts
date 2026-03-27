@@ -86,6 +86,10 @@ export const AuctionScalarFieldEnum = {
   title: 'title',
   startingPrice: 'startingPrice',
   currentPrice: 'currentPrice',
+  status: 'status',
+  endTime: 'endTime',
+  createdAt: 'createdAt',
+  winnerId: 'winnerId',
   sellerId: 'sellerId'
 } as const
 
@@ -116,4 +120,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
