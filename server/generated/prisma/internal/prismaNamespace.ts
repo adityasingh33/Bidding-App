@@ -386,7 +386,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Auction: 'Auction',
-  Bid: 'Bid'
+  Bid: 'Bid',
+  Watchlist: 'Watchlist'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "auction" | "bid"
+    modelProps: "user" | "auction" | "bid" | "watchlist"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +629,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Watchlist: {
+      payload: Prisma.$WatchlistPayload<ExtArgs>
+      fields: Prisma.WatchlistFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WatchlistFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WatchlistFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>
+        }
+        findFirst: {
+          args: Prisma.WatchlistFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WatchlistFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>
+        }
+        findMany: {
+          args: Prisma.WatchlistFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>[]
+        }
+        create: {
+          args: Prisma.WatchlistCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>
+        }
+        createMany: {
+          args: Prisma.WatchlistCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WatchlistCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>[]
+        }
+        delete: {
+          args: Prisma.WatchlistDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>
+        }
+        update: {
+          args: Prisma.WatchlistUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>
+        }
+        deleteMany: {
+          args: Prisma.WatchlistDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WatchlistUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WatchlistUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>[]
+        }
+        upsert: {
+          args: Prisma.WatchlistUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WatchlistPayload>
+        }
+        aggregate: {
+          args: Prisma.WatchlistAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWatchlist>
+        }
+        groupBy: {
+          args: Prisma.WatchlistGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WatchlistGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WatchlistCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WatchlistCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -699,6 +774,16 @@ export const BidScalarFieldEnum = {
 } as const
 
 export type BidScalarFieldEnum = (typeof BidScalarFieldEnum)[keyof typeof BidScalarFieldEnum]
+
+
+export const WatchlistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  auctionId: 'auctionId',
+  createdAt: 'createdAt'
+} as const
+
+export type WatchlistScalarFieldEnum = (typeof WatchlistScalarFieldEnum)[keyof typeof WatchlistScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -884,6 +969,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   auction?: Prisma.AuctionOmit
   bid?: Prisma.BidOmit
+  watchlist?: Prisma.WatchlistOmit
 }
 
 /* Types for Logging */

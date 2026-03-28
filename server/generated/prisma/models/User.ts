@@ -203,6 +203,7 @@ export type UserWhereInput = {
   auctions?: Prisma.AuctionListRelationFilter
   bids?: Prisma.BidListRelationFilter
   wonAuctions?: Prisma.AuctionListRelationFilter
+  watchlist?: Prisma.WatchlistListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -212,6 +213,7 @@ export type UserOrderByWithRelationInput = {
   auctions?: Prisma.AuctionOrderByRelationAggregateInput
   bids?: Prisma.BidOrderByRelationAggregateInput
   wonAuctions?: Prisma.AuctionOrderByRelationAggregateInput
+  watchlist?: Prisma.WatchlistOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -224,6 +226,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   auctions?: Prisma.AuctionListRelationFilter
   bids?: Prisma.BidListRelationFilter
   wonAuctions?: Prisma.AuctionListRelationFilter
+  watchlist?: Prisma.WatchlistListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -252,6 +255,7 @@ export type UserCreateInput = {
   auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -261,6 +265,7 @@ export type UserUncheckedCreateInput = {
   auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -269,6 +274,7 @@ export type UserUpdateInput = {
   auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -278,6 +284,7 @@ export type UserUncheckedUpdateInput = {
   auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -389,11 +396,26 @@ export type UserUpdateOneRequiredWithoutBidsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBidsInput, Prisma.UserUpdateWithoutBidsInput>, Prisma.UserUncheckedUpdateWithoutBidsInput>
 }
 
+export type UserCreateNestedOneWithoutWatchlistInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWatchlistInput, Prisma.UserUncheckedCreateWithoutWatchlistInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWatchlistInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWatchlistNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWatchlistInput, Prisma.UserUncheckedCreateWithoutWatchlistInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWatchlistInput
+  upsert?: Prisma.UserUpsertWithoutWatchlistInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWatchlistInput, Prisma.UserUpdateWithoutWatchlistInput>, Prisma.UserUncheckedUpdateWithoutWatchlistInput>
+}
+
 export type UserCreateWithoutAuctionsInput = {
   email: string
   password: string
   bids?: Prisma.BidCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuctionsInput = {
@@ -402,6 +424,7 @@ export type UserUncheckedCreateWithoutAuctionsInput = {
   password: string
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuctionsInput = {
@@ -414,6 +437,7 @@ export type UserCreateWithoutWonAuctionsInput = {
   password: string
   auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidCreateNestedManyWithoutUserInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWonAuctionsInput = {
@@ -422,6 +446,7 @@ export type UserUncheckedCreateWithoutWonAuctionsInput = {
   password: string
   auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWonAuctionsInput = {
@@ -445,6 +470,7 @@ export type UserUpdateWithoutAuctionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   bids?: Prisma.BidUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuctionsInput = {
@@ -453,6 +479,7 @@ export type UserUncheckedUpdateWithoutAuctionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutWonAuctionsInput = {
@@ -471,6 +498,7 @@ export type UserUpdateWithoutWonAuctionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUpdateManyWithoutUserNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWonAuctionsInput = {
@@ -479,6 +507,7 @@ export type UserUncheckedUpdateWithoutWonAuctionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBidsInput = {
@@ -486,6 +515,7 @@ export type UserCreateWithoutBidsInput = {
   password: string
   auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
   wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBidsInput = {
@@ -494,6 +524,7 @@ export type UserUncheckedCreateWithoutBidsInput = {
   password: string
   auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
   wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBidsInput = {
@@ -517,6 +548,7 @@ export type UserUpdateWithoutBidsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
   wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBidsInput = {
@@ -524,6 +556,57 @@ export type UserUncheckedUpdateWithoutBidsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
+  wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutWatchlistInput = {
+  email: string
+  password: string
+  auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
+  bids?: Prisma.BidCreateNestedManyWithoutUserInput
+  wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
+}
+
+export type UserUncheckedCreateWithoutWatchlistInput = {
+  id?: number
+  email: string
+  password: string
+  auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
+  wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
+}
+
+export type UserCreateOrConnectWithoutWatchlistInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWatchlistInput, Prisma.UserUncheckedCreateWithoutWatchlistInput>
+}
+
+export type UserUpsertWithoutWatchlistInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWatchlistInput, Prisma.UserUncheckedUpdateWithoutWatchlistInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWatchlistInput, Prisma.UserUncheckedCreateWithoutWatchlistInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWatchlistInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWatchlistInput, Prisma.UserUncheckedUpdateWithoutWatchlistInput>
+}
+
+export type UserUpdateWithoutWatchlistInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
+  bids?: Prisma.BidUpdateManyWithoutUserNestedInput
+  wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWatchlistInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
 }
 
@@ -536,12 +619,14 @@ export type UserCountOutputType = {
   auctions: number
   bids: number
   wonAuctions: number
+  watchlist: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   auctions?: boolean | UserCountOutputTypeCountAuctionsArgs
   bids?: boolean | UserCountOutputTypeCountBidsArgs
   wonAuctions?: boolean | UserCountOutputTypeCountWonAuctionsArgs
+  watchlist?: boolean | UserCountOutputTypeCountWatchlistArgs
 }
 
 /**
@@ -575,6 +660,13 @@ export type UserCountOutputTypeCountWonAuctionsArgs<ExtArgs extends runtime.Type
   where?: Prisma.AuctionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWatchlistArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WatchlistWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -583,6 +675,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   auctions?: boolean | Prisma.User$auctionsArgs<ExtArgs>
   bids?: boolean | Prisma.User$bidsArgs<ExtArgs>
   wonAuctions?: boolean | Prisma.User$wonAuctionsArgs<ExtArgs>
+  watchlist?: boolean | Prisma.User$watchlistArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -609,6 +702,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   auctions?: boolean | Prisma.User$auctionsArgs<ExtArgs>
   bids?: boolean | Prisma.User$bidsArgs<ExtArgs>
   wonAuctions?: boolean | Prisma.User$wonAuctionsArgs<ExtArgs>
+  watchlist?: boolean | Prisma.User$watchlistArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -620,6 +714,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     auctions: Prisma.$AuctionPayload<ExtArgs>[]
     bids: Prisma.$BidPayload<ExtArgs>[]
     wonAuctions: Prisma.$AuctionPayload<ExtArgs>[]
+    watchlist: Prisma.$WatchlistPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1022,6 +1117,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   auctions<T extends Prisma.User$auctionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auctionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuctionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bids<T extends Prisma.User$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wonAuctions<T extends Prisma.User$wonAuctionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$wonAuctionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuctionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  watchlist<T extends Prisma.User$watchlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$watchlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1516,6 +1612,30 @@ export type User$wonAuctionsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AuctionScalarFieldEnum | Prisma.AuctionScalarFieldEnum[]
+}
+
+/**
+ * User.watchlist
+ */
+export type User$watchlistArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Watchlist
+   */
+  select?: Prisma.WatchlistSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Watchlist
+   */
+  omit?: Prisma.WatchlistOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WatchlistInclude<ExtArgs> | null
+  where?: Prisma.WatchlistWhereInput
+  orderBy?: Prisma.WatchlistOrderByWithRelationInput | Prisma.WatchlistOrderByWithRelationInput[]
+  cursor?: Prisma.WatchlistWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WatchlistScalarFieldEnum | Prisma.WatchlistScalarFieldEnum[]
 }
 
 /**

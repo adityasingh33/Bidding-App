@@ -56,3 +56,8 @@ export type Auction = Prisma.AuctionModel
  * 
  */
 export type Bid = Prisma.BidModel
+/**
+ * Model Watchlist
+ * 
+ */
+export type Watchlist = Prisma.WatchlistModel
