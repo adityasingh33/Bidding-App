@@ -28,32 +28,43 @@ export default function CreateAuction() {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-16 p-8 bg-gray-800 rounded-lg shadow-xl border border-gray-700">
-      <h2 className="text-2xl font-bold text-center mb-6 text-white">Create New Auction</h2>
-      {error && <p className="mb-4 p-3 bg-red-900/30 text-red-400 border border-red-800 rounded text-sm">{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          placeholder="Auction Title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-3 bg-gray-900 border border-gray-700 rounded text-white focus:outline-none focus:border-indigo-500 transition-colors"
-          required
-        />
-        <input
-          placeholder="Starting Price ($)"
-          type="number"
-          min="1"
-          step="0.01"
-          value={startingPrice}
-          onChange={(e) => setStartingPrice(e.target.value)}
-          className="w-full p-3 bg-gray-900 border border-gray-700 rounded text-white focus:outline-none focus:border-indigo-500 transition-colors"
-          required
-        />
+    <div className="max-w-[500px] w-full mx-auto mt-20 p-8 sm:p-10 bg-slate-900/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800/60">
+      <div className="mb-8 text-center">
+        <h2 className="text-3xl font-extrabold text-white tracking-tight">Create New Auction</h2>
+        <p className="text-slate-400 mt-2 text-sm">List your exclusive item for bidding</p>
+      </div>
+      
+      {error && <p className="mb-6 p-3 bg-red-500/10 text-red-400 border border-red-500/20 rounded-xl text-sm text-center">{error}</p>}
+      
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <div className="space-y-1">
+          <label className="text-sm font-medium text-slate-300 ml-1">Auction Title</label>
+          <input
+            placeholder="e.g. Vintage Rolex"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full p-3.5 bg-slate-950/50 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+            required
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-sm font-medium text-slate-300 ml-1">Starting Price ($)</label>
+          <input
+            placeholder="100.00"
+            type="number"
+            min="1"
+            step="0.01"
+            value={startingPrice}
+            onChange={(e) => setStartingPrice(e.target.value)}
+            className="w-full p-3.5 bg-slate-950/50 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+            required
+          />
+        </div>
         <button 
           type="submit" 
           disabled={loading}
-          className="w-full p-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold rounded transition-colors mt-2"
+          className="w-full p-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-50 text-white font-semibold rounded-xl transition-all mt-4 shadow-lg shadow-indigo-500/20 active:scale-[0.98]"
         >
           {loading ? "Creating..." : "Create Auction"}
         </button>

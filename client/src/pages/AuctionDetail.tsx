@@ -96,8 +96,8 @@ const AuctionDetail = () => {
     }
   }, [auctionId])
 
-  if (loading) return <div className="text-center py-10 text-xl text-gray-400">Loading auction...</div>
-  if (!auction) return <div className="text-center py-10 text-xl text-red-500">Auction not found</div>
+  if (loading) return <div className="text-center py-20 text-xl text-slate-400 animate-pulse">Loading auction details...</div>
+  if (!auction) return <div className="text-center py-20 text-xl text-rose-500">Auction not found</div>
 
   const formatTime = (ms: number) => {
     if (ms <= 0) return "00:00:00"
@@ -130,43 +130,47 @@ const AuctionDetail = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto flex flex-col gap-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-gray-700 gap-4">
+    <div className="max-w-6xl mx-auto flex flex-col gap-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-800/80 gap-5">
         <div>
-          <h2 className="text-3xl font-bold text-white mb-2">{auction.title}</h2>
-          <div className="flex gap-3 mt-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">{auction.title}</h2>
+          <div className="flex flex-wrap gap-3">
             <button 
               onClick={handleAddToWatchlist}
-              className="px-3 py-1 bg-gray-800 hover:bg-gray-700 border border-gray-600 text-sm text-gray-300 rounded flex items-center gap-2 transition-colors"
+              className="px-4 py-1.5 bg-slate-900/60 hover:bg-slate-800 backdrop-blur-sm border border-slate-700/60 text-sm font-medium text-slate-300 hover:text-white rounded-xl flex items-center gap-2 transition-colors shadow-sm"
             >
               <span>❤️</span> Add to Watchlist
             </button>
             {isSeller && auction.status === "ACTIVE" && (
               <button 
                 onClick={handleEndAuction}
-                className="px-3 py-1 bg-red-900/40 hover:bg-red-900/80 border border-red-700 text-sm text-red-300 rounded transition-colors"
+                className="px-4 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-sm font-medium text-rose-400 rounded-xl transition-colors"
               >
                 End Auction Early
               </button>
             )}
           </div>
         </div>
-        <div className={`px-4 py-1.5 rounded-full font-bold text-sm ${auction.status === 'ACTIVE' ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}>
-          {auction.status}
+        <div className={`px-5 py-2 rounded-full font-bold text-sm tracking-wide shadow-sm border ${auction.status === 'ACTIVE' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20'}`}>
+          {auction.status === 'ACTIVE' ? (
+            <span className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-2.5 animate-pulse"></span> {auction.status}</span>
+          ) : (
+            auction.status
+          )}
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 flex flex-col gap-6">
+        <div className="lg:col-span-2 flex flex-col gap-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-gray-800 p-8 rounded-lg text-center border border-gray-700 shadow-sm flex flex-col justify-center min-h-[160px]">
-              <span className="block text-gray-400 font-medium mb-2 uppercase tracking-wide text-sm">Current Bid</span>
-              <span className="text-5xl font-extrabold text-green-400 mt-2">${auction.currentPrice || auction.startingPrice}</span>
+            <div className="bg-slate-900/60 backdrop-blur-sm p-8 rounded-2xl text-center border border-slate-800/60 shadow-sm flex flex-col justify-center min-h-[160px]">
+              <span className="block text-slate-400 font-semibold mb-2 uppercase tracking-wider text-xs">Current Bid</span>
+              <span className="text-5xl font-extrabold text-emerald-400 mt-2">${auction.currentPrice || auction.startingPrice}</span>
             </div>
             
-            <div className="bg-gray-800 p-8 rounded-lg text-center border border-gray-700 shadow-sm flex flex-col justify-center min-h-[160px]">
-              <span className="block text-gray-400 font-medium mb-2 uppercase tracking-wide text-sm">Time Remaining</span>
-              <span className={`text-5xl font-extrabold tabular-nums transition-colors duration-300 ${isTimeCritical ? "text-red-500 animate-pulse" : "text-white"}`}>
+            <div className="bg-slate-900/60 backdrop-blur-sm p-8 rounded-2xl text-center border border-slate-800/60 shadow-sm flex flex-col justify-center min-h-[160px]">
+              <span className="block text-slate-400 font-semibold mb-2 uppercase tracking-wider text-xs">Time Remaining</span>
+              <span className={`text-5xl font-extrabold tabular-nums transition-colors duration-300 mt-2 ${isTimeCritical ? "text-rose-500 animate-pulse" : "text-white"}`}>
                 {auction.status === "ACTIVE" ? formatTime(timeLeft) : "Ended"}
               </span>
             </div>
@@ -179,18 +183,18 @@ const AuctionDetail = () => {
           />
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 h-fit max-h-[600px] overflow-y-auto w-full">
-          <h3 className="text-xl font-bold mb-4 pb-3 border-b border-gray-700 text-white sticky top-0 bg-gray-800 z-10">Bid History</h3>
+        <div className="bg-slate-900/60 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-slate-800/60 h-fit max-h-[600px] overflow-y-auto w-full shadow-sm custom-scrollbar">
+          <h3 className="text-xl font-extrabold mb-5 pb-4 border-b border-slate-800/80 text-white sticky top-0 bg-slate-900/90 z-10 backdrop-blur tracking-tight">Bid History</h3>
           <div className="flex flex-col gap-3">
             {auction.bids.length > 0 ? (
               auction.bids.map((bid, index) => (
-                <div key={bid.id || index} className="flex justify-between items-center p-3 bg-gray-900/80 rounded border border-gray-700/50">
-                  <span className="font-bold text-green-400">${bid.amount}</span>
-                  <span className="text-sm text-gray-400">User #{bid.userId}</span>
+                <div key={bid.id || index} className="flex justify-between items-center p-3.5 bg-slate-950/40 rounded-xl border border-slate-800/50 hover:bg-slate-800/50 transition-colors">
+                  <span className="font-bold text-emerald-400">${bid.amount}</span>
+                  <span className="text-sm font-medium text-slate-400">User #{bid.userId}</span>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 text-center py-8 italic text-sm">No bids yet. Be the first!</p>
+              <p className="text-slate-500 text-center py-10 italic text-sm font-medium">No bids yet. Be the first to bid!</p>
             )}
           </div>
         </div>

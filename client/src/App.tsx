@@ -55,22 +55,28 @@ function App() {
   }, [userStr])
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
+    <div className="relative min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-white">
+      {/* Subtle Background Effects */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-500 opacity-20 blur-[100px]"></div>
+
       <Toaster position="top-right" />
-      <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Routes>
-          <Route path="/" element={<Navigate to="/auctions" replace />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/auctions" element={<Auctions />} />
-          <Route path="/auctions/:id" element={<AuctionDetail />} />
-          <Route path="/create" element={<CreateAuction />} />
-          <Route path="/my-auctions" element={<MyAuctions />} />
-          <Route path="/my-bids" element={<MyBids />} />
-          <Route path="/watchlist" element={<Watchlist />} />
-        </Routes>
-      </main>
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Routes>
+            <Route path="/" element={<Navigate to="/auctions" replace />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/auctions" element={<Auctions />} />
+            <Route path="/auctions/:id" element={<AuctionDetail />} />
+            <Route path="/create" element={<CreateAuction />} />
+            <Route path="/my-auctions" element={<MyAuctions />} />
+            <Route path="/my-bids" element={<MyBids />} />
+            <Route path="/watchlist" element={<Watchlist />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   )
 }
