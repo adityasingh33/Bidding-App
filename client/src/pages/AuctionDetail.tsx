@@ -150,6 +150,7 @@ const AuctionDetail = () => {
             auctionId={auctionId} 
             currentPrice={auction.currentPrice || auction.startingPrice}
             status={auction.status}
+            bids={auction.bids}
           />
         </div>
 
