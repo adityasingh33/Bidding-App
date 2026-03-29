@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import AuctionCard from "../components/AuctionCard"
+import { useUserActivity } from "../context/UserActivityContext"
 import API from "../services/api"
 
 interface WatchlistItem {
@@ -34,15 +35,13 @@ export default function Watchlist() {
     fetchWatchlist()
   }, [])
 
+  const { toggleWatchlist } = useUserActivity()
+
   const removeFromWatchlist = async (auctionId: number, e: React.MouseEvent) => {
-    e.preventDefault() // Prevent navigating to the link
-    try {
-      await API.delete(`/user/watchlist/${auctionId}`)
-      // Optimistic update
-      setWatchlist(prev => prev.filter(item => item.auction.id !== auctionId))
-    } catch (err) {
-      console.error("Failed to remove from watchlist", err)
-    }
+    e.preventDefault() 
+    await toggleWatchlist(auctionId)
+    // Local optimistic update to remove card from grid immediately
+    setWatchlist(prev => prev.filter(item => item.auction.id !== auctionId))
   }
 
   if (loading) return <div className="text-center py-20 text-xl text-slate-400 animate-pulse">Loading your watchlist...</div>

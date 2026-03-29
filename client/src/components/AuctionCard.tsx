@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import CountdownTimer from "./CountdownTimer"
+import { useUserActivity } from "../context/UserActivityContext"
 
 interface AuctionCardProps {
   auction: {
@@ -17,6 +18,21 @@ interface AuctionCardProps {
 }
 
 const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "❤️", customBadge, customDetails }: AuctionCardProps) => {
+  // Use Global Watchlist State
+  const { watchlistIds, toggleWatchlist } = useUserActivity()
+  const isWatchlisted = watchlistIds.includes(auction.id)
+
+  const handleWatchlist = async (e: React.MouseEvent) => {
+    e.preventDefault() // Prevent Navigating to URL
+    if (onWatchlistClick) {
+      // Allow parent override (like Watchlist.tsx trash can)
+      onWatchlistClick(e)
+    } else {
+      // Default Global Toggle
+      await toggleWatchlist(auction.id)
+    }
+  }
+
   // Abstract placeholder images to make the card look premium
   const getPlaceholderImg = (id: number) => {
     const images = [
@@ -50,18 +66,34 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "❤️", customB
         </div>
 
         {/* Top right overlay (Watchlist Action) */}
-        {onWatchlistClick && (
-          <button 
-            onClick={onWatchlistClick}
-            className="absolute top-3 right-3 z-20 p-2.5 bg-slate-900/50 hover:bg-slate-900/90 backdrop-blur-md rounded-full text-slate-300 hover:text-pink-500 transition-all border border-slate-700/50 hover:border-slate-500/50 opacity-0 group-hover:opacity-100 focus:opacity-100 shadow-lg hover:scale-110 active:scale-95"
-            title="Action"
-          >
-            {actionIcon}
-          </button>
-        )}
+        <button 
+          onClick={handleWatchlist}
+          className={`absolute top-3 right-3 z-20 p-2.5 bg-slate-900/50 hover:bg-slate-900/90 backdrop-blur-md rounded-full transition-all border opacity-0 group-hover:opacity-100 focus:opacity-100 shadow-lg hover:scale-110 active:scale-125 duration-300 group/btn ${
+             isWatchlisted && actionIcon === "❤️" ? "border-rose-500/50 opacity-100" : "text-slate-300 border-slate-700/50 hover:border-slate-500/50"
+          }`}
+          title={isWatchlisted && actionIcon === "❤️" ? "Remove from Watchlist" : "Add to Watchlist"}
+        >
+          {actionIcon === "❤️" ? (
+             <svg 
+              className={`w-5 h-5 transition-transform duration-500 group-active/btn:scale-75 ${
+                isWatchlisted 
+                  ? "fill-rose-500 stroke-rose-500 drop-shadow-[0_0_10px_rgba(244,63,94,0.6)] animate-[pop_0.3s_ease-out]" 
+                  : "fill-transparent stroke-current hover:stroke-rose-400"
+              }`} 
+              viewBox="0 0 24 24" 
+              strokeWidth="2"
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+             >
+               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+             </svg>
+          ) : (
+            <span className={actionIcon === "🗑️" ? "text-rose-400" : ""}>{actionIcon}</span>
+          )}
+        </button>
         
         {/* Gradient overlay at bottom of image to blend with card body */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-90 pointer-events-none" />
       </div>
 
       {/* Content Container */}
