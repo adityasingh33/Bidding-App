@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import AuctionCard from "../components/AuctionCard"
 import API from "../services/api"
 
 interface Bid {
@@ -58,22 +59,13 @@ export default function MyBids() {
             const isWinner = b.auction.status === 'ENDED' && isHighest
 
             return (
-              <Link 
+              <AuctionCard 
                 key={b.id} 
-                to={`/auctions/${b.auction.id}`}
-                className="group flex flex-col bg-slate-900/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-800/60 hover:border-indigo-500/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 hover:bg-slate-900/80 transition-all duration-300 relative"
-              >
-                {isWinner && (
-                  <div className="absolute top-0 right-0 bg-yellow-500 text-yellow-900 text-xs font-bold px-3 py-1 rounded-bl-xl shadow-md z-10">
-                    🏆 WON!
-                  </div>
-                )}
-                
-                <div className="p-6 flex flex-col h-full">
-                  <h3 className="text-xl font-bold mb-4 text-white line-clamp-2 leading-snug group-hover:text-indigo-300 transition-colors pr-8">{b.auction.title}</h3>
-                  
-                  <div className="space-y-3 flex-grow text-sm">
-                    <div className="flex justify-between items-center bg-slate-950/40 p-3 rounded-xl border border-slate-800/50">
+                auction={b.auction}
+                customBadge={isWinner ? <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 shadow-sm backdrop-blur-md">🏆 WON!</div> : undefined}
+                customDetails={
+                  <div className="space-y-3 flex-grow text-sm mb-6 mt-2">
+                    <div className="flex justify-between items-center bg-slate-950/50 p-3 rounded-xl border border-slate-800/50 shadow-inner group-hover:border-indigo-500/30 transition-colors">
                       <span className="text-slate-400 font-medium">Your Bid</span>
                       <span className="font-bold text-lg text-indigo-400">${b.amount}</span>
                     </div>
@@ -90,16 +82,9 @@ export default function MyBids() {
                         </span>
                       )}
                     </div>
-
-                    <div className="flex justify-between items-center px-1">
-                      <span className="text-slate-400">Status</span>
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${b.auction.status === 'ACTIVE' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-400 border border-slate-700'}`}>
-                        {b.auction.status}
-                      </span>
-                    </div>
                   </div>
-                </div>
-              </Link>
+                }
+              />
             )
           })}
         </div>
