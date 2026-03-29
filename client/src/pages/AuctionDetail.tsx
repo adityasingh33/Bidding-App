@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import API from "../services/api"
 import socket from "../socket"
 import BidBox from "../components/BidBox"
+import CountdownTimer from "../components/CountdownTimer"
 
 interface AuctionData {
   id: number
@@ -22,7 +23,6 @@ const AuctionDetail = () => {
   const auctionId = Number(id)
   
   const [auction, setAuction] = useState<AuctionData | null>(null)
-  const [timeLeft, setTimeLeft] = useState<number>(0)
   const [loading, setLoading] = useState(true)
 
   // Fetch initial data
@@ -31,7 +31,6 @@ const AuctionDetail = () => {
       try {
         const res = await API.get(`/auction/${auctionId}`)
         setAuction(res.data)
-        setTimeLeft(res.data.remainingTime || 0)
       } catch (err) {
         console.error("Failed to fetch auction", err)
       } finally {
@@ -40,23 +39,6 @@ const AuctionDetail = () => {
     }
     fetchAuction()
   }, [auctionId])
-
-  // Countdown timer
-  useEffect(() => {
-    if (!auction || auction.status !== "ACTIVE" || timeLeft <= 0) return
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1000) {
-          clearInterval(timer)
-          return 0
-        }
-        return prev - 1000
-      })
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [auction, timeLeft])
 
   // Socket setup
   useEffect(() => {
@@ -77,7 +59,7 @@ const AuctionDetail = () => {
 
     socket.on("timeExtended", (data) => {
       if (data.newEndTime) {
-        setTimeLeft(new Date(data.newEndTime).getTime() - Date.now())
+        setAuction((prev) => prev ? { ...prev, endTime: data.newEndTime } : prev)
       }
     })
 
@@ -86,7 +68,6 @@ const AuctionDetail = () => {
         if (!prev) return prev
         return { ...prev, status: "ENDED", winnerId: data.winnerId }
       })
-      setTimeLeft(0)
     })
 
     return () => {
@@ -99,15 +80,6 @@ const AuctionDetail = () => {
   if (loading) return <div className="text-center py-20 text-xl text-slate-400 animate-pulse">Loading auction details...</div>
   if (!auction) return <div className="text-center py-20 text-xl text-rose-500">Auction not found</div>
 
-  const formatTime = (ms: number) => {
-    if (ms <= 0) return "00:00:00"
-    const hours = Math.floor(ms / (1000 * 60 * 60))
-    const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((ms % (1000 * 60)) / 1000)
-    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
-  }
-
-  const isTimeCritical = timeLeft > 0 && timeLeft < 60000 // Less than 1 minute red color
   const currentUser = JSON.parse(localStorage.getItem('user') || 'null')
   const isSeller = currentUser && auction && currentUser.id === auction.sellerId
 
@@ -170,9 +142,7 @@ const AuctionDetail = () => {
             
             <div className="bg-slate-900/60 backdrop-blur-sm p-8 rounded-2xl text-center border border-slate-800/60 shadow-sm flex flex-col justify-center min-h-[160px]">
               <span className="block text-slate-400 font-semibold mb-2 uppercase tracking-wider text-xs">Time Remaining</span>
-              <span className={`text-5xl font-extrabold tabular-nums transition-colors duration-300 mt-2 ${isTimeCritical ? "text-rose-500 animate-pulse" : "text-white"}`}>
-                {auction.status === "ACTIVE" ? formatTime(timeLeft) : "Ended"}
-              </span>
+              <CountdownTimer endTime={auction.endTime} status={auction.status} className="text-5xl font-extrabold mt-2" />
             </div>
           </div>
 

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import CountdownTimer from "./CountdownTimer"
 
 interface AuctionCardProps {
   auction: {
@@ -17,30 +17,6 @@ interface AuctionCardProps {
 }
 
 const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "❤️", customBadge, customDetails }: AuctionCardProps) => {
-  const [timeLeft, setTimeLeft] = useState("")
-
-  useEffect(() => {
-    if (!auction.endTime || auction.status !== "ACTIVE") {
-      setTimeLeft(auction.status === "ACTIVE" ? "Active" : "Ended")
-      return
-    }
-
-    // Initialize display immediately
-    const calculateTimeLeft = () => {
-      const difference = new Date(auction.endTime!).getTime() - Date.now()
-      if (difference <= 0) return "Ended"
-      
-      const hours = Math.floor(difference / (1000 * 60 * 60))
-      const minutes = Math.floor((difference / 1000 / 60) % 60)
-      if (hours > 24) return `${Math.floor(hours / 24)}d ${hours % 24}h`
-      return `${hours}h ${minutes}m`
-    }
-
-    setTimeLeft(calculateTimeLeft())
-    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 60000) // Update every minute
-    return () => clearInterval(timer)
-  }, [auction.endTime, auction.status])
-
   // Abstract placeholder images to make the card look premium
   const getPlaceholderImg = (id: number) => {
     const images = [
@@ -52,8 +28,6 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "❤️", customB
     ]
     return images[id % images.length]
   }
-
-  const isEndingSoon = timeLeft.includes("m") && !timeLeft.includes("d") && !timeLeft.includes("h") && timeLeft !== "Ended"
 
   return (
     <Link 
@@ -71,14 +45,7 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "❤️", customB
         {/* Top left overlay (Status/Time) */}
         <div className="absolute top-3 left-3 z-10 flex gap-2">
           {customBadge || (
-             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold backdrop-blur-md border shadow-sm transition-colors ${
-               auction.status === 'ACTIVE' 
-                 ? (isEndingSoon ? 'bg-rose-500/90 text-white border-rose-400/50 animate-pulse' : 'bg-slate-900/80 text-emerald-400 border-slate-700/80') 
-                 : 'bg-slate-900/80 text-slate-400 border-slate-700/80'
-             }`}>
-                {auction.status === 'ACTIVE' && <span className={`w-1.5 h-1.5 rounded-full ${isEndingSoon ? 'bg-white' : 'bg-emerald-400'}`}></span>}
-                {auction.status === 'ACTIVE' ? `Ends in ${timeLeft}` : auction.status}
-              </div>
+             <CountdownTimer endTime={auction.endTime} status={auction.status} badgeMode={true} />
           )}
         </div>
 
