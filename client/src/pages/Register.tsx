@@ -19,7 +19,7 @@ const Register = () => {
   }
 
   return (
-    <div className="max-w-[400px] w-full mx-auto mt-20 p-8 sm:p-10 bg-slate-900/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800/60">
+    <div className="max-w-[400px] w-full mx-auto mt-20 p-8 sm:p-10 bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10">
       <div className="mb-8 text-center">
         <h2 className="text-3xl font-extrabold text-white tracking-tight">Create an account</h2>
         <p className="text-slate-400 mt-2 text-sm">Join BidSphere to start bidding</p>
@@ -35,7 +35,7 @@ const Register = () => {
             placeholder="name@example.com" 
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
-            className="w-full p-3.5 bg-slate-950/50 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+            className="w-full p-3.5 bg-slate-950/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
             required 
           />
         </div>
@@ -46,11 +46,11 @@ const Register = () => {
             placeholder="Create a strong password" 
             value={password} 
             onChange={(e) => setPassword(e.target.value)} 
-            className="w-full p-3.5 bg-slate-950/50 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+            className="w-full p-3.5 bg-slate-950/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
             required 
           />
         </div>
-        <button type="submit" className="w-full p-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-xl transition-all mt-4 shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
+        <button type="submit" className="w-full p-3.5 bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-500 hover:shadow-purple-500/30 transition-all duration-300 text-white font-semibold rounded-xl transition-all mt-4 shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
           Create Account
         </button>
       </form>

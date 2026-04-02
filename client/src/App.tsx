@@ -53,12 +53,12 @@ function AppContent() {
   }, [userStr, addNotification])
 
   return (
-    <div className="relative min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-white">
-      {/* Subtle Background Effects */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-      <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-500 opacity-20 blur-[100px]"></div>
+    <div className="min-h-screen text-white bg-gradient-to-br from-[#1a0f2e] via-[#0f172a] to-[#1e1b4b] font-sans selection:bg-purple-500/30 transition-all duration-500 ease-in-out relative z-0">
+      {/* Subtle Ambient Glow Effect */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(139,92,246,0.15),transparent_40%)] pointer-events-none -z-10" />
+      <div className="absolute -z-10 blur-3xl opacity-30 bg-purple-600 w-[500px] h-[500px] rounded-full top-0 left-0 pointer-events-none"></div>
 
-      <Toaster position="top-right" 
+      <Toaster position="top-right"
         toastOptions={{ 
           style: { borderRadius: '12px', background: '#0f172a', color: '#fff', border: '1px solid rgba(51, 65, 85, 0.5)' } 
         }} 

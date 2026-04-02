@@ -43,16 +43,16 @@ const Navbar = () => {
   }
 
   const navLinks = [
-    { name: "Dashboard", path: "/dashboard", icon: "📊" },
+    { name: "Dashboard", path: "/dashboard" },
     { name: "Auctions", path: "/auctions" },
-    { name: "Watchlist", path: "/watchlist", icon: "❤️" },
+    { name: "Watchlist", path: "/watchlist" },
     { name: "Create", path: "/create" },
   ]
 
   const isActive = (path: string) => location.pathname === path
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/60 shadow-sm transition-all duration-300">
+    <nav className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-white/10 shadow-sm transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-[72px]">
           {/* Logo */}
@@ -80,7 +80,6 @@ const Navbar = () => {
                       : "text-slate-400 hover:text-white hover:bg-white/5 border border-transparent"
                   }`}
                 >
-                  {link.icon && <span className="text-xs">{link.icon}</span>}
                   {link.name}
                   {isActive(link.path) && (
                     <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-indigo-500 rounded-full blur-[2px] opacity-70"></span>
@@ -167,7 +166,7 @@ const Navbar = () => {
                         setIsProfileOpen(!isProfileOpen)
                         setIsNotifOpen(false) // toggle sibling
                     }}
-                    className="flex items-center gap-3 focus:outline-none pl-2 border-l border-slate-800"
+                    className="flex items-center gap-3 focus:outline-none pl-2 border-l border-white/10"
                   >
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 p-[2px] cursor-pointer hover:scale-105 transition-transform shadow-md shadow-indigo-500/20 ring-2 ring-transparent focus-within:ring-indigo-500/50">
                       <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center border-2 border-slate-900">
@@ -205,7 +204,7 @@ const Navbar = () => {
             ) : (
               <div className="flex items-center gap-4">
                 <Link to="/login" className="px-4 py-2 text-sm font-bold text-slate-300 hover:text-white transition-colors">Log in</Link>
-                <Link to="/register" className="px-5 py-2.5 text-sm font-bold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25 transition-all active:scale-95">Sign up</Link>
+                <Link to="/register" className="px-5 py-2.5 text-sm font-bold rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 text-white shadow-lg shadow-purple-500/25 transition-all duration-300 active:scale-95">Sign up</Link>
               </div>
             )}
           </div>
@@ -284,7 +283,7 @@ const Navbar = () => {
           <div className="px-4 py-5 space-y-2">
             {token ? (
               <>
-                <div className="px-3 flex items-center gap-4 py-4 mb-4 border-b border-slate-800 bg-slate-800/20 rounded-2xl">
+                <div className="px-3 flex items-center gap-4 py-4 mb-4 border-b border-white/10 bg-slate-800/20 rounded-2xl">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 p-[2px]">
                     <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center">
                       <span className="text-white font-bold text-lg">{user?.email?.substring(0, 2).toUpperCase() || "US"}</span>
@@ -304,10 +303,9 @@ const Navbar = () => {
                     className={`flex items-center gap-2 px-4 py-3.5 rounded-xl text-base font-bold transition-all ${
                       isActive(link.path)
                         ? "text-indigo-400 bg-indigo-500/10 border border-indigo-500/20"
-                        : "text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent"
+                        : "text-slate-300 hover:text-white hover:bg-white/5 border border-transparent"
                     }`}
                   >
-                    {link.icon && <span>{link.icon}</span>}
                     {link.name}
                   </Link>
                 ))}
@@ -324,8 +322,8 @@ const Navbar = () => {
               </>
             ) : (
               <div className="flex flex-col gap-4 px-2 pt-2 pb-6">
-                <Link to="/login" className="w-full text-center px-5 py-3.5 text-base font-bold rounded-xl text-slate-200 border border-slate-700 bg-slate-800/40 hover:bg-slate-800 transition-colors">Log in</Link>
-                <Link to="/register" className="w-full text-center px-5 py-3.5 text-base font-bold rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/20 transition-all">Sign up</Link>
+                <Link to="/login" className="w-full text-center px-5 py-3.5 text-base font-bold rounded-xl text-slate-200 border border-white/10 bg-slate-800/40 hover:bg-slate-800 transition-colors">Log in</Link>
+                <Link to="/register" className="w-full text-center px-5 py-3.5 text-base font-bold rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 text-white shadow-lg shadow-purple-500/20 transition-all duration-300 active:scale-95">Sign up</Link>
               </div>
             )}
           </div>

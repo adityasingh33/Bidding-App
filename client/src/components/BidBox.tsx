@@ -51,15 +51,15 @@ const BidBox = ({ auctionId, currentPrice, status, bids }: BidBoxProps) => {
   }
 
   if (status !== "ACTIVE") {
-    return <div className="p-6 bg-rose-500/10 text-rose-400 text-center rounded-2xl border border-rose-500/20 font-semibold text-lg backdrop-blur-sm shadow-sm transition-all duration-300">This auction has ended.</div>
+    return <div className="p-6 bg-rose-500/10 text-rose-400 text-center rounded-2xl border border-rose-500/20 font-semibold text-lg backdrop-blur-xl shadow-sm transition-all duration-300">This auction has ended.</div>
   }
 
   return (
-    <div className={`bg-slate-900/60 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border w-full mt-2 transition-all duration-500 ${
+    <div className={`bg-white/5 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border w-full mt-2 transition-all duration-500 ${
       isFlashing ? 'border-indigo-500/80 shadow-2xl shadow-indigo-500/40 bg-slate-800/90 scale-[1.02] ring-2 ring-indigo-500/30' : 
       isWinning ? 'border-emerald-500/40 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500/20' :
       isOutbid ? 'border-rose-500/40 shadow-lg shadow-rose-500/10 ring-1 ring-rose-500/20' : 
-      'border-slate-800/60 shadow-sm hover:border-slate-700/60'
+      'border-white/10 shadow-sm hover:border-white/10'
     }`}>
       
       {/* Real-time status banners */}
@@ -100,17 +100,17 @@ const BidBox = ({ auctionId, currentPrice, status, bids }: BidBoxProps) => {
             onChange={(e) => setAmount(Number(e.target.value) || "")}
             placeholder={`Min bid: $${currentPrice + 1}`}
             min={currentPrice + 1}
-            className="w-full pl-10 pr-4 py-4 bg-slate-950/60 border border-slate-800 rounded-xl text-white font-bold placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 text-xl transition-all shadow-inner"
+            className="w-full pl-10 pr-4 py-4 bg-slate-950/60 border border-white/10 rounded-xl text-white font-bold placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 text-xl transition-all shadow-inner"
             required
           />
         </div>
         <button 
           type="submit" 
           disabled={status !== "ACTIVE" || (!!amount && amount <= currentPrice)}
-          className={`w-full py-4 text-white font-black rounded-xl text-lg transition-all shadow-lg active:scale-[0.98] ${
+          className={`w-full py-4 text-white font-black rounded-xl text-lg transition-all shadow-lg active:scale-95 duration-300 ${
             isWinning 
-              ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 shadow-none' 
-              : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-indigo-500/25'
+              ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-white/10 shadow-none' 
+              : 'bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 shadow-purple-500/25'
           } disabled:opacity-50 disabled:cursor-not-allowed`}
         >
           {isWinning ? 'Increase Your Bid' : 'Confirm Bid'}

@@ -46,9 +46,9 @@ export default function MyBids() {
       </div>
       
       {bids.length === 0 ? (
-        <div className="bg-slate-900/60 p-10 rounded-2xl text-center border border-slate-800/60 backdrop-blur-sm shadow-xl">
+        <div className="bg-white/5 p-10 rounded-2xl text-center border border-white/10 backdrop-blur-xl shadow-xl">
           <p className="text-slate-400 mb-6 text-lg">You haven't placed any bids yet.</p>
-          <Link to="/auctions" className="inline-block px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
+          <Link to="/auctions" className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-500 hover:shadow-purple-500/30 transition-all duration-300 text-white font-semibold rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
             Browse Auctions
           </Link>
         </div>

@@ -10,6 +10,7 @@ interface AuctionCardProps {
     startingPrice?: number
     status: string
     endTime?: string
+    imageUrl?: string
   }
   onWatchlistClick?: (e: React.MouseEvent) => void
   actionIcon?: React.ReactNode
@@ -48,12 +49,11 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "❤️", customB
   return (
     <Link 
       to={`/auctions/${auction.id}`} 
-      className="group flex flex-col bg-slate-900/60 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-800/60 hover:border-indigo-500/50 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 relative"
+      className="group flex flex-col bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/50 hover:-translate-y-1.5 shadow-lg hover:shadow-xl hover:shadow-purple-500/10 hover:scale-[1.02] transition-all duration-300 ease-in-out relative"
     >
-      {/* Image Container */}
       <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-800">
         <img 
-          src={getPlaceholderImg(auction.id)} 
+          src={auction.imageUrl || getPlaceholderImg(auction.id)} 
           alt={auction.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
         />
@@ -112,7 +112,7 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "❤️", customB
         )}
         
         {/* Call to action button */}
-        <div className="w-full text-center px-4 py-3 bg-slate-800 border border-slate-700 group-hover:bg-gradient-to-r group-hover:from-indigo-600 group-hover:to-purple-600 text-slate-300 group-hover:text-white font-bold rounded-xl transition-all duration-300 mt-auto group-hover:shadow-lg group-hover:shadow-indigo-500/30 group-hover:border-transparent active:scale-[0.98]">
+        <div className="w-full text-center px-4 py-3 bg-slate-800 border border-white/10 group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-blue-500 text-slate-300 group-hover:text-white font-bold rounded-xl transition-all duration-300 mt-auto group-hover:shadow-lg group-hover:shadow-purple-500/20 active:scale-95 group-hover:border-transparent">
           {auction.status === 'ACTIVE' ? 'Place Bid' : 'View Details'}
         </div>
       </div>
