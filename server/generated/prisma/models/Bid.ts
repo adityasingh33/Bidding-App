@@ -45,6 +45,7 @@ export type BidMinAggregateOutputType = {
   amount: number | null
   auctionId: number | null
   userId: number | null
+  createdAt: Date | null
 }
 
 export type BidMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type BidMaxAggregateOutputType = {
   amount: number | null
   auctionId: number | null
   userId: number | null
+  createdAt: Date | null
 }
 
 export type BidCountAggregateOutputType = {
@@ -59,6 +61,7 @@ export type BidCountAggregateOutputType = {
   amount: number
   auctionId: number
   userId: number
+  createdAt: number
   _all: number
 }
 
@@ -82,6 +85,7 @@ export type BidMinAggregateInputType = {
   amount?: true
   auctionId?: true
   userId?: true
+  createdAt?: true
 }
 
 export type BidMaxAggregateInputType = {
@@ -89,6 +93,7 @@ export type BidMaxAggregateInputType = {
   amount?: true
   auctionId?: true
   userId?: true
+  createdAt?: true
 }
 
 export type BidCountAggregateInputType = {
@@ -96,6 +101,7 @@ export type BidCountAggregateInputType = {
   amount?: true
   auctionId?: true
   userId?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -190,6 +196,7 @@ export type BidGroupByOutputType = {
   amount: number
   auctionId: number
   userId: number
+  createdAt: Date
   _count: BidCountAggregateOutputType | null
   _avg: BidAvgAggregateOutputType | null
   _sum: BidSumAggregateOutputType | null
@@ -220,6 +227,7 @@ export type BidWhereInput = {
   amount?: Prisma.FloatFilter<"Bid"> | number
   auctionId?: Prisma.IntFilter<"Bid"> | number
   userId?: Prisma.IntFilter<"Bid"> | number
+  createdAt?: Prisma.DateTimeFilter<"Bid"> | Date | string
   auction?: Prisma.XOR<Prisma.AuctionScalarRelationFilter, Prisma.AuctionWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -229,6 +237,7 @@ export type BidOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   auctionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   auction?: Prisma.AuctionOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -241,6 +250,7 @@ export type BidWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.FloatFilter<"Bid"> | number
   auctionId?: Prisma.IntFilter<"Bid"> | number
   userId?: Prisma.IntFilter<"Bid"> | number
+  createdAt?: Prisma.DateTimeFilter<"Bid"> | Date | string
   auction?: Prisma.XOR<Prisma.AuctionScalarRelationFilter, Prisma.AuctionWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
@@ -250,6 +260,7 @@ export type BidOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   auctionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.BidCountOrderByAggregateInput
   _avg?: Prisma.BidAvgOrderByAggregateInput
   _max?: Prisma.BidMaxOrderByAggregateInput
@@ -265,10 +276,12 @@ export type BidScalarWhereWithAggregatesInput = {
   amount?: Prisma.FloatWithAggregatesFilter<"Bid"> | number
   auctionId?: Prisma.IntWithAggregatesFilter<"Bid"> | number
   userId?: Prisma.IntWithAggregatesFilter<"Bid"> | number
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Bid"> | Date | string
 }
 
 export type BidCreateInput = {
   amount: number
+  createdAt?: Date | string
   auction: Prisma.AuctionCreateNestedOneWithoutBidsInput
   user: Prisma.UserCreateNestedOneWithoutBidsInput
 }
@@ -278,10 +291,12 @@ export type BidUncheckedCreateInput = {
   amount: number
   auctionId: number
   userId: number
+  createdAt?: Date | string
 }
 
 export type BidUpdateInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   auction?: Prisma.AuctionUpdateOneRequiredWithoutBidsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutBidsNestedInput
 }
@@ -291,6 +306,7 @@ export type BidUncheckedUpdateInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   auctionId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BidCreateManyInput = {
@@ -298,10 +314,12 @@ export type BidCreateManyInput = {
   amount: number
   auctionId: number
   userId: number
+  createdAt?: Date | string
 }
 
 export type BidUpdateManyMutationInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BidUncheckedUpdateManyInput = {
@@ -309,6 +327,7 @@ export type BidUncheckedUpdateManyInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   auctionId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BidListRelationFilter = {
@@ -326,6 +345,7 @@ export type BidCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   auctionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type BidAvgOrderByAggregateInput = {
@@ -340,6 +360,7 @@ export type BidMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   auctionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type BidMinOrderByAggregateInput = {
@@ -347,6 +368,7 @@ export type BidMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   auctionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type BidSumOrderByAggregateInput = {
@@ -442,6 +464,7 @@ export type BidUncheckedUpdateManyWithoutAuctionNestedInput = {
 
 export type BidCreateWithoutUserInput = {
   amount: number
+  createdAt?: Date | string
   auction: Prisma.AuctionCreateNestedOneWithoutBidsInput
 }
 
@@ -449,6 +472,7 @@ export type BidUncheckedCreateWithoutUserInput = {
   id?: number
   amount: number
   auctionId: number
+  createdAt?: Date | string
 }
 
 export type BidCreateOrConnectWithoutUserInput = {
@@ -485,10 +509,12 @@ export type BidScalarWhereInput = {
   amount?: Prisma.FloatFilter<"Bid"> | number
   auctionId?: Prisma.IntFilter<"Bid"> | number
   userId?: Prisma.IntFilter<"Bid"> | number
+  createdAt?: Prisma.DateTimeFilter<"Bid"> | Date | string
 }
 
 export type BidCreateWithoutAuctionInput = {
   amount: number
+  createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutBidsInput
 }
 
@@ -496,6 +522,7 @@ export type BidUncheckedCreateWithoutAuctionInput = {
   id?: number
   amount: number
   userId: number
+  createdAt?: Date | string
 }
 
 export type BidCreateOrConnectWithoutAuctionInput = {
@@ -528,10 +555,12 @@ export type BidCreateManyUserInput = {
   id?: number
   amount: number
   auctionId: number
+  createdAt?: Date | string
 }
 
 export type BidUpdateWithoutUserInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   auction?: Prisma.AuctionUpdateOneRequiredWithoutBidsNestedInput
 }
 
@@ -539,22 +568,26 @@ export type BidUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   auctionId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BidUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   auctionId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BidCreateManyAuctionInput = {
   id?: number
   amount: number
   userId: number
+  createdAt?: Date | string
 }
 
 export type BidUpdateWithoutAuctionInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutBidsNestedInput
 }
 
@@ -562,12 +595,14 @@ export type BidUncheckedUpdateWithoutAuctionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BidUncheckedUpdateManyWithoutAuctionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -577,6 +612,7 @@ export type BidSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   amount?: boolean
   auctionId?: boolean
   userId?: boolean
+  createdAt?: boolean
   auction?: boolean | Prisma.AuctionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bid"]>
@@ -586,6 +622,7 @@ export type BidSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   amount?: boolean
   auctionId?: boolean
   userId?: boolean
+  createdAt?: boolean
   auction?: boolean | Prisma.AuctionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bid"]>
@@ -595,6 +632,7 @@ export type BidSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   amount?: boolean
   auctionId?: boolean
   userId?: boolean
+  createdAt?: boolean
   auction?: boolean | Prisma.AuctionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bid"]>
@@ -604,9 +642,10 @@ export type BidSelectScalar = {
   amount?: boolean
   auctionId?: boolean
   userId?: boolean
+  createdAt?: boolean
 }
 
-export type BidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "amount" | "auctionId" | "userId", ExtArgs["result"]["bid"]>
+export type BidOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "amount" | "auctionId" | "userId" | "createdAt", ExtArgs["result"]["bid"]>
 export type BidInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   auction?: boolean | Prisma.AuctionDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -631,6 +670,7 @@ export type $BidPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     amount: number
     auctionId: number
     userId: number
+    createdAt: Date
   }, ExtArgs["result"]["bid"]>
   composites: {}
 }
@@ -1060,6 +1100,7 @@ export interface BidFieldRefs {
   readonly amount: Prisma.FieldRef<"Bid", 'Float'>
   readonly auctionId: Prisma.FieldRef<"Bid", 'Int'>
   readonly userId: Prisma.FieldRef<"Bid", 'Int'>
+  readonly createdAt: Prisma.FieldRef<"Bid", 'DateTime'>
 }
     
 

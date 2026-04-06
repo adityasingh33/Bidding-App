@@ -30,6 +30,7 @@ export type AuctionAvgAggregateOutputType = {
   id: number | null
   startingPrice: number | null
   currentPrice: number | null
+  version: number | null
   winnerId: number | null
   sellerId: number | null
 }
@@ -38,6 +39,7 @@ export type AuctionSumAggregateOutputType = {
   id: number | null
   startingPrice: number | null
   currentPrice: number | null
+  version: number | null
   winnerId: number | null
   sellerId: number | null
 }
@@ -49,7 +51,9 @@ export type AuctionMinAggregateOutputType = {
   currentPrice: number | null
   status: string | null
   endTime: Date | null
+  imageUrl: string | null
   createdAt: Date | null
+  version: number | null
   winnerId: number | null
   sellerId: number | null
 }
@@ -61,7 +65,9 @@ export type AuctionMaxAggregateOutputType = {
   currentPrice: number | null
   status: string | null
   endTime: Date | null
+  imageUrl: string | null
   createdAt: Date | null
+  version: number | null
   winnerId: number | null
   sellerId: number | null
 }
@@ -73,7 +79,9 @@ export type AuctionCountAggregateOutputType = {
   currentPrice: number
   status: number
   endTime: number
+  imageUrl: number
   createdAt: number
+  version: number
   winnerId: number
   sellerId: number
   _all: number
@@ -84,6 +92,7 @@ export type AuctionAvgAggregateInputType = {
   id?: true
   startingPrice?: true
   currentPrice?: true
+  version?: true
   winnerId?: true
   sellerId?: true
 }
@@ -92,6 +101,7 @@ export type AuctionSumAggregateInputType = {
   id?: true
   startingPrice?: true
   currentPrice?: true
+  version?: true
   winnerId?: true
   sellerId?: true
 }
@@ -103,7 +113,9 @@ export type AuctionMinAggregateInputType = {
   currentPrice?: true
   status?: true
   endTime?: true
+  imageUrl?: true
   createdAt?: true
+  version?: true
   winnerId?: true
   sellerId?: true
 }
@@ -115,7 +127,9 @@ export type AuctionMaxAggregateInputType = {
   currentPrice?: true
   status?: true
   endTime?: true
+  imageUrl?: true
   createdAt?: true
+  version?: true
   winnerId?: true
   sellerId?: true
 }
@@ -127,7 +141,9 @@ export type AuctionCountAggregateInputType = {
   currentPrice?: true
   status?: true
   endTime?: true
+  imageUrl?: true
   createdAt?: true
+  version?: true
   winnerId?: true
   sellerId?: true
   _all?: true
@@ -226,7 +242,9 @@ export type AuctionGroupByOutputType = {
   currentPrice: number
   status: string
   endTime: Date
+  imageUrl: string | null
   createdAt: Date
+  version: number
   winnerId: number | null
   sellerId: number
   _count: AuctionCountAggregateOutputType | null
@@ -261,7 +279,9 @@ export type AuctionWhereInput = {
   currentPrice?: Prisma.FloatFilter<"Auction"> | number
   status?: Prisma.StringFilter<"Auction"> | string
   endTime?: Prisma.DateTimeFilter<"Auction"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Auction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Auction"> | Date | string
+  version?: Prisma.IntFilter<"Auction"> | number
   winnerId?: Prisma.IntNullableFilter<"Auction"> | number | null
   sellerId?: Prisma.IntFilter<"Auction"> | number
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -277,7 +297,9 @@ export type AuctionOrderByWithRelationInput = {
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   winnerId?: Prisma.SortOrderInput | Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   seller?: Prisma.UserOrderByWithRelationInput
@@ -296,7 +318,9 @@ export type AuctionWhereUniqueInput = Prisma.AtLeast<{
   currentPrice?: Prisma.FloatFilter<"Auction"> | number
   status?: Prisma.StringFilter<"Auction"> | string
   endTime?: Prisma.DateTimeFilter<"Auction"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Auction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Auction"> | Date | string
+  version?: Prisma.IntFilter<"Auction"> | number
   winnerId?: Prisma.IntNullableFilter<"Auction"> | number | null
   sellerId?: Prisma.IntFilter<"Auction"> | number
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -312,7 +336,9 @@ export type AuctionOrderByWithAggregationInput = {
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   winnerId?: Prisma.SortOrderInput | Prisma.SortOrder
   sellerId?: Prisma.SortOrder
   _count?: Prisma.AuctionCountOrderByAggregateInput
@@ -332,7 +358,9 @@ export type AuctionScalarWhereWithAggregatesInput = {
   currentPrice?: Prisma.FloatWithAggregatesFilter<"Auction"> | number
   status?: Prisma.StringWithAggregatesFilter<"Auction"> | string
   endTime?: Prisma.DateTimeWithAggregatesFilter<"Auction"> | Date | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Auction"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Auction"> | Date | string
+  version?: Prisma.IntWithAggregatesFilter<"Auction"> | number
   winnerId?: Prisma.IntNullableWithAggregatesFilter<"Auction"> | number | null
   sellerId?: Prisma.IntWithAggregatesFilter<"Auction"> | number
 }
@@ -343,7 +371,9 @@ export type AuctionCreateInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
   winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
@@ -357,7 +387,9 @@ export type AuctionUncheckedCreateInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   winnerId?: number | null
   sellerId: number
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
@@ -370,7 +402,9 @@ export type AuctionUpdateInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
   winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
@@ -384,7 +418,9 @@ export type AuctionUncheckedUpdateInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
@@ -398,7 +434,9 @@ export type AuctionCreateManyInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   winnerId?: number | null
   sellerId: number
 }
@@ -409,7 +447,9 @@ export type AuctionUpdateManyMutationInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type AuctionUncheckedUpdateManyInput = {
@@ -419,7 +459,9 @@ export type AuctionUncheckedUpdateManyInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -441,7 +483,9 @@ export type AuctionCountOrderByAggregateInput = {
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   winnerId?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
@@ -450,6 +494,7 @@ export type AuctionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
   currentPrice?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   winnerId?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
@@ -461,7 +506,9 @@ export type AuctionMaxOrderByAggregateInput = {
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   winnerId?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
@@ -473,7 +520,9 @@ export type AuctionMinOrderByAggregateInput = {
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   winnerId?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
@@ -482,6 +531,7 @@ export type AuctionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
   currentPrice?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   winnerId?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
 }
@@ -587,6 +637,10 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -629,7 +683,9 @@ export type AuctionCreateWithoutSellerInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
@@ -642,7 +698,9 @@ export type AuctionUncheckedCreateWithoutSellerInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   winnerId?: number | null
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
@@ -664,7 +722,9 @@ export type AuctionCreateWithoutWinnerInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
@@ -677,7 +737,9 @@ export type AuctionUncheckedCreateWithoutWinnerInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   sellerId: number
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
@@ -719,7 +781,9 @@ export type AuctionScalarWhereInput = {
   currentPrice?: Prisma.FloatFilter<"Auction"> | number
   status?: Prisma.StringFilter<"Auction"> | string
   endTime?: Prisma.DateTimeFilter<"Auction"> | Date | string
+  imageUrl?: Prisma.StringNullableFilter<"Auction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Auction"> | Date | string
+  version?: Prisma.IntFilter<"Auction"> | number
   winnerId?: Prisma.IntNullableFilter<"Auction"> | number | null
   sellerId?: Prisma.IntFilter<"Auction"> | number
 }
@@ -746,7 +810,9 @@ export type AuctionCreateWithoutBidsInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
   winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
@@ -759,7 +825,9 @@ export type AuctionUncheckedCreateWithoutBidsInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   winnerId?: number | null
   sellerId: number
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
@@ -787,7 +855,9 @@ export type AuctionUpdateWithoutBidsInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
   winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
@@ -800,7 +870,9 @@ export type AuctionUncheckedUpdateWithoutBidsInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
@@ -812,7 +884,9 @@ export type AuctionCreateWithoutWatchlistInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
   winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
@@ -825,7 +899,9 @@ export type AuctionUncheckedCreateWithoutWatchlistInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   winnerId?: number | null
   sellerId: number
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
@@ -853,7 +929,9 @@ export type AuctionUpdateWithoutWatchlistInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
   winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
@@ -866,7 +944,9 @@ export type AuctionUncheckedUpdateWithoutWatchlistInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
@@ -879,7 +959,9 @@ export type AuctionCreateManySellerInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   winnerId?: number | null
 }
 
@@ -890,7 +972,9 @@ export type AuctionCreateManyWinnerInput = {
   currentPrice?: number
   status?: string
   endTime: Date | string
+  imageUrl?: string | null
   createdAt?: Date | string
+  version?: number
   sellerId: number
 }
 
@@ -900,7 +984,9 @@ export type AuctionUpdateWithoutSellerInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
@@ -913,7 +999,9 @@ export type AuctionUncheckedUpdateWithoutSellerInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
@@ -926,7 +1014,9 @@ export type AuctionUncheckedUpdateManyWithoutSellerInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -936,7 +1026,9 @@ export type AuctionUpdateWithoutWinnerInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
@@ -949,7 +1041,9 @@ export type AuctionUncheckedUpdateWithoutWinnerInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
@@ -962,7 +1056,9 @@ export type AuctionUncheckedUpdateManyWithoutWinnerInput = {
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -1013,7 +1109,9 @@ export type AuctionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   currentPrice?: boolean
   status?: boolean
   endTime?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
+  version?: boolean
   winnerId?: boolean
   sellerId?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1030,7 +1128,9 @@ export type AuctionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currentPrice?: boolean
   status?: boolean
   endTime?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
+  version?: boolean
   winnerId?: boolean
   sellerId?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1044,7 +1144,9 @@ export type AuctionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currentPrice?: boolean
   status?: boolean
   endTime?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
+  version?: boolean
   winnerId?: boolean
   sellerId?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1058,12 +1160,14 @@ export type AuctionSelectScalar = {
   currentPrice?: boolean
   status?: boolean
   endTime?: boolean
+  imageUrl?: boolean
   createdAt?: boolean
+  version?: boolean
   winnerId?: boolean
   sellerId?: boolean
 }
 
-export type AuctionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "startingPrice" | "currentPrice" | "status" | "endTime" | "createdAt" | "winnerId" | "sellerId", ExtArgs["result"]["auction"]>
+export type AuctionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "startingPrice" | "currentPrice" | "status" | "endTime" | "imageUrl" | "createdAt" | "version" | "winnerId" | "sellerId", ExtArgs["result"]["auction"]>
 export type AuctionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   winner?: boolean | Prisma.Auction$winnerArgs<ExtArgs>
@@ -1095,7 +1199,9 @@ export type $AuctionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     currentPrice: number
     status: string
     endTime: Date
+    imageUrl: string | null
     createdAt: Date
+    version: number
     winnerId: number | null
     sellerId: number
   }, ExtArgs["result"]["auction"]>
@@ -1531,7 +1637,9 @@ export interface AuctionFieldRefs {
   readonly currentPrice: Prisma.FieldRef<"Auction", 'Float'>
   readonly status: Prisma.FieldRef<"Auction", 'String'>
   readonly endTime: Prisma.FieldRef<"Auction", 'DateTime'>
+  readonly imageUrl: Prisma.FieldRef<"Auction", 'String'>
   readonly createdAt: Prisma.FieldRef<"Auction", 'DateTime'>
+  readonly version: Prisma.FieldRef<"Auction", 'Int'>
   readonly winnerId: Prisma.FieldRef<"Auction", 'Int'>
   readonly sellerId: Prisma.FieldRef<"Auction", 'Int'>
 }

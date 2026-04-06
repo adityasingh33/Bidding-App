@@ -23,7 +23,9 @@ model Auction {
   currentPrice  Float       @default(0)
   status        String      @default("ACTIVE")
   endTime       DateTime
+  imageUrl      String?
   createdAt     DateTime    @default(now())
+  version       Int         @default(0)
   winnerId      Int?
   sellerId      Int
   seller        User        @relation("SellerAuctions", fields: [sellerId], references: [id])
@@ -33,10 +35,11 @@ model Auction {
 }
 
 model Bid {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   amount    Float
   auctionId Int
   userId    Int
+  createdAt DateTime @default(now())
 
   auction   Auction @relation(fields: [auctionId], references: [id])
   user      User    @relation(fields: [userId], references: [id])

@@ -89,7 +89,9 @@ export const AuctionScalarFieldEnum = {
   currentPrice: 'currentPrice',
   status: 'status',
   endTime: 'endTime',
+  imageUrl: 'imageUrl',
   createdAt: 'createdAt',
+  version: 'version',
   winnerId: 'winnerId',
   sellerId: 'sellerId'
 } as const
@@ -101,7 +103,8 @@ export const BidScalarFieldEnum = {
   id: 'id',
   amount: 'amount',
   auctionId: 'auctionId',
-  userId: 'userId'
+  userId: 'userId',
+  createdAt: 'createdAt'
 } as const
 
 export type BidScalarFieldEnum = (typeof BidScalarFieldEnum)[keyof typeof BidScalarFieldEnum]
