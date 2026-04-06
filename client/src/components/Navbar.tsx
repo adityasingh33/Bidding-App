@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
+import { CheckCircle, AlertTriangle, Bell, Inbox, LogOut, Package, History } from "lucide-react"
 import { useUserActivity } from "../context/UserActivityContext"
 
 const Navbar = () => {
@@ -128,7 +129,7 @@ const Navbar = () => {
                       <div className="flex flex-col overflow-y-auto custom-scrollbar flex-1">
                         {notifications.length === 0 ? (
                           <div className="px-4 py-10 flex flex-col items-center justify-center gap-2">
-                             <span className="text-3xl opacity-50 block">📭</span>
+                             <Inbox className="w-12 h-12 mx-auto opacity-50 text-slate-400 mb-2" />
                              <p className="text-sm font-medium text-slate-500 relative mt-2 text-center">You're all caught up!</p>
                           </div>
                         ) : (
@@ -140,7 +141,7 @@ const Navbar = () => {
                             >
                               <div className="flex gap-3.5 items-start">
                                 <div className="mt-0.5 text-xl">
-                                  {n.type === 'success' ? '🎉' : n.type === 'error' ? '⚠️' : '🔔'}
+                                  {n.type === 'success' ? <CheckCircle className="w-5 h-5 text-emerald-500" /> : n.type === 'error' ? <AlertTriangle className="w-5 h-5 text-rose-500" /> : <Bell className="w-5 h-5 text-indigo-500" />}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <p className={`text-sm tracking-tight ${!n.read ? 'text-white font-bold' : 'text-slate-300 font-medium'}`}>{n.title}</p>
@@ -185,17 +186,17 @@ const Navbar = () => {
                         <p className="text-xs text-emerald-400 mt-1 font-medium flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online</p>
                       </div>
                       <Link to="/my-auctions" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors mx-2 rounded-xl">
-                        Inventory
+                        <Package className="w-4 h-4 text-indigo-400" /> Inventory
                       </Link>
                       <Link to="/my-bids" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors mx-2 rounded-xl">
-                        Bid History
+                        <History className="w-4 h-4 text-purple-400" /> Bid History
                       </Link>
                       <div className="border-t border-slate-700/50 my-2"></div>
                       <button 
                         onClick={() => { setIsProfileOpen(false); handleLogout(); }}
                         className="w-full flex items-center gap-3 text-left px-4 py-2.5 text-sm font-medium text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-colors mx-2 rounded-xl"
                       >
-                        Sign out
+                        <LogOut className="w-4 h-4" /> Sign out
                       </button>
                     </div>
                   )}

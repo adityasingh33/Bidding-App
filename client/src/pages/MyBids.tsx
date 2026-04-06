@@ -62,7 +62,7 @@ export default function MyBids() {
               <AuctionCard 
                 key={b.id} 
                 auction={b.auction}
-                customBadge={isWinner ? <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 shadow-sm backdrop-blur-md">🏆 WON!</div> : undefined}
+                customBadge={isWinner ? <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 shadow-sm backdrop-blur-md">WON!</div> : undefined}
                 customDetails={
                   <div className="space-y-3 flex-grow text-sm mb-6 mt-2">
                     <div className="flex justify-between items-center bg-slate-950/50 p-3 rounded-xl border border-slate-800/50 shadow-inner group-hover:border-indigo-500/30 transition-colors">

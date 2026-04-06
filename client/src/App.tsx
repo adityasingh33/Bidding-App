@@ -37,7 +37,7 @@ function AppContent() {
             addNotification({
               type: "success",
               title: "You Won!",
-              message: `You won an auction! 🎉`,
+              message: `You won an auction!`,
             })
           }
         })

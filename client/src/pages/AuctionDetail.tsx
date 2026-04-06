@@ -4,6 +4,7 @@ import API from "../services/api"
 import socket from "../socket"
 import BidBox from "../components/BidBox"
 import CountdownTimer from "../components/CountdownTimer"
+import { Heart } from "lucide-react"
 
 interface AuctionData {
   id: number
@@ -87,7 +88,7 @@ const AuctionDetail = () => {
   const handleAddToWatchlist = async () => {
     try {
       await API.post("/user/watchlist", { auctionId })
-      alert("Added to Watchlist ❤️")
+      alert("Added to Watchlist")
     } catch (err: any) {
       alert(err.response?.data?.error || "Failed to add to watchlist")
     }
@@ -112,7 +113,7 @@ const AuctionDetail = () => {
               onClick={handleAddToWatchlist}
               className="px-4 py-1.5 bg-white/5 hover:bg-slate-800 backdrop-blur-xl border border-white/10 text-sm font-medium text-slate-300 hover:text-white rounded-xl flex items-center gap-2 transition-colors shadow-sm"
             >
-              <span>❤️</span> Add to Watchlist
+              <Heart className="w-4 h-4" /> Add to Watchlist
             </button>
             {isSeller && auction.status === "ACTIVE" && (
               <button 

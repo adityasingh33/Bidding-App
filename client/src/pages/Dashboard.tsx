@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { Trophy, Heart, Ghost, ChevronRight, Package } from "lucide-react"
 import API from "../services/api"
 import { useUserActivity } from "../context/UserActivityContext"
 
@@ -116,7 +117,7 @@ export default function Dashboard() {
           <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Auctions Won</p>
           <div className="flex items-end gap-3">
             <span className="text-4xl font-black text-white">{totalWins}</span>
-            <span className="text-emerald-400 text-sm font-medium mb-1 flex items-center gap-1">🏆 Trophies</span>
+            <span className="text-emerald-400 text-sm font-medium mb-1 flex items-center gap-1"><Trophy className="w-4 h-4" /> Trophies</span>
           </div>
         </div>
 
@@ -134,7 +135,7 @@ export default function Dashboard() {
           <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Watchlist</p>
           <div className="flex items-end gap-3">
             <span className="text-4xl font-black text-white">{watchlistIds.length}</span>
-            <span className="text-pink-400 text-sm font-medium mb-1 flex items-center gap-1">❤️ Saved</span>
+            <span className="text-pink-400 text-sm font-medium mb-1 flex items-center gap-1"><Heart className="w-4 h-4" /> Saved</span>
           </div>
         </div>
       </div>
@@ -163,7 +164,7 @@ export default function Dashboard() {
                   <div className="bg-slate-950/40 p-5 rounded-2xl border border-slate-800/50 hover:border-indigo-500/30 transition-colors shadow-sm ml-2 group-hover:-translate-y-1 duration-300">
                     <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-slate-500 bg-slate-900 px-2 py-1 rounded-md">{dateString} • {timeString}</span>
+                        <span className="text-xs font-bold text-slate-500 bg-slate-900 px-2 py-1 rounded-md">{dateString} | {timeString}</span>
                         {isHighest && bid.auction.status === 'ACTIVE' && (
                           <span className="text-[10px] font-black uppercase text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-sm ring-1 ring-emerald-500/30">Winning</span>
                         )}
@@ -181,7 +182,7 @@ export default function Dashboard() {
               )
             }) : (
               <div className="text-slate-500 font-medium py-10 pl-4 items-center flex gap-3">
-                <span className="text-2xl">👻</span> It's quiet here... Place some bids!
+                <Ghost className="w-8 h-8 opacity-50" /> It's quiet here... Place some bids!
               </div>
             )}
           </div>
@@ -202,12 +203,12 @@ export default function Dashboard() {
             <h3 className="text-lg font-bold text-white mb-4">Quick Links</h3>
             <div className="space-y-3">
               <Link to="/my-auctions" className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/40 hover:bg-slate-800/50 border border-slate-800/50 hover:border-white/10 transition-all font-semibold text-slate-300 hover:text-white group">
-                 <span>📦 Manage Listings</span>
-                 <span className="text-slate-500 group-hover:text-white transition-colors">&rarr;</span>
+                 <div className="flex items-center gap-2"><Package className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300 transition-colors" /> <span>Manage Listings</span></div>
+                 <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-white transition-colors" />
               </Link>
               <Link to="/watchlist" className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/40 hover:bg-slate-800/50 border border-slate-800/50 hover:border-white/10 transition-all font-semibold text-slate-300 hover:text-white group">
-                 <span>❤️ View Watchlist</span>
-                 <span className="text-slate-500 group-hover:text-white transition-colors">&rarr;</span>
+                 <div className="flex items-center gap-2"><Heart className="w-5 h-5 text-pink-400 group-hover:text-pink-300 transition-colors" /> <span>View Watchlist</span></div>
+                 <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-white transition-colors" />
               </Link>
             </div>
           </div>

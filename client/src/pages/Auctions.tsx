@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import AuctionCard from "../components/AuctionCard"
 import { SkeletonGrid } from "../components/SkeletonLoader"
+import { Clock, SearchX } from "lucide-react"
 import API from "../services/api"
 
 interface Auction {
@@ -137,7 +138,7 @@ const Auctions = () => {
                 : 'bg-slate-950/50 text-slate-400 border-white/10 hover:text-white hover:border-white/10'
             }`}
           >
-            <span className={endingSoon ? 'animate-pulse' : ''}>⏳</span> 
+            <Clock className={`w-4 h-4 ${endingSoon ? 'animate-pulse text-rose-500' : 'text-slate-500'}`} />
             Ending Soon
           </button>
         </div>
@@ -157,7 +158,7 @@ const Auctions = () => {
           ))}
           {filteredAuctions.length === 0 && (
             <div className="col-span-full py-24 text-center bg-white/5 rounded-2xl border border-white/10 backdrop-blur-xl shadow-xl">
-              <span className="text-4xl block mb-4">🔍</span>
+              <SearchX className="w-12 h-12 mx-auto mb-4 text-slate-500 opacity-50" />
               <p className="text-white text-xl font-bold mb-2">No auctions found</p>
               <p className="text-slate-400">Try adjusting your filters or search terms.</p>
               <button 

@@ -79,7 +79,7 @@ export default function Watchlist() {
             <AuctionCard 
               key={item.id} 
               auction={item.auction}
-              actionIcon="🗑️"
+              actionIcon="trash"
               onWatchlistClick={(e: React.MouseEvent) => removeFromWatchlist(item.auction.id, e)}
             />
           ))}

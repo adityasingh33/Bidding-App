@@ -45,7 +45,7 @@ const Login = () => {
           <label className="text-sm font-medium text-slate-300 ml-1">Password</label>
           <input 
             type="password" 
-            placeholder="••••••••" 
+            placeholder="********" 
             value={password} 
             onChange={(e) => setPassword(e.target.value)} 
             className="w-full p-3.5 bg-slate-950/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
