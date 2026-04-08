@@ -7,6 +7,8 @@ import API from "../services/api"
 interface Auction {
   id: number
   title: string
+  sellerName: string
+  createdAt: string
   currentPrice: number
   startingPrice: number
   status: string

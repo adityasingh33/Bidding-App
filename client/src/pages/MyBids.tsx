@@ -10,6 +10,8 @@ interface Bid {
   auction: {
     id: number
     title: string
+    sellerName: string
+    createdAt: string
     status: string
     currentPrice: number
     startingPrice: number

@@ -7,6 +7,8 @@ interface AuctionCardProps {
   auction: {
     id: number
     title: string
+    sellerName?: string
+    createdAt?: string
     currentPrice?: number
     startingPrice?: number
     status: string
@@ -23,6 +25,13 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
   // Use Global Watchlist State
   const { watchlistIds, toggleWatchlist } = useUserActivity()
   const isWatchlisted = watchlistIds.includes(auction.id)
+
+  const createdAtLabel = auction.createdAt
+    ? new Intl.DateTimeFormat("en-US", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }).format(new Date(auction.createdAt))
+    : null
 
   const handleWatchlist = async (e: React.MouseEvent) => {
     e.preventDefault() // Prevent Navigating to URL
@@ -96,6 +105,17 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
         <h3 className="text-lg font-bold mb-4 text-white line-clamp-2 leading-snug group-hover:text-indigo-300 transition-colors pr-2">
           {auction.title}
         </h3>
+
+        <div className="mb-4 space-y-2 rounded-xl border border-slate-800/60 bg-slate-950/45 p-3">
+          <div className="flex items-center justify-between gap-3 text-sm">
+            <span className="text-slate-500">Owner</span>
+            <span className="truncate font-semibold text-slate-100">{auction.sellerName || "Unknown Seller"}</span>
+          </div>
+          <div className="flex items-center justify-between gap-3 text-sm">
+            <span className="text-slate-500">Created</span>
+            <span className="text-right font-medium text-slate-300">{createdAtLabel || "Recently added"}</span>
+          </div>
+        </div>
         
         {customDetails ? customDetails : (
           <div className="space-y-4 mb-6 flex-grow">
