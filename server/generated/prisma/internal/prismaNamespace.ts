@@ -754,6 +754,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const AuctionScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  sellerName: 'sellerName',
   startingPrice: 'startingPrice',
   currentPrice: 'currentPrice',
   status: 'status',

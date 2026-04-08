@@ -47,6 +47,7 @@ export type AuctionSumAggregateOutputType = {
 export type AuctionMinAggregateOutputType = {
   id: number | null
   title: string | null
+  sellerName: string | null
   startingPrice: number | null
   currentPrice: number | null
   status: string | null
@@ -61,6 +62,7 @@ export type AuctionMinAggregateOutputType = {
 export type AuctionMaxAggregateOutputType = {
   id: number | null
   title: string | null
+  sellerName: string | null
   startingPrice: number | null
   currentPrice: number | null
   status: string | null
@@ -75,6 +77,7 @@ export type AuctionMaxAggregateOutputType = {
 export type AuctionCountAggregateOutputType = {
   id: number
   title: number
+  sellerName: number
   startingPrice: number
   currentPrice: number
   status: number
@@ -109,6 +112,7 @@ export type AuctionSumAggregateInputType = {
 export type AuctionMinAggregateInputType = {
   id?: true
   title?: true
+  sellerName?: true
   startingPrice?: true
   currentPrice?: true
   status?: true
@@ -123,6 +127,7 @@ export type AuctionMinAggregateInputType = {
 export type AuctionMaxAggregateInputType = {
   id?: true
   title?: true
+  sellerName?: true
   startingPrice?: true
   currentPrice?: true
   status?: true
@@ -137,6 +142,7 @@ export type AuctionMaxAggregateInputType = {
 export type AuctionCountAggregateInputType = {
   id?: true
   title?: true
+  sellerName?: true
   startingPrice?: true
   currentPrice?: true
   status?: true
@@ -238,6 +244,7 @@ export type AuctionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type AuctionGroupByOutputType = {
   id: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice: number
   status: string
@@ -275,6 +282,7 @@ export type AuctionWhereInput = {
   NOT?: Prisma.AuctionWhereInput | Prisma.AuctionWhereInput[]
   id?: Prisma.IntFilter<"Auction"> | number
   title?: Prisma.StringFilter<"Auction"> | string
+  sellerName?: Prisma.StringFilter<"Auction"> | string
   startingPrice?: Prisma.FloatFilter<"Auction"> | number
   currentPrice?: Prisma.FloatFilter<"Auction"> | number
   status?: Prisma.StringFilter<"Auction"> | string
@@ -293,6 +301,7 @@ export type AuctionWhereInput = {
 export type AuctionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  sellerName?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -314,6 +323,7 @@ export type AuctionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AuctionWhereInput[]
   NOT?: Prisma.AuctionWhereInput | Prisma.AuctionWhereInput[]
   title?: Prisma.StringFilter<"Auction"> | string
+  sellerName?: Prisma.StringFilter<"Auction"> | string
   startingPrice?: Prisma.FloatFilter<"Auction"> | number
   currentPrice?: Prisma.FloatFilter<"Auction"> | number
   status?: Prisma.StringFilter<"Auction"> | string
@@ -332,6 +342,7 @@ export type AuctionWhereUniqueInput = Prisma.AtLeast<{
 export type AuctionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  sellerName?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -354,6 +365,7 @@ export type AuctionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AuctionScalarWhereWithAggregatesInput | Prisma.AuctionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Auction"> | number
   title?: Prisma.StringWithAggregatesFilter<"Auction"> | string
+  sellerName?: Prisma.StringWithAggregatesFilter<"Auction"> | string
   startingPrice?: Prisma.FloatWithAggregatesFilter<"Auction"> | number
   currentPrice?: Prisma.FloatWithAggregatesFilter<"Auction"> | number
   status?: Prisma.StringWithAggregatesFilter<"Auction"> | string
@@ -367,6 +379,7 @@ export type AuctionScalarWhereWithAggregatesInput = {
 
 export type AuctionCreateInput = {
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -383,6 +396,7 @@ export type AuctionCreateInput = {
 export type AuctionUncheckedCreateInput = {
   id?: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -398,6 +412,7 @@ export type AuctionUncheckedCreateInput = {
 
 export type AuctionUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -414,6 +429,7 @@ export type AuctionUpdateInput = {
 export type AuctionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -430,6 +446,7 @@ export type AuctionUncheckedUpdateInput = {
 export type AuctionCreateManyInput = {
   id?: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -443,6 +460,7 @@ export type AuctionCreateManyInput = {
 
 export type AuctionUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -455,6 +473,7 @@ export type AuctionUpdateManyMutationInput = {
 export type AuctionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -479,6 +498,7 @@ export type AuctionOrderByRelationAggregateInput = {
 export type AuctionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  sellerName?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -502,6 +522,7 @@ export type AuctionAvgOrderByAggregateInput = {
 export type AuctionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  sellerName?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -516,6 +537,7 @@ export type AuctionMaxOrderByAggregateInput = {
 export type AuctionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  sellerName?: Prisma.SortOrder
   startingPrice?: Prisma.SortOrder
   currentPrice?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -679,6 +701,7 @@ export type AuctionUpdateOneRequiredWithoutWatchlistNestedInput = {
 
 export type AuctionCreateWithoutSellerInput = {
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -694,6 +717,7 @@ export type AuctionCreateWithoutSellerInput = {
 export type AuctionUncheckedCreateWithoutSellerInput = {
   id?: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -718,6 +742,7 @@ export type AuctionCreateManySellerInputEnvelope = {
 
 export type AuctionCreateWithoutWinnerInput = {
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -733,6 +758,7 @@ export type AuctionCreateWithoutWinnerInput = {
 export type AuctionUncheckedCreateWithoutWinnerInput = {
   id?: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -777,6 +803,7 @@ export type AuctionScalarWhereInput = {
   NOT?: Prisma.AuctionScalarWhereInput | Prisma.AuctionScalarWhereInput[]
   id?: Prisma.IntFilter<"Auction"> | number
   title?: Prisma.StringFilter<"Auction"> | string
+  sellerName?: Prisma.StringFilter<"Auction"> | string
   startingPrice?: Prisma.FloatFilter<"Auction"> | number
   currentPrice?: Prisma.FloatFilter<"Auction"> | number
   status?: Prisma.StringFilter<"Auction"> | string
@@ -806,6 +833,7 @@ export type AuctionUpdateManyWithWhereWithoutWinnerInput = {
 
 export type AuctionCreateWithoutBidsInput = {
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -821,6 +849,7 @@ export type AuctionCreateWithoutBidsInput = {
 export type AuctionUncheckedCreateWithoutBidsInput = {
   id?: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -851,6 +880,7 @@ export type AuctionUpdateToOneWithWhereWithoutBidsInput = {
 
 export type AuctionUpdateWithoutBidsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -866,6 +896,7 @@ export type AuctionUpdateWithoutBidsInput = {
 export type AuctionUncheckedUpdateWithoutBidsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -880,6 +911,7 @@ export type AuctionUncheckedUpdateWithoutBidsInput = {
 
 export type AuctionCreateWithoutWatchlistInput = {
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -895,6 +927,7 @@ export type AuctionCreateWithoutWatchlistInput = {
 export type AuctionUncheckedCreateWithoutWatchlistInput = {
   id?: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -925,6 +958,7 @@ export type AuctionUpdateToOneWithWhereWithoutWatchlistInput = {
 
 export type AuctionUpdateWithoutWatchlistInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -940,6 +974,7 @@ export type AuctionUpdateWithoutWatchlistInput = {
 export type AuctionUncheckedUpdateWithoutWatchlistInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -955,6 +990,7 @@ export type AuctionUncheckedUpdateWithoutWatchlistInput = {
 export type AuctionCreateManySellerInput = {
   id?: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -968,6 +1004,7 @@ export type AuctionCreateManySellerInput = {
 export type AuctionCreateManyWinnerInput = {
   id?: number
   title: string
+  sellerName: string
   startingPrice: number
   currentPrice?: number
   status?: string
@@ -980,6 +1017,7 @@ export type AuctionCreateManyWinnerInput = {
 
 export type AuctionUpdateWithoutSellerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -995,6 +1033,7 @@ export type AuctionUpdateWithoutSellerInput = {
 export type AuctionUncheckedUpdateWithoutSellerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1010,6 +1049,7 @@ export type AuctionUncheckedUpdateWithoutSellerInput = {
 export type AuctionUncheckedUpdateManyWithoutSellerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1022,6 +1062,7 @@ export type AuctionUncheckedUpdateManyWithoutSellerInput = {
 
 export type AuctionUpdateWithoutWinnerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1037,6 +1078,7 @@ export type AuctionUpdateWithoutWinnerInput = {
 export type AuctionUncheckedUpdateWithoutWinnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1052,6 +1094,7 @@ export type AuctionUncheckedUpdateWithoutWinnerInput = {
 export type AuctionUncheckedUpdateManyWithoutWinnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
   startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1105,6 +1148,7 @@ export type AuctionCountOutputTypeCountWatchlistArgs<ExtArgs extends runtime.Typ
 export type AuctionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  sellerName?: boolean
   startingPrice?: boolean
   currentPrice?: boolean
   status?: boolean
@@ -1124,6 +1168,7 @@ export type AuctionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type AuctionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  sellerName?: boolean
   startingPrice?: boolean
   currentPrice?: boolean
   status?: boolean
@@ -1140,6 +1185,7 @@ export type AuctionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type AuctionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  sellerName?: boolean
   startingPrice?: boolean
   currentPrice?: boolean
   status?: boolean
@@ -1156,6 +1202,7 @@ export type AuctionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type AuctionSelectScalar = {
   id?: boolean
   title?: boolean
+  sellerName?: boolean
   startingPrice?: boolean
   currentPrice?: boolean
   status?: boolean
@@ -1167,7 +1214,7 @@ export type AuctionSelectScalar = {
   sellerId?: boolean
 }
 
-export type AuctionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "startingPrice" | "currentPrice" | "status" | "endTime" | "imageUrl" | "createdAt" | "version" | "winnerId" | "sellerId", ExtArgs["result"]["auction"]>
+export type AuctionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "sellerName" | "startingPrice" | "currentPrice" | "status" | "endTime" | "imageUrl" | "createdAt" | "version" | "winnerId" | "sellerId", ExtArgs["result"]["auction"]>
 export type AuctionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   winner?: boolean | Prisma.Auction$winnerArgs<ExtArgs>
@@ -1195,6 +1242,7 @@ export type $AuctionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     title: string
+    sellerName: string
     startingPrice: number
     currentPrice: number
     status: string
@@ -1633,6 +1681,7 @@ export interface Prisma__AuctionClient<T, Null = never, ExtArgs extends runtime.
 export interface AuctionFieldRefs {
   readonly id: Prisma.FieldRef<"Auction", 'Int'>
   readonly title: Prisma.FieldRef<"Auction", 'String'>
+  readonly sellerName: Prisma.FieldRef<"Auction", 'String'>
   readonly startingPrice: Prisma.FieldRef<"Auction", 'Float'>
   readonly currentPrice: Prisma.FieldRef<"Auction", 'Float'>
   readonly status: Prisma.FieldRef<"Auction", 'String'>

@@ -1,12 +1,25 @@
 import { Request, Response } from "express"
 import { prisma } from "../utils/prismaClient.ts"
 import { redis } from "../utils/redis.ts"
+import { getIO } from "../socket.ts"
+
+const formatSellerName = (email: string) => {
+  const localPart = email.split("@")[0] || "seller"
+  return localPart
+    .replace(/[._-]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join(" ") || "Unknown Seller"
+}
 
 export const createAuction = async (req: Request, res: Response): Promise<void> => {
   try {
     const { title, startingPrice, imageUrl, durationHours } = req.body
 
     const userId = req.user!.userId
+    const sellerName = formatSellerName(req.user?.email || "")
     
     // Default to 24 hours if duration is not provided or invalid
     const duration = (durationHours && !isNaN(Number(durationHours))) ? Number(durationHours) : 24;
@@ -14,6 +27,7 @@ export const createAuction = async (req: Request, res: Response): Promise<void> 
     const auction = await prisma.auction.create({
       data: {
         title,
+        sellerName,
         startingPrice: Number(startingPrice),
         sellerId: userId,
         endTime: new Date(Date.now() + duration * 60 * 60 * 1000), 
@@ -145,14 +159,13 @@ export const endAuctionEarly = async (req: Request, res: Response): Promise<void
 
     const winnerId = updatedAuction.bids.length > 0 ? updatedAuction.bids[0].userId : null
 
-    // Require `getIO` or direct emit
-    // Note: since io is managed in `src/socket.ts`, we'll assume `getIO` is available 
-    // Wait, the project exposes `getIO` in socket.ts
-    const { getIO } = require("../socket")
-    getIO().to(`auction_${id}`).emit("auctionEnded", {
-      auctionId: id,
-      winnerId
-    })
+    try {
+      getIO().to(`auction_${id}`).emit("auctionEnded", {
+        auctionId: id,
+        winnerId
+      })
+    } 
+    catch {}
 
     res.status(200).json(updatedAuction)
   } catch (error) {
