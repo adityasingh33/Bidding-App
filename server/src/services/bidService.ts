@@ -369,6 +369,11 @@ async function attemptDatabaseBid(
 // ─────────────────────────────────────────────────────────────
 // Database Sync (after Redis Lua success)
 // ─────────────────────────────────────────────────────────────
+// CRITICAL: This function is called after Redis atomically accepts
+// a bid. However, two Redis-accepted bids can reach Postgres out
+// of order. We use a compare-and-set (CAS) WHERE clause to ensure
+// a lower bid never overwrites a higher bid in the database.
+// ─────────────────────────────────────────────────────────────
 
 async function syncBidToDatabase(
   auctionId: number,
@@ -383,7 +388,7 @@ async function syncBidToDatabase(
       orderBy: { amount: "desc" },
     })
 
-    // Create the bid record
+    // Create the bid record (always — preserves full bid history)
     const bid = await tx.bid.create({
       data: {
         amount,
@@ -392,31 +397,61 @@ async function syncBidToDatabase(
       },
     })
 
-    // Update the auction's current price and bump version
-    await tx.auction.update({
-      where: { id: auctionId },
+    // ── Compare-and-set: only update price if new bid is higher ──
+    // Uses updateMany to support compound WHERE (id + price guard).
+    // This makes writes monotonically increasing — arrival order
+    // no longer matters.
+    const updated = await tx.auction.updateMany({
+      where: {
+        id: auctionId,
+        currentPrice: { lt: amount },   // ← the critical CAS guard
+      },
       data: {
         currentPrice: amount,
         version: { increment: 1 },
       },
     })
 
-    // Handle anti-snipe: extend auction if bid is in last 30 seconds
-    const timeLeft = auction.endTime.getTime() - Date.now()
-    if (timeLeft < 30000) {
-      const newEndTime = new Date(Date.now() + 30000)
-      await tx.auction.update({
-        where: { id: auctionId },
-        data: { endTime: newEndTime },
+    if (updated.count === 0) {
+      // A higher bid already landed in Postgres — our bid is stale.
+      // The Bid record is kept for history, but we don't touch the
+      // auction price. This is the exact scenario the fix prevents.
+      bidLog({
+        event: "BID_CONFLICT",
+        auctionId,
+        userId,
+        amount,
+        path: "redis_lua",
+        message: "DB price already higher — skipped auction price update",
       })
+      return bid
+    }
 
-      try {
-        const io = getIO()
-        io.to(`auction_${auctionId}`).emit("timeExtended", {
-          auctionId,
-          newEndTime,
+    // ── Anti-snipe: extend auction if bid is in last 30 seconds ──
+    // Read fresh endTime from DB (the auction object from request
+    // start may be stale under high concurrency).
+    const freshAuction = await tx.auction.findUnique({
+      where: { id: auctionId },
+      select: { endTime: true },
+    })
+
+    if (freshAuction) {
+      const timeLeft = freshAuction.endTime.getTime() - Date.now()
+      if (timeLeft < 30000) {
+        const newEndTime = new Date(Date.now() + 30000)
+        await tx.auction.update({
+          where: { id: auctionId },
+          data: { endTime: newEndTime },
         })
-      } catch {}
+
+        try {
+          const io = getIO()
+          io.to(`auction_${auctionId}`).emit("timeExtended", {
+            auctionId,
+            newEndTime,
+          })
+        } catch {}
+      }
     }
 
     // Notify previous highest bidder if they got outbid

@@ -9,4 +9,5 @@ router.get("/", getAuctions)
 router.get("/:id", getAuctionById)
 router.post("/:id/end", authMiddleware, endAuctionEarly)
 
+
 export default router
