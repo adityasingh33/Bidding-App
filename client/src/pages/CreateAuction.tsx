@@ -1,9 +1,11 @@
 import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import API from "../services/api"
+import { AUCTION_CATEGORIES } from "../constants/categories"
 
 export default function CreateAuction() {
   const [title, setTitle] = useState("")
+  const [category, setCategory] = useState(AUCTION_CATEGORIES[0])
   const [startingPrice, setStartingPrice] = useState("")
   const [durationHours, setDurationHours] = useState("24")
   
@@ -88,6 +90,7 @@ export default function CreateAuction() {
 
       const res = await API.post("/auction/create", {
         title,
+        category,
         startingPrice: Number(startingPrice),
         durationHours: Number(durationHours),
         imageUrl
@@ -159,6 +162,21 @@ export default function CreateAuction() {
             className="w-full p-3.5 bg-slate-950/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-inner"
             required
           />
+        </div>
+        
+        {/* Category Input */}
+        <div className="space-y-1">
+          <label className="text-sm font-medium text-slate-300 ml-1">Category</label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full p-3.5 bg-slate-950/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-inner appearance-none cursor-pointer"
+            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundPosition: 'right 1rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.25em' }}
+          >
+            {AUCTION_CATEGORIES.map(cat => (
+              <option key={cat} value={cat} className="bg-slate-900">{cat}</option>
+            ))}
+          </select>
         </div>
         
         {/* Row for Details */}

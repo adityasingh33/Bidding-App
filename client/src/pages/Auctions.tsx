@@ -3,19 +3,22 @@ import AuctionCard from "../components/AuctionCard"
 import { SkeletonGrid } from "../components/SkeletonLoader"
 import { Clock, SearchX } from "lucide-react"
 import API from "../services/api"
+import { AUCTION_CATEGORIES } from "../constants/categories"
 
 interface Auction {
   id: number
   title: string
   sellerName: string
+  category: string
   createdAt: string
   startingPrice: number
   currentPrice: number
   status: string
+  startTime: string
   endTime: string
 }
 
-const CATEGORIES = ["ALL", "Electronics", "Art", "Collectibles"]
+const CATEGORIES = ["ALL", ...AUCTION_CATEGORIES]
 
 const Auctions = () => {
   const [auctions, setAuctions] = useState<Auction[]>([])
@@ -60,11 +63,9 @@ const Auctions = () => {
       if (msLeft > 24 * 60 * 60 * 1000 || msLeft <= 0) return false
     }
 
-    // Category mocked assigned by modulo mapping due to missing schema field
-    if (category !== "ALL") {
-      const mockCategories = ["Electronics", "Art", "Collectibles", "Electronics"]
-      const mockAssignedCategory = mockCategories[auction.id % 4]
-      if (mockAssignedCategory !== category) return false
+    // Category filtering
+    if (category !== "ALL" && auction.category !== category) {
+      return false
     }
 
     return true
