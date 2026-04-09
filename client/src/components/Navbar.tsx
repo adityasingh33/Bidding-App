@@ -4,6 +4,22 @@ import { CheckCircle, AlertTriangle, Bell, Inbox, LogOut, Package, History } fro
 import { useUserActivity } from "../context/UserActivityContext"
 
 const Navbar = () => {
+  const getRelativeTime = (date: Date) => {
+    const elapsed = Date.now() - date.getTime()
+    const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
+
+    const days = Math.floor(elapsed / (1000 * 60 * 60 * 24))
+    if (days > 0) return rtf.format(-days, 'day')
+
+    const hours = Math.floor(elapsed / (1000 * 60 * 60))
+    if (hours > 0) return rtf.format(-hours, 'hour')
+
+    const minutes = Math.floor(elapsed / (1000 * 60))
+    if (minutes > 0) return rtf.format(-minutes, 'minute')
+
+    return rtf.format(-Math.floor(elapsed / 1000), 'second')
+  }
+
   const navigate = useNavigate()
   const location = useLocation()
   const token = localStorage.getItem("token")
@@ -147,7 +163,7 @@ const Navbar = () => {
                                   <p className={`text-sm tracking-tight ${!n.read ? 'text-white font-bold' : 'text-slate-300 font-medium'}`}>{n.title}</p>
                                   <p className="text-[13px] text-slate-400 mt-0.5 leading-snug break-words">{n.message}</p>
                                   <p className="text-[10px] uppercase font-bold text-slate-500 mt-2 mb-0.5 tracking-wider">
-                                     {n.createdAt.toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
+                                     {getRelativeTime(new Date(n.createdAt))}
                                   </p>
                                 </div>
                                 {!n.read && <div className="w-2 h-2 rounded-full bg-indigo-500 mt-1.5 flex-shrink-0 shadow-[0_0_8px_rgba(99,102,241,0.8)]"></div>}
@@ -185,6 +201,9 @@ const Navbar = () => {
                         <p className="text-sm font-semibold text-white truncate">{user?.email}</p>
                         <p className="text-xs text-emerald-400 mt-1 font-medium flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online</p>
                       </div>
+                      <Link to="/categories" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors mx-2 rounded-xl mt-1">
+                        <span className="w-4 h-4 flex items-center justify-center text-amber-400">⭐</span> Favorite Categories
+                      </Link>
                       <Link to="/my-auctions" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors mx-2 rounded-xl">
                         <Package className="w-4 h-4 text-indigo-400" /> Inventory
                       </Link>
@@ -247,6 +266,9 @@ const Navbar = () => {
                                <div key={n.id} onClick={() => markAsRead(n.id)} className={`px-4 py-3 border-b border-slate-800/50 ${!n.read ? 'bg-indigo-500/5' : ''}`}>
                                  <p className={`text-sm tracking-tight ${!n.read ? 'text-white font-bold' : 'text-slate-300'}`}>{n.title}</p>
                                  <p className="text-xs text-slate-400 mt-0.5 line-clamp-2">{n.message}</p>
+                                 <p className="text-[10px] uppercase font-bold text-slate-500 mt-1 tracking-wider">
+                                    {getRelativeTime(new Date(n.createdAt))}
+                                 </p>
                                </div>
                              ))
                            )}

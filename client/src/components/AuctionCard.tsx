@@ -12,6 +12,9 @@ interface AuctionCardProps {
     currentPrice?: number
     startingPrice?: number
     status: string
+    category?: string
+    startTime?: string
+    biddingStartTime?: string
     endTime?: string
     imageUrl?: string
   }
@@ -71,7 +74,7 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
         {/* Top left overlay (Status/Time) */}
         <div className="absolute top-3 left-3 z-10 flex gap-2">
           {customBadge || (
-             <CountdownTimer endTime={auction.endTime} status={auction.status} badgeMode={true} />
+             <CountdownTimer endTime={auction.endTime} startTime={auction.startTime} biddingStartTime={auction.biddingStartTime} status={auction.status} badgeMode={true} />
           )}
         </div>
 
@@ -102,6 +105,13 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
 
       {/* Content Container */}
       <div className="p-5 flex flex-col h-full bg-slate-900/40 relative z-10 -mt-2">
+        {auction.category && (
+          <div className="mb-2">
+            <span className="inline-block px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold border border-indigo-500/30">
+              {auction.category}
+            </span>
+          </div>
+        )}
         <h3 className="text-lg font-bold mb-4 text-white line-clamp-2 leading-snug group-hover:text-indigo-300 transition-colors pr-2">
           {auction.title}
         </h3>
@@ -128,7 +138,7 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
         
         {/* Call to action button */}
         <div className="w-full text-center px-4 py-3 bg-slate-800 border border-white/10 group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-blue-500 text-slate-300 group-hover:text-white font-bold rounded-xl transition-all duration-300 mt-auto group-hover:shadow-lg group-hover:shadow-purple-500/20 active:scale-95 group-hover:border-transparent">
-          {auction.status === 'ACTIVE' ? 'Place Bid' : 'View Details'}
+          {auction.status === 'PENDING' ? 'Starts Soon' : auction.status === 'JOINING' ? 'Waiting to Start' : auction.status === 'ACTIVE' ? 'Place Bid' : 'View Details'}
         </div>
       </div>
     </Link>
