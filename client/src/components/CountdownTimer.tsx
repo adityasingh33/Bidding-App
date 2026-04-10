@@ -77,26 +77,26 @@ export default function CountdownTimer({ endTime, startTime, biddingStartTime, s
   if (badgeMode) {
     if (isEnded) {
       return (
-        <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold backdrop-blur-md border shadow-sm transition-colors bg-slate-900/80 text-slate-400 border-slate-700/80 ${className}`}>
+        <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold backdrop-blur-md border shadow-sm transition-colors bg-slate-100 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 border-slate-700/80 ${className}`}>
           Ended
         </div>
       )
     }
 
     let prefix = "Ends in"
-    let colorClass = "bg-slate-900/80 text-emerald-400 border-slate-700/80"
+    let colorClass = "bg-slate-100 dark:bg-slate-900/80 text-emerald-400 border-slate-700/80"
     let dotClass = "bg-emerald-400"
     
     if (status === "PENDING") {
       prefix = "Starts in"
-      colorClass = "bg-slate-900/80 text-amber-400 border-slate-700/80"
+      colorClass = "bg-slate-100 dark:bg-slate-900/80 text-amber-400 border-slate-700/80"
       dotClass = "bg-amber-400"
     } else if (status === "JOINING") {
       prefix = "Opens in"
-      colorClass = "bg-indigo-500/90 text-white border-indigo-400/50 animate-pulse"
+      colorClass = "bg-indigo-500/90 text-slate-900 dark:text-white border-indigo-400/50 animate-pulse"
       dotClass = "bg-white"
     } else if (isEndingSoon) {
-      colorClass = "bg-rose-500/90 text-white border-rose-400/50 animate-pulse"
+      colorClass = "bg-rose-500/90 text-slate-900 dark:text-white border-rose-400/50 animate-pulse"
       dotClass = "bg-white"
     }
 
