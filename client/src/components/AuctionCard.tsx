@@ -62,9 +62,9 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
   return (
     <Link 
       to={`/auctions/${auction.id}`} 
-      className="group flex flex-col bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/50 hover:-translate-y-1.5 shadow-lg hover:shadow-xl hover:shadow-purple-500/10 hover:scale-[1.02] transition-all duration-300 ease-in-out relative"
+      className="group flex flex-col bg-white dark:bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 hover:border-purple-500/50 hover:-translate-y-1.5 shadow-lg hover:shadow-xl hover:shadow-purple-500/10 hover:scale-[1.02] transition-all duration-300 ease-in-out relative"
     >
-      <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-800">
+      <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
         <img 
           src={auction.imageUrl || getPlaceholderImg(auction.id)} 
           alt={auction.title}
@@ -81,8 +81,8 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
         {/* Top right overlay (Watchlist Action) */}
         <button 
           onClick={handleWatchlist}
-          className={`absolute top-3 right-3 z-20 p-2.5 bg-slate-900/50 hover:bg-slate-900/90 backdrop-blur-md rounded-full transition-all border opacity-0 group-hover:opacity-100 focus:opacity-100 shadow-lg hover:scale-110 active:scale-125 duration-300 group/btn ${
-             isWatchlisted && actionIcon === "heart" ? "border-rose-500/50 opacity-100" : "text-slate-300 border-slate-700/50 hover:border-slate-500/50"
+          className={`absolute top-3 right-3 z-20 p-2.5 bg-slate-100 dark:bg-slate-900/50 hover:bg-slate-100 dark:bg-slate-900/90 backdrop-blur-md rounded-full transition-all border opacity-0 group-hover:opacity-100 focus:opacity-100 shadow-lg hover:scale-110 active:scale-125 duration-300 group/btn ${
+             isWatchlisted && actionIcon === "heart" ? "border-rose-500/50 opacity-100" : "text-slate-800 dark:text-slate-300 border-slate-700/50 hover:border-slate-500/50"
           }`}
           title={isWatchlisted && actionIcon === "heart" ? "Remove from Watchlist" : "Add to Watchlist"}
         >
@@ -104,7 +104,7 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
       </div>
 
       {/* Content Container */}
-      <div className="p-5 flex flex-col h-full bg-slate-900/40 relative z-10 -mt-2">
+      <div className="p-5 flex flex-col h-full bg-slate-100 dark:bg-slate-900/40 relative z-10 -mt-2">
         {auction.category && (
           <div className="mb-2">
             <span className="inline-block px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold border border-indigo-500/30">
@@ -112,7 +112,7 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
             </span>
           </div>
         )}
-        <h3 className="text-lg font-bold mb-4 text-white line-clamp-2 leading-snug group-hover:text-indigo-300 transition-colors pr-2">
+        <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-indigo-300 transition-colors pr-2">
           {auction.title}
         </h3>
 
@@ -123,21 +123,21 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
           </div>
           <div className="flex items-center justify-between gap-3 text-sm">
             <span className="text-slate-500">Created</span>
-            <span className="text-right font-medium text-slate-300">{createdAtLabel || "Recently added"}</span>
+            <span className="text-right font-medium text-slate-800 dark:text-slate-300">{createdAtLabel || "Recently added"}</span>
           </div>
         </div>
         
         {customDetails ? customDetails : (
           <div className="space-y-4 mb-6 flex-grow">
-            <div className="flex justify-between items-center bg-slate-950/50 p-3.5 rounded-xl border border-slate-800/50 group-hover:border-indigo-500/30 transition-colors shadow-inner">
-              <span className="text-sm text-slate-400 font-medium tracking-wide">Current Bid</span>
+            <div className="flex justify-between items-center bg-slate-950/50 p-3.5 rounded-xl border border-slate-300 dark:border-slate-800/50 group-hover:border-indigo-500/30 transition-colors shadow-inner">
+              <span className="text-sm text-slate-600 dark:text-slate-400 font-medium tracking-wide">Current Bid</span>
               <span className="font-extrabold text-xl text-emerald-400 group-hover:scale-105 transition-transform origin-right object-right">${auction.currentPrice || auction.startingPrice}</span>
             </div>
           </div>
         )}
         
         {/* Call to action button */}
-        <div className="w-full text-center px-4 py-3 bg-slate-800 border border-white/10 group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-blue-500 text-slate-300 group-hover:text-white font-bold rounded-xl transition-all duration-300 mt-auto group-hover:shadow-lg group-hover:shadow-purple-500/20 active:scale-95 group-hover:border-transparent">
+        <div className="w-full text-center px-4 py-3 bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-white/10 group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-blue-500 text-slate-800 dark:text-slate-300 group-hover:text-white font-bold rounded-xl transition-all duration-300 mt-auto group-hover:shadow-lg group-hover:shadow-purple-500/20 active:scale-95 group-hover:border-transparent">
           {auction.status === 'PENDING' ? 'Starts Soon' : auction.status === 'JOINING' ? 'Waiting to Start' : auction.status === 'ACTIVE' ? 'Place Bid' : 'View Details'}
         </div>
       </div>
