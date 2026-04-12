@@ -55,11 +55,11 @@ const BidBox = ({ auctionId, currentPrice, status, bids }: BidBoxProps) => {
   }
 
   return (
-    <div className={`bg-white/5 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border w-full mt-2 transition-all duration-500 ${
-      isFlashing ? 'border-indigo-500/80 shadow-2xl shadow-indigo-500/40 bg-slate-800/90 scale-[1.02] ring-2 ring-indigo-500/30' : 
+    <div className={`bg-white dark:bg-white/5 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border w-full mt-2 transition-all duration-500 ${
+      isFlashing ? 'border-indigo-500/80 shadow-2xl shadow-indigo-500/40 bg-slate-200 dark:bg-slate-800/90 scale-[1.02] ring-2 ring-indigo-500/30' : 
       isWinning ? 'border-emerald-500/40 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500/20' :
       isOutbid ? 'border-rose-500/40 shadow-lg shadow-rose-500/10 ring-1 ring-rose-500/20' : 
-      'border-white/10 shadow-sm hover:border-white/10'
+      'border-slate-200 dark:border-white/10 shadow-sm hover:border-slate-200 dark:border-white/10'
     }`}>
       
       {/* Real-time status banners */}
@@ -79,9 +79,9 @@ const BidBox = ({ auctionId, currentPrice, status, bids }: BidBoxProps) => {
 
       {/* Title & Prominent Latest Bid */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
-        <h3 className="text-2xl font-bold text-white tracking-tight">Place a Bid</h3>
-        <div className="flex items-center gap-2 px-4 py-2 bg-slate-950/40 border border-slate-800/80 rounded-xl shadow-inner">
-          <span className="text-xs uppercase font-bold text-slate-400 tracking-wider">Latest</span>
+        <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Place a Bid</h3>
+        <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-950/40 border border-slate-800/80 rounded-xl shadow-inner">
+          <span className="text-xs uppercase font-bold text-slate-600 dark:text-slate-400 tracking-wider">Latest</span>
           <span className={`text-xl font-extrabold tabular-nums transition-colors duration-300 ${isFlashing ? 'text-indigo-400 drop-shadow-[0_0_8px_rgba(99,102,241,0.6)]' : 'text-emerald-400'}`}>
             ${currentPrice}
           </span>
@@ -93,23 +93,23 @@ const BidBox = ({ auctionId, currentPrice, status, bids }: BidBoxProps) => {
       
       <form onSubmit={handleBid}>
         <div className="relative flex items-center mb-5 group">
-          <span className="absolute left-4 pl-1 text-slate-400 font-bold group-focus-within:text-indigo-400 transition-colors">$</span>
+          <span className="absolute left-4 pl-1 text-slate-600 dark:text-slate-400 font-bold group-focus-within:text-indigo-400 transition-colors">$</span>
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(Number(e.target.value) || "")}
             placeholder={`Min bid: $${currentPrice + 1}`}
             min={currentPrice + 1}
-            className="w-full pl-10 pr-4 py-4 bg-slate-950/60 border border-white/10 rounded-xl text-white font-bold placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 text-xl transition-all shadow-inner"
+            className="w-full pl-10 pr-4 py-4 bg-slate-950/60 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-bold placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 text-xl transition-all shadow-inner"
             required
           />
         </div>
         <button 
           type="submit" 
           disabled={status !== "ACTIVE" || (!!amount && amount <= currentPrice)}
-          className={`w-full py-4 text-white font-black rounded-xl text-lg transition-all shadow-lg active:scale-95 duration-300 ${
+          className={`w-full py-4 text-slate-900 dark:text-white font-black rounded-xl text-lg transition-all shadow-lg active:scale-95 duration-300 ${
             isWinning 
-              ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-white/10 shadow-none' 
+              ? 'bg-slate-200 dark:bg-slate-800 hover:bg-slate-700 text-slate-800 dark:text-slate-300 border border-slate-200 dark:border-white/10 shadow-none' 
               : 'bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 shadow-purple-500/25'
           } disabled:opacity-50 disabled:cursor-not-allowed`}
         >

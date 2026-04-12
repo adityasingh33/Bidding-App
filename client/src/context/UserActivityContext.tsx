@@ -65,7 +65,7 @@ export function UserActivityProvider({ children }: { children: ReactNode }) {
         // Optimistic update
         setWatchlistIds(prev => prev.filter(id => id !== auctionId))
         await API.delete(`/user/watchlist/${auctionId}`)
-        toast.success("Removed from Watchlist", { icon: <HeartOff className="w-5 h-5 text-slate-400" /> })
+        toast.success("Removed from Watchlist", { icon: <HeartOff className="w-5 h-5 text-slate-600 dark:text-slate-400" /> })
         return false
       } else {
         // Optimistic update

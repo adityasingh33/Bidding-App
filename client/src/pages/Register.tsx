@@ -19,34 +19,34 @@ const Register = () => {
   }
 
   return (
-    <div className="max-w-[400px] w-full mx-auto mt-20 p-8 sm:p-10 bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10">
+    <div className="max-w-[400px] w-full mx-auto mt-20 p-8 sm:p-10 bg-white dark:bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10">
       <div className="mb-8 text-center">
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Create an account</h2>
-        <p className="text-slate-400 mt-2 text-sm">Join BidSphere to start bidding</p>
+        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Create an account</h2>
+        <p className="text-slate-600 dark:text-slate-400 mt-2 text-sm">Join BidSphere to start bidding</p>
       </div>
 
       {error && <p className="mb-6 p-3 bg-red-500/10 text-red-400 border border-red-500/20 rounded-xl text-sm text-center">{error}</p>}
       
       <form onSubmit={handleRegister} className="flex flex-col gap-5">
         <div className="space-y-1">
-          <label className="text-sm font-medium text-slate-300 ml-1">Email Address</label>
+          <label className="text-sm font-medium text-slate-800 dark:text-slate-300 ml-1">Email Address</label>
           <input 
             type="email" 
             placeholder="name@example.com" 
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
-            className="w-full p-3.5 bg-slate-950/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+            className="w-full p-3.5 bg-slate-950/50 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
             required 
           />
         </div>
         <div className="space-y-1">
-          <label className="text-sm font-medium text-slate-300 ml-1">Password</label>
+          <label className="text-sm font-medium text-slate-800 dark:text-slate-300 ml-1">Password</label>
           <input 
             type="password" 
             placeholder="Create a strong password" 
             value={password} 
             onChange={(e) => setPassword(e.target.value)} 
-            className="w-full p-3.5 bg-slate-950/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+            className="w-full p-3.5 bg-slate-950/50 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all"
             required 
           />
         </div>

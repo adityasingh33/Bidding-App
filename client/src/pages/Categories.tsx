@@ -56,11 +56,11 @@ export default function Categories() {
   return (
     <div className="max-w-4xl mx-auto space-y-8 mt-10">
       <div>
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Favorite Categories</h2>
-        <p className="text-slate-400 mt-2">Select your favorite categories to get instant notifications when new auctions start!</p>
+        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Favorite Categories</h2>
+        <p className="text-slate-600 dark:text-slate-400 mt-2">Select your favorite categories to get instant notifications when new auctions start!</p>
       </div>
 
-      <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
+      <div className="bg-white dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {AUCTION_CATEGORIES.filter(c => c !== "ALL").map(category => {
             const isSelected = favorites.includes(category)
@@ -71,7 +71,7 @@ export default function Categories() {
                 className={`flex items-center justify-between p-4 rounded-xl border text-sm font-bold transition-all duration-300 active:scale-95 ${
                   isSelected
                     ? "bg-indigo-500/20 border-indigo-500/50 text-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.15)]"
-                    : "bg-slate-900/50 border-white/5 text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                    : "bg-slate-100 dark:bg-slate-900/50 border-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:bg-slate-800 hover:text-slate-700 dark:text-slate-200"
                 }`}
               >
                 {category}
@@ -81,7 +81,7 @@ export default function Categories() {
           })}
         </div>
 
-        <div className="mt-8 pt-6 border-t border-white/10 flex justify-end">
+        <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 flex justify-end">
           <button
             onClick={handleSave}
             disabled={saving}
