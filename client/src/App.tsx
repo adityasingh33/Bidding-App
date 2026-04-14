@@ -13,9 +13,9 @@ import MyBids from "./pages/MyBids"
 import Watchlist from "./pages/Watchlist"
 import Dashboard from "./pages/Dashboard"
 import Categories from "./pages/Categories"
-import ChatRoom from "./pages/ChatRoom"
 import { UserActivityProvider, useUserActivity } from "./context/UserActivityContext"
 import { useTheme } from "./context/ThemeContext"
+import { ChatProvider } from "./context/ChatContext"
 
 function AppContent() {
   const userStr = localStorage.getItem("user")
@@ -96,7 +96,6 @@ function AppContent() {
             <Route path="/my-bids" element={<MyBids />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/categories" element={<Categories />} />
-            <Route path="/chat" element={<ChatRoom />} />
           </Routes>
         </main>
       </div>
@@ -107,7 +106,9 @@ function AppContent() {
 function App() {
   return (
     <UserActivityProvider>
-      <AppContent />
+      <ChatProvider>
+        <AppContent />
+      </ChatProvider>
     </UserActivityProvider>
   )
 }
