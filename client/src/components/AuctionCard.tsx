@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
 import CountdownTimer from "./CountdownTimer"
 import { useUserActivity } from "../context/UserActivityContext"
-import { Heart, Trash2 } from "lucide-react"
+import { Heart, Trash2, MessageCircle } from "lucide-react"
+import { useChat } from "../context/ChatContext"
 
 interface AuctionCardProps {
   auction: {
@@ -13,6 +14,7 @@ interface AuctionCardProps {
     startingPrice?: number
     status: string
     category?: string
+    sellerId?: number
     startTime?: string
     biddingStartTime?: string
     endTime?: string
@@ -28,6 +30,9 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
   // Use Global Watchlist State
   const { watchlistIds, toggleWatchlist } = useUserActivity()
   const isWatchlisted = watchlistIds.includes(auction.id)
+  
+  const { openPrivateChat } = useChat()
+  const user = JSON.parse(localStorage.getItem("user") || "null")
 
   const createdAtLabel = auction.createdAt
     ? new Intl.DateTimeFormat("en-US", {
@@ -119,7 +124,22 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
         <div className="mb-4 space-y-2 rounded-xl border border-slate-800/60 bg-slate-950/45 p-3">
           <div className="flex items-center justify-between gap-3 text-sm">
             <span className="text-slate-500">Owner</span>
-            <span className="truncate font-semibold text-slate-100">{auction.sellerName || "Unknown Seller"}</span>
+            <div className="flex items-center gap-2 truncate">
+              <span className="truncate font-semibold text-slate-900 dark:text-slate-100">{auction.sellerName || "Unknown Seller"}</span>
+              {auction.sellerId && user && user.id !== auction.sellerId && (
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    openPrivateChat(auction.sellerId!, auction.sellerName || "Unknown Seller")
+                  }}
+                  className="p-1 rounded-full bg-indigo-500/10 text-indigo-500 hover:bg-indigo-500 hover:text-white transition-all shadow-sm active:scale-95"
+                  title="Message Seller"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           </div>
           <div className="flex items-center justify-between gap-3 text-sm">
             <span className="text-slate-500">Created</span>
