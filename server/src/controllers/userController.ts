@@ -97,3 +97,37 @@ export const removeFromWatchlist = async (req: Request, res: Response): Promise<
     res.status(500).json({ error: "Failed to remove from watchlist" })
   }
 }
+
+// GET /user/categories — get user's favorite categories
+export const getFavoriteCategories = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = req.user!.userId
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { favoriteCategories: true },
+    })
+    res.status(200).json(user?.favoriteCategories || [])
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Failed to fetch favorite categories" })
+  }
+}
+
+// PUT /user/categories — update user's favorite categories
+export const updateFavoriteCategories = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = req.user!.userId
+    const { categories } = req.body
+
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: { favoriteCategories: categories },
+      select: { favoriteCategories: true },
+    })
+
+    res.status(200).json(user.favoriteCategories)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Failed to update favorite categories" })
+  }
+}

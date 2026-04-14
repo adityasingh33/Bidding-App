@@ -16,21 +16,44 @@ const formatSellerName = (email: string) => {
 
 export const createAuction = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { title, startingPrice, imageUrl, durationHours } = req.body
+    const { title, category, startingPrice, imageUrl, durationHours } = req.body
 
     const userId = req.user!.userId
     const sellerName = formatSellerName(req.user?.email || "")
     
+    // Check for maximum uncompleted auctions limit
+    const activeAuctionsCount = await prisma.auction.count({
+      where: {
+        sellerId: userId,
+        status: { in: ["PENDING", "JOINING", "ACTIVE"] }
+      }
+    });
+
+    if (activeAuctionsCount >= 5) {
+       res.status(400).json({ error: "You can only have up to 5 uncompleted auctions at a time." });
+       return;
+    }
+
     // Default to 24 hours if duration is not provided or invalid
     const duration = (durationHours && !isNaN(Number(durationHours))) ? Number(durationHours) : 24;
+
+    // Time calculations
+    const nowStamp = Date.now();
+    const startTime = new Date(nowStamp + 5 * 60 * 1000); // 5 mins from creation
+    const biddingStartTime = new Date(nowStamp + 7 * 60 * 1000); // 7 mins from creation
+    const endTime = new Date(biddingStartTime.getTime() + duration * 60 * 60 * 1000);
 
     const auction = await prisma.auction.create({
       data: {
         title,
         sellerName,
+        category: category || "Other",
         startingPrice: Number(startingPrice),
         sellerId: userId,
-        endTime: new Date(Date.now() + duration * 60 * 60 * 1000), 
+        status: "PENDING",
+        startTime,
+        biddingStartTime,
+        endTime,
         imageUrl: imageUrl || null
       },
     })

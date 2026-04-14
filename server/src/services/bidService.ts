@@ -83,6 +83,29 @@ export async function processBid(
     return { status: "self_bid", message: "Cannot bid on your own auction" }
   }
 
+  // Check if they are already the highest bidder
+  const currentHighestBid = await prisma.bid.findFirst({
+    where: { auctionId },
+    orderBy: { amount: "desc" }
+  });
+
+  if (currentHighestBid && currentHighestBid.userId === userId) {
+    bidLog({
+      event: "BID_REJECTED",
+      auctionId,
+      userId,
+      amount,
+      currentBid: currentHighestBid.amount,
+      latencyMs: Date.now() - startTime,
+      message: "User is already the highest bidder",
+    });
+    return { 
+      status: "rejected", 
+      message: "You are already the highest bidder", 
+      currentHighestBid: currentHighestBid.amount 
+    };
+  }
+
   // Basic price floor check (fast reject before hitting Redis)
   const priceFloor = auction.currentPrice || auction.startingPrice
   if (amount <= priceFloor * 0.99) {
