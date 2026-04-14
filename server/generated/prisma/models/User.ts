@@ -50,6 +50,7 @@ export type UserCountAggregateOutputType = {
   id: number
   email: number
   password: number
+  favoriteCategories: number
   _all: number
 }
 
@@ -78,6 +79,7 @@ export type UserCountAggregateInputType = {
   id?: true
   email?: true
   password?: true
+  favoriteCategories?: true
   _all?: true
 }
 
@@ -171,6 +173,7 @@ export type UserGroupByOutputType = {
   id: number
   email: string
   password: string
+  favoriteCategories: string[]
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -200,20 +203,26 @@ export type UserWhereInput = {
   id?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringFilter<"User"> | string
+  favoriteCategories?: Prisma.StringNullableListFilter<"User">
   auctions?: Prisma.AuctionListRelationFilter
   bids?: Prisma.BidListRelationFilter
   wonAuctions?: Prisma.AuctionListRelationFilter
   watchlist?: Prisma.WatchlistListRelationFilter
+  sentMessages?: Prisma.MessageListRelationFilter
+  receivedMessages?: Prisma.MessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  favoriteCategories?: Prisma.SortOrder
   auctions?: Prisma.AuctionOrderByRelationAggregateInput
   bids?: Prisma.BidOrderByRelationAggregateInput
   wonAuctions?: Prisma.AuctionOrderByRelationAggregateInput
   watchlist?: Prisma.WatchlistOrderByRelationAggregateInput
+  sentMessages?: Prisma.MessageOrderByRelationAggregateInput
+  receivedMessages?: Prisma.MessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -223,16 +232,20 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   password?: Prisma.StringFilter<"User"> | string
+  favoriteCategories?: Prisma.StringNullableListFilter<"User">
   auctions?: Prisma.AuctionListRelationFilter
   bids?: Prisma.BidListRelationFilter
   wonAuctions?: Prisma.AuctionListRelationFilter
   watchlist?: Prisma.WatchlistListRelationFilter
+  sentMessages?: Prisma.MessageListRelationFilter
+  receivedMessages?: Prisma.MessageListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  favoriteCategories?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -247,67 +260,92 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  favoriteCategories?: Prisma.StringNullableListFilter<"User">
 }
 
 export type UserCreateInput = {
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: number
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: number
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
 }
 
 export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  favoriteCategories?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -340,8 +378,17 @@ export type UserNullableScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput | null
 }
 
+export type UserCreatefavoriteCategoriesInput = {
+  set: string[]
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type UserUpdatefavoriteCategoriesInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -410,21 +457,55 @@ export type UserUpdateOneRequiredWithoutWatchlistNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWatchlistInput, Prisma.UserUpdateWithoutWatchlistInput>, Prisma.UserUncheckedUpdateWithoutWatchlistInput>
 }
 
+export type UserCreateNestedOneWithoutSentMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReceivedMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  upsert?: Prisma.UserUpsertWithoutSentMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessagesInput, Prisma.UserUpdateWithoutSentMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+}
+
+export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedMessagesInput
+  upsert?: Prisma.UserUpsertWithoutReceivedMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedMessagesInput, Prisma.UserUpdateWithoutReceivedMessagesInput>, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
+}
+
 export type UserCreateWithoutAuctionsInput = {
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   bids?: Prisma.BidCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutAuctionsInput = {
   id?: number
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutAuctionsInput = {
@@ -435,18 +516,24 @@ export type UserCreateOrConnectWithoutAuctionsInput = {
 export type UserCreateWithoutWonAuctionsInput = {
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutWonAuctionsInput = {
   id?: number
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutWonAuctionsInput = {
@@ -468,18 +555,24 @@ export type UserUpdateToOneWithWhereWithoutAuctionsInput = {
 export type UserUpdateWithoutAuctionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   bids?: Prisma.BidUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuctionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUpsertWithoutWonAuctionsInput = {
@@ -496,35 +589,47 @@ export type UserUpdateToOneWithWhereWithoutWonAuctionsInput = {
 export type UserUpdateWithoutWonAuctionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWonAuctionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutBidsInput = {
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
   wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutBidsInput = {
   id?: number
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
   wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutBidsInput = {
@@ -546,35 +651,47 @@ export type UserUpdateToOneWithWhereWithoutBidsInput = {
 export type UserUpdateWithoutBidsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
   wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBidsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
   wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutWatchlistInput = {
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutWatchlistInput = {
   id?: number
   email: string
   password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
   wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutWatchlistInput = {
@@ -596,18 +713,148 @@ export type UserUpdateToOneWithWhereWithoutWatchlistInput = {
 export type UserUpdateWithoutWatchlistInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWatchlistInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
   auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
   bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
   wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutSentMessagesInput = {
+  email: string
+  password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
+  bids?: Prisma.BidCreateNestedManyWithoutUserInput
+  wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutSentMessagesInput = {
+  id?: number
+  email: string
+  password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
+  wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutSentMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+}
+
+export type UserCreateWithoutReceivedMessagesInput = {
+  email: string
+  password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
+  bids?: Prisma.BidCreateNestedManyWithoutUserInput
+  wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutReceivedMessagesInput = {
+  id?: number
+  email: string
+  password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
+  wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutReceivedMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+}
+
+export type UserUpsertWithoutSentMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+}
+
+export type UserUpdateWithoutSentMessagesInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
+  bids?: Prisma.BidUpdateManyWithoutUserNestedInput
+  wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentMessagesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
+  wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUpsertWithoutReceivedMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedMessagesInput, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReceivedMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedMessagesInput, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
+}
+
+export type UserUpdateWithoutReceivedMessagesInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
+  bids?: Prisma.BidUpdateManyWithoutUserNestedInput
+  wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
+  wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 
@@ -620,6 +867,8 @@ export type UserCountOutputType = {
   bids: number
   wonAuctions: number
   watchlist: number
+  sentMessages: number
+  receivedMessages: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -627,6 +876,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   bids?: boolean | UserCountOutputTypeCountBidsArgs
   wonAuctions?: boolean | UserCountOutputTypeCountWonAuctionsArgs
   watchlist?: boolean | UserCountOutputTypeCountWatchlistArgs
+  sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
+  receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
 }
 
 /**
@@ -667,15 +918,32 @@ export type UserCountOutputTypeCountWatchlistArgs<ExtArgs extends runtime.Types.
   where?: Prisma.WatchlistWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   password?: boolean
+  favoriteCategories?: boolean
   auctions?: boolean | Prisma.User$auctionsArgs<ExtArgs>
   bids?: boolean | Prisma.User$bidsArgs<ExtArgs>
   wonAuctions?: boolean | Prisma.User$wonAuctionsArgs<ExtArgs>
   watchlist?: boolean | Prisma.User$watchlistArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
+  receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -683,26 +951,31 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   email?: boolean
   password?: boolean
+  favoriteCategories?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   password?: boolean
+  favoriteCategories?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
   email?: boolean
   password?: boolean
+  favoriteCategories?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "favoriteCategories", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   auctions?: boolean | Prisma.User$auctionsArgs<ExtArgs>
   bids?: boolean | Prisma.User$bidsArgs<ExtArgs>
   wonAuctions?: boolean | Prisma.User$wonAuctionsArgs<ExtArgs>
   watchlist?: boolean | Prisma.User$watchlistArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
+  receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -715,11 +988,14 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     bids: Prisma.$BidPayload<ExtArgs>[]
     wonAuctions: Prisma.$AuctionPayload<ExtArgs>[]
     watchlist: Prisma.$WatchlistPayload<ExtArgs>[]
+    sentMessages: Prisma.$MessagePayload<ExtArgs>[]
+    receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     email: string
     password: string
+    favoriteCategories: string[]
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1118,6 +1394,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   bids<T extends Prisma.User$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wonAuctions<T extends Prisma.User$wonAuctionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$wonAuctionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuctionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   watchlist<T extends Prisma.User$watchlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$watchlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receivedMessages<T extends Prisma.User$receivedMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1150,6 +1428,7 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
+  readonly favoriteCategories: Prisma.FieldRef<"User", 'String[]'>
 }
     
 
@@ -1636,6 +1915,54 @@ export type User$watchlistArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.WatchlistScalarFieldEnum | Prisma.WatchlistScalarFieldEnum[]
+}
+
+/**
+ * User.sentMessages
+ */
+export type User$sentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.receivedMessages
+ */
+export type User$receivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
 }
 
 /**

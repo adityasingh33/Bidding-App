@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   Auction: 'Auction',
   Bid: 'Bid',
-  Watchlist: 'Watchlist'
+  Watchlist: 'Watchlist',
+  Message: 'Message'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -76,7 +77,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  password: 'password'
+  password: 'password',
+  favoriteCategories: 'favoriteCategories'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -86,9 +88,12 @@ export const AuctionScalarFieldEnum = {
   id: 'id',
   title: 'title',
   sellerName: 'sellerName',
+  category: 'category',
   startingPrice: 'startingPrice',
   currentPrice: 'currentPrice',
   status: 'status',
+  startTime: 'startTime',
+  biddingStartTime: 'biddingStartTime',
   endTime: 'endTime',
   imageUrl: 'imageUrl',
   createdAt: 'createdAt',
@@ -119,6 +124,17 @@ export const WatchlistScalarFieldEnum = {
 } as const
 
 export type WatchlistScalarFieldEnum = (typeof WatchlistScalarFieldEnum)[keyof typeof WatchlistScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
 export const SortOrder = {

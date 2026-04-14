@@ -37,3 +37,8 @@ export type Bid = Prisma.BidModel
  * 
  */
 export type Watchlist = Prisma.WatchlistModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
