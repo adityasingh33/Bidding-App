@@ -4,7 +4,8 @@ import API from "../services/api"
 import socket from "../socket"
 import BidBox from "../components/BidBox"
 import CountdownTimer from "../components/CountdownTimer"
-import { Heart } from "lucide-react"
+import { Heart, MessageCircle } from "lucide-react"
+import { useChat } from "../context/ChatContext"
 
 interface AuctionData {
   id: number
@@ -23,6 +24,8 @@ interface AuctionData {
 const AuctionDetail = () => {
   const { id } = useParams()
   const auctionId = Number(id)
+  
+  const { openPrivateChat } = useChat()
   
   const [auction, setAuction] = useState<AuctionData | null>(null)
   const [loading, setLoading] = useState(true)
@@ -115,6 +118,14 @@ const AuctionDetail = () => {
             >
               <Heart className="w-4 h-4" /> Add to Watchlist
             </button>
+            {!isSeller && currentUser && (
+              <button 
+                onClick={() => openPrivateChat(auction.sellerId, auction.title + " Seller")}
+                className="px-4 py-1.5 bg-indigo-500/10 hover:bg-indigo-500 hover:text-white text-indigo-500 border border-indigo-500/20 text-sm font-medium rounded-xl flex items-center gap-2 transition-colors shadow-sm"
+              >
+                <MessageCircle className="w-4 h-4" /> Message Seller
+              </button>
+            )}
             {isSeller && auction.status === "ACTIVE" && (
               <button 
                 onClick={handleEndAuction}
