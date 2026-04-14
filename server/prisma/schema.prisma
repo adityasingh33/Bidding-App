@@ -7,23 +7,29 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  email       String      @unique
-  password    String
-  auctions    Auction[]   @relation("SellerAuctions")
-  bids        Bid[]
-  wonAuctions Auction[]   @relation("WonAuctions")
-  watchlist   Watchlist[]
+  id                 Int         @id @default(autoincrement())
+  email              String      @unique
+  password           String
+  favoriteCategories String[]    @default([])
+  auctions           Auction[]   @relation("SellerAuctions")
+  bids               Bid[]
+  wonAuctions        Auction[]   @relation("WonAuctions")
+  watchlist          Watchlist[]
+  sentMessages       Message[]   @relation("SentMessages")
+  receivedMessages   Message[]   @relation("ReceivedMessages")
 }
 
 model Auction {
   id            Int         @id @default(autoincrement())
   title         String
-  sellerName    String
-  startingPrice Float
-  currentPrice  Float       @default(0)
-  status        String      @default("ACTIVE")
-  endTime       DateTime
+  sellerName       String
+  category         String   @default("Other")
+  startingPrice    Float
+  currentPrice     Float    @default(0)
+  status           String   @default("PENDING")
+  startTime        DateTime?
+  biddingStartTime DateTime?
+  endTime          DateTime
   imageUrl      String?
   createdAt     DateTime    @default(now())
   version       Int         @default(0)
@@ -56,4 +62,15 @@ model Watchlist {
   auction   Auction  @relation(fields: [auctionId], references: [id])
 
   @@unique([userId, auctionId])
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  senderId   Int
+  receiverId Int
+  content    String
+  createdAt  DateTime @default(now())
+
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
 }
