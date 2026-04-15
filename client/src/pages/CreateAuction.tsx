@@ -213,7 +213,7 @@ export default function CreateAuction() {
         <button 
           type="submit" 
           disabled={loading || isUploading}
-          className="w-full p-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 disabled:opacity-50 text-white font-bold rounded-xl transition-all duration-300 mt-6 shadow-lg shadow-purple-500/20 active:scale-95"
+          className="w-full flex justify-center py-4 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all outline-none focus:ring-4 focus:ring-indigo-500/50 active:scale-[0.99] disabled:opacity-50 rounded-none uppercase tracking-widest mt-6 border border-indigo-400/20"
         >
           {isUploading ? "Uploading Image..." : loading ? "Starting Auction..." : "Launch Auction"}
         </button>

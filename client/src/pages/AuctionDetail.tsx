@@ -114,7 +114,7 @@ const AuctionDetail = () => {
           <div className="flex flex-wrap gap-3">
             <button 
               onClick={handleAddToWatchlist}
-              className="px-4 py-1.5 bg-white dark:bg-white/5 hover:bg-slate-200 dark:bg-slate-800 backdrop-blur-xl border border-slate-200 dark:border-white/10 text-sm font-medium text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white rounded-xl flex items-center gap-2 transition-colors shadow-sm"
+              className="px-4 py-1.5 bg-white dark:bg-white/5 hover:bg-slate-200 dark:bg-slate-800 backdrop-blur-xl border border-slate-200 dark:border-white/10 text-sm font-medium text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white rounded-none flex items-center gap-2 transition-colors shadow-sm"
             >
               <Heart className="w-4 h-4" /> Add to Watchlist
             </button>
@@ -129,7 +129,7 @@ const AuctionDetail = () => {
             {isSeller && auction.status === "ACTIVE" && (
               <button 
                 onClick={handleEndAuction}
-                className="px-4 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-sm font-medium text-rose-400 rounded-xl transition-colors"
+                className="px-4 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-sm font-medium text-rose-400 rounded-none transition-colors"
               >
                 End Auction Early
               </button>

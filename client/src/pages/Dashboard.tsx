@@ -96,7 +96,7 @@ export default function Dashboard() {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Overview</h2>
           <p className="text-slate-600 dark:text-slate-400 mt-2">Welcome back. Here's what's happening with your account.</p>
         </div>
-        <Link to="/auctions" className="hidden sm:inline-flex px-5 py-2.5 bg-slate-200 dark:bg-slate-800 hover:bg-slate-700 text-slate-900 dark:text-white font-semibold rounded-xl transition-colors border border-slate-200 dark:border-white/10 shadow-sm items-center gap-2">
+        <Link to="/auctions" className="hidden sm:inline-flex px-5 py-2.5 bg-slate-200 dark:bg-slate-800 hover:bg-slate-700 text-slate-900 dark:text-white font-semibold rounded-none transition-colors border border-slate-200 dark:border-white/10 shadow-sm items-center gap-2">
           Find Auctions <span aria-hidden="true">&rarr;</span>
         </Link>
       </div>
@@ -194,7 +194,7 @@ export default function Dashboard() {
             <div className="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-bl-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
             <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Sell an Item</h3>
             <p className="text-indigo-100 mb-6 font-medium text-sm">Create a new auction listing and start receiving bids today.</p>
-            <Link to="/create" className="inline-block w-full text-center px-5 py-3.5 bg-white text-indigo-600 hover:bg-slate-50 font-bold rounded-xl transition-colors shadow-lg active:scale-95">
+            <Link to="/create" className="inline-block w-full text-center px-5 py-3.5 bg-white text-indigo-600 hover:bg-slate-50 font-bold rounded-none transition-colors shadow-lg active:scale-95">
               Create Auction
             </Link>
           </div>
@@ -202,11 +202,11 @@ export default function Dashboard() {
           <div className="bg-white dark:bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Quick Links</h3>
             <div className="space-y-3">
-              <Link to="/my-auctions" className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-950/40 hover:bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-800/50 hover:border-slate-200 dark:border-white/10 transition-all font-semibold text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white group">
+              <Link to="/my-auctions" className="flex items-center justify-between p-3.5 rounded-none bg-white dark:bg-slate-950/40 hover:bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-800/50 hover:border-slate-200 dark:border-white/10 transition-all font-semibold text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white group">
                  <div className="flex items-center gap-2"><Package className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300 transition-colors" /> <span>Manage Listings</span></div>
                  <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-slate-900 dark:text-white transition-colors" />
               </Link>
-              <Link to="/watchlist" className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-950/40 hover:bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-800/50 hover:border-slate-200 dark:border-white/10 transition-all font-semibold text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white group">
+              <Link to="/watchlist" className="flex items-center justify-between p-3.5 rounded-none bg-white dark:bg-slate-950/40 hover:bg-slate-200 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-800/50 hover:border-slate-200 dark:border-white/10 transition-all font-semibold text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white group">
                  <div className="flex items-center gap-2"><Heart className="w-5 h-5 text-pink-400 group-hover:text-pink-300 transition-colors" /> <span>View Watchlist</span></div>
                  <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-slate-900 dark:text-white transition-colors" />
               </Link>

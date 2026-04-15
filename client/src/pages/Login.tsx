@@ -52,7 +52,10 @@ const Login = () => {
             required 
           />
         </div>
-        <button type="submit" className="w-full p-3.5 bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-500 hover:shadow-purple-500/30 transition-all duration-300 text-white font-semibold rounded-xl transition-all mt-4 shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
+        <button 
+          type="submit" 
+          className="w-full flex justify-center py-4 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all outline-none focus:ring-4 focus:ring-indigo-500/50 active:scale-[0.99] rounded-none uppercase tracking-widest mt-4 border border-indigo-400/20"
+        >
           Sign In
         </button>
       </form>

@@ -106,7 +106,7 @@ export default function ChatOverlay({ partnerId, partnerName, onClose }: ChatOve
             <span className="text-[10px] text-white/80 font-medium">Private Chat</span>
           </div>
         </div>
-        <button onClick={onClose} className="p-1.5 hover:bg-white/20 rounded-lg transition-colors text-white">
+        <button onClick={onClose} className="p-1.5 hover:bg-white/20 rounded-none transition-colors text-white">
           <X className="w-5 h-5" />
         </button>
       </div>
@@ -150,14 +150,14 @@ export default function ChatOverlay({ partnerId, partnerName, onClose }: ChatOve
             value={inputText}
             onChange={e => setInputText(e.target.value)}
             placeholder="Type your message..."
-            className="w-full bg-slate-100 dark:bg-slate-800/80 text-sm text-slate-900 dark:text-white rounded-xl py-2.5 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-indigo-500 border-transparent placeholder-slate-400"
+            className="w-full bg-slate-100 dark:bg-slate-800/80 text-sm text-slate-900 dark:text-white rounded-none py-2.5 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-indigo-500 border-transparent placeholder-slate-400"
             autoComplete="off"
             maxLength={1000}
           />
           <button 
             type="submit" 
             disabled={!inputText.trim()}
-            className="absolute right-1 top-1 bottom-1 px-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="absolute right-1 top-1 bottom-1 px-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-none hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             <Send className="w-4 h-4" />
           </button>

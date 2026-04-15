@@ -125,7 +125,7 @@ export default function Categories() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="w-full sm:w-auto flex items-center justify-center px-10 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 transition-all outline-none focus:ring-4 focus:ring-indigo-500/50 active:scale-95 text-lg"
+            className="w-full sm:w-auto flex items-center justify-center px-10 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 text-white font-bold rounded-none shadow-lg shadow-indigo-500/25 transition-all outline-none focus:ring-4 focus:ring-indigo-500/50 active:scale-95 text-lg"
           >
             {saving ? <Loader2 className="w-6 h-6 animate-spin mr-2" /> : null}
             {saving ? "Saving Preferences..." : "Confirm Selections"}

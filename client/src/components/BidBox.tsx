@@ -107,10 +107,10 @@ const BidBox = ({ auctionId, currentPrice, status, bids }: BidBoxProps) => {
         <button 
           type="submit" 
           disabled={status !== "ACTIVE" || (!!amount && amount <= currentPrice)}
-          className={`w-full py-4 text-slate-900 dark:text-white font-black rounded-xl text-lg transition-all shadow-lg active:scale-95 duration-300 ${
+          className={`w-full flex justify-center py-4 px-4 text-sm font-bold shadow-lg transition-all outline-none focus:ring-4 active:scale-[0.99] rounded-none uppercase tracking-widest border ${
             isWinning 
-              ? 'bg-slate-200 dark:bg-slate-800 hover:bg-slate-700 text-slate-800 dark:text-slate-300 border border-slate-200 dark:border-white/10 shadow-none' 
-              : 'bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 shadow-purple-500/25'
+              ? 'bg-slate-200 dark:bg-slate-800 hover:bg-slate-700 text-slate-800 dark:text-slate-300 border-slate-200 dark:border-white/10 shadow-none' 
+              : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white border-indigo-400/20 shadow-indigo-500/25 focus:ring-indigo-500/50'
           } disabled:opacity-50 disabled:cursor-not-allowed`}
         >
           {isWinning ? 'Increase Your Bid' : 'Confirm Bid'}

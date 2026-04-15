@@ -67,7 +67,7 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
   return (
     <Link 
       to={`/auctions/${auction.id}`} 
-      className="group flex flex-col bg-white dark:bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 hover:border-purple-500/50 hover:-translate-y-1.5 shadow-lg hover:shadow-xl hover:shadow-purple-500/10 hover:scale-[1.02] transition-all duration-300 ease-in-out relative"
+      className="group flex flex-col bg-white dark:bg-white/5 backdrop-blur-xl rounded-none overflow-hidden border border-slate-200 dark:border-white/10 hover:border-purple-500/50 hover:-translate-y-1.5 shadow-lg hover:shadow-xl hover:shadow-purple-500/10 hover:scale-[1.02] transition-all duration-300 ease-in-out relative"
     >
       <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
         <img 
@@ -86,7 +86,7 @@ const AuctionCard = ({ auction, onWatchlistClick, actionIcon = "heart", customBa
         {/* Top right overlay (Watchlist Action) */}
         <button 
           onClick={handleWatchlist}
-          className={`absolute top-3 right-3 z-20 p-2.5 bg-slate-100 dark:bg-slate-900/50 hover:bg-slate-100 dark:bg-slate-900/90 backdrop-blur-md rounded-full transition-all border opacity-0 group-hover:opacity-100 focus:opacity-100 shadow-lg hover:scale-110 active:scale-125 duration-300 group/btn ${
+          className={`absolute top-3 right-3 z-20 p-2.5 bg-slate-100 dark:bg-slate-900/50 hover:bg-slate-100 dark:bg-slate-900/90 backdrop-blur-md rounded-none transition-all border opacity-0 group-hover:opacity-100 focus:opacity-100 shadow-lg hover:scale-110 active:scale-125 duration-300 group/btn ${
              isWatchlisted && actionIcon === "heart" ? "border-rose-500/50 opacity-100" : "text-slate-800 dark:text-slate-300 border-slate-700/50 hover:border-slate-500/50"
           }`}
           title={isWatchlisted && actionIcon === "heart" ? "Remove from Watchlist" : "Add to Watchlist"}

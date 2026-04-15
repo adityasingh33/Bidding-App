@@ -55,7 +55,7 @@ export default function MyAuctions() {
       {auctions.length === 0 ? (
         <div className="bg-white dark:bg-white/5 p-10 rounded-2xl text-center border border-slate-200 dark:border-white/10 backdrop-blur-xl shadow-xl">
           <p className="text-slate-600 dark:text-slate-400 mb-6 text-lg">You haven't created any auctions yet.</p>
-          <Link to="/create" className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-500 hover:shadow-purple-500/30 transition-all duration-300 text-white font-semibold rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
+          <Link to="/create" className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-500 hover:shadow-purple-500/30 transition-all duration-300 text-white font-semibold rounded-none transition-all shadow-lg shadow-indigo-500/20 active:scale-[0.98]">
             Create an Auction
           </Link>
         </div>
