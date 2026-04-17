@@ -34,14 +34,23 @@ export const createAuction = async (req: Request, res: Response): Promise<void> 
        return;
     }
 
-    // Default to 24 hours if duration is not provided or invalid
     const duration = (durationHours && !isNaN(Number(durationHours))) ? Number(durationHours) : 24;
 
     // Time calculations
     const nowStamp = Date.now();
-    const startTime = new Date(nowStamp + 5 * 60 * 1000); // 5 mins from creation
-    const biddingStartTime = new Date(nowStamp + 7 * 60 * 1000); // 7 mins from creation
-    const endTime = new Date(biddingStartTime.getTime() + duration * 60 * 60 * 1000);
+    let biddingStartStamp = nowStamp + 7 * 60 * 1000; // default 7 mins from now
+    
+    if (req.body.biddingStartTime) {
+      const parsedTime = new Date(req.body.biddingStartTime).getTime();
+      if (!isNaN(parsedTime) && parsedTime > nowStamp) {
+        biddingStartStamp = parsedTime;
+      }
+    }
+
+    const biddingStartTime = new Date(biddingStartStamp);
+    const startTimeStamp = biddingStartStamp - 2 * 60 * 1000; // Joining phase begins 2 mins prior
+    const startTime = new Date(Math.max(startTimeStamp, nowStamp + 1000)); // Ensure it's at least 1s in the future
+    const endTime = new Date(biddingStartStamp + duration * 60 * 60 * 1000);
 
     const auction = await prisma.auction.create({
       data: {
