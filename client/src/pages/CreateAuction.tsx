@@ -8,6 +8,7 @@ export default function CreateAuction() {
   const [category, setCategory] = useState(AUCTION_CATEGORIES[0])
   const [startingPrice, setStartingPrice] = useState("")
   const [durationHours, setDurationHours] = useState("24")
+  const [biddingStartTime, setBiddingStartTime] = useState("")
   
   // Image Upload States
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -93,6 +94,7 @@ export default function CreateAuction() {
         category,
         startingPrice: Number(startingPrice),
         durationHours: Number(durationHours),
+        biddingStartTime: biddingStartTime ? new Date(biddingStartTime).toISOString() : undefined,
         imageUrl
       })
       navigate(`/auctions/${res.data.id}`)
@@ -208,6 +210,18 @@ export default function CreateAuction() {
               ))}
             </select>
           </div>
+        </div>
+
+        {/* Start Time Input */}
+        <div className="space-y-1">
+          <label className="text-sm font-medium text-slate-800 dark:text-slate-300 ml-1">Bidding Start Time (Optional)</label>
+          <input
+            type="datetime-local"
+            value={biddingStartTime}
+            onChange={(e) => setBiddingStartTime(e.target.value)}
+            className="w-full p-3.5 bg-slate-950/50 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-inner [color-scheme:light] dark:[color-scheme:dark]"
+          />
+          <p className="text-xs text-slate-500 ml-1 mt-1">If left blank, bidding will start in 7 minutes.</p>
         </div>
         
         <button 
