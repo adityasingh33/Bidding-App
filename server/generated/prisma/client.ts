@@ -66,3 +66,13 @@ export type Watchlist = Prisma.WatchlistModel
  * 
  */
 export type Message = Prisma.MessageModel
+/**
+ * Model Wallet
+ * 
+ */
+export type Wallet = Prisma.WalletModel
+/**
+ * Model WalletTransaction
+ * 
+ */
+export type WalletTransaction = Prisma.WalletTransactionModel
