@@ -320,6 +320,8 @@ export type AuctionWhereInput = {
   winner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   bids?: Prisma.BidListRelationFilter
   watchlist?: Prisma.WatchlistListRelationFilter
+  stakes?: Prisma.AuctionStakeListRelationFilter
+  leaderboard?: Prisma.XOR<Prisma.AuctionLeaderboardNullableScalarRelationFilter, Prisma.AuctionLeaderboardWhereInput> | null
 }
 
 export type AuctionOrderByWithRelationInput = {
@@ -342,6 +344,8 @@ export type AuctionOrderByWithRelationInput = {
   winner?: Prisma.UserOrderByWithRelationInput
   bids?: Prisma.BidOrderByRelationAggregateInput
   watchlist?: Prisma.WatchlistOrderByRelationAggregateInput
+  stakes?: Prisma.AuctionStakeOrderByRelationAggregateInput
+  leaderboard?: Prisma.AuctionLeaderboardOrderByWithRelationInput
 }
 
 export type AuctionWhereUniqueInput = Prisma.AtLeast<{
@@ -367,6 +371,8 @@ export type AuctionWhereUniqueInput = Prisma.AtLeast<{
   winner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   bids?: Prisma.BidListRelationFilter
   watchlist?: Prisma.WatchlistListRelationFilter
+  stakes?: Prisma.AuctionStakeListRelationFilter
+  leaderboard?: Prisma.XOR<Prisma.AuctionLeaderboardNullableScalarRelationFilter, Prisma.AuctionLeaderboardWhereInput> | null
 }, "id">
 
 export type AuctionOrderByWithAggregationInput = {
@@ -430,6 +436,8 @@ export type AuctionCreateInput = {
   winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionUncheckedCreateInput = {
@@ -450,6 +458,8 @@ export type AuctionUncheckedCreateInput = {
   sellerId: number
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionUpdateInput = {
@@ -469,6 +479,8 @@ export type AuctionUpdateInput = {
   winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionUncheckedUpdateInput = {
@@ -489,6 +501,8 @@ export type AuctionUncheckedUpdateInput = {
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionCreateManyInput = {
@@ -769,6 +783,34 @@ export type AuctionUpdateOneRequiredWithoutWatchlistNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AuctionUpdateToOneWithWhereWithoutWatchlistInput, Prisma.AuctionUpdateWithoutWatchlistInput>, Prisma.AuctionUncheckedUpdateWithoutWatchlistInput>
 }
 
+export type AuctionCreateNestedOneWithoutStakesInput = {
+  create?: Prisma.XOR<Prisma.AuctionCreateWithoutStakesInput, Prisma.AuctionUncheckedCreateWithoutStakesInput>
+  connectOrCreate?: Prisma.AuctionCreateOrConnectWithoutStakesInput
+  connect?: Prisma.AuctionWhereUniqueInput
+}
+
+export type AuctionUpdateOneRequiredWithoutStakesNestedInput = {
+  create?: Prisma.XOR<Prisma.AuctionCreateWithoutStakesInput, Prisma.AuctionUncheckedCreateWithoutStakesInput>
+  connectOrCreate?: Prisma.AuctionCreateOrConnectWithoutStakesInput
+  upsert?: Prisma.AuctionUpsertWithoutStakesInput
+  connect?: Prisma.AuctionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AuctionUpdateToOneWithWhereWithoutStakesInput, Prisma.AuctionUpdateWithoutStakesInput>, Prisma.AuctionUncheckedUpdateWithoutStakesInput>
+}
+
+export type AuctionCreateNestedOneWithoutLeaderboardInput = {
+  create?: Prisma.XOR<Prisma.AuctionCreateWithoutLeaderboardInput, Prisma.AuctionUncheckedCreateWithoutLeaderboardInput>
+  connectOrCreate?: Prisma.AuctionCreateOrConnectWithoutLeaderboardInput
+  connect?: Prisma.AuctionWhereUniqueInput
+}
+
+export type AuctionUpdateOneRequiredWithoutLeaderboardNestedInput = {
+  create?: Prisma.XOR<Prisma.AuctionCreateWithoutLeaderboardInput, Prisma.AuctionUncheckedCreateWithoutLeaderboardInput>
+  connectOrCreate?: Prisma.AuctionCreateOrConnectWithoutLeaderboardInput
+  upsert?: Prisma.AuctionUpsertWithoutLeaderboardInput
+  connect?: Prisma.AuctionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AuctionUpdateToOneWithWhereWithoutLeaderboardInput, Prisma.AuctionUpdateWithoutLeaderboardInput>, Prisma.AuctionUncheckedUpdateWithoutLeaderboardInput>
+}
+
 export type AuctionCreateWithoutSellerInput = {
   title: string
   sellerName: string
@@ -785,6 +827,8 @@ export type AuctionCreateWithoutSellerInput = {
   winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionUncheckedCreateWithoutSellerInput = {
@@ -804,6 +848,8 @@ export type AuctionUncheckedCreateWithoutSellerInput = {
   winnerId?: number | null
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionCreateOrConnectWithoutSellerInput = {
@@ -832,6 +878,8 @@ export type AuctionCreateWithoutWinnerInput = {
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionUncheckedCreateWithoutWinnerInput = {
@@ -851,6 +899,8 @@ export type AuctionUncheckedCreateWithoutWinnerInput = {
   sellerId: number
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionCreateOrConnectWithoutWinnerInput = {
@@ -932,6 +982,8 @@ export type AuctionCreateWithoutBidsInput = {
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
   winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionUncheckedCreateWithoutBidsInput = {
@@ -951,6 +1003,8 @@ export type AuctionUncheckedCreateWithoutBidsInput = {
   winnerId?: number | null
   sellerId: number
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionCreateOrConnectWithoutBidsInput = {
@@ -985,6 +1039,8 @@ export type AuctionUpdateWithoutBidsInput = {
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
   winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionUncheckedUpdateWithoutBidsInput = {
@@ -1004,6 +1060,8 @@ export type AuctionUncheckedUpdateWithoutBidsInput = {
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionCreateWithoutWatchlistInput = {
@@ -1022,6 +1080,8 @@ export type AuctionCreateWithoutWatchlistInput = {
   seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
   winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
   bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionUncheckedCreateWithoutWatchlistInput = {
@@ -1041,6 +1101,8 @@ export type AuctionUncheckedCreateWithoutWatchlistInput = {
   winnerId?: number | null
   sellerId: number
   bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedCreateNestedOneWithoutAuctionInput
 }
 
 export type AuctionCreateOrConnectWithoutWatchlistInput = {
@@ -1075,6 +1137,8 @@ export type AuctionUpdateWithoutWatchlistInput = {
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
   winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionUncheckedUpdateWithoutWatchlistInput = {
@@ -1094,6 +1158,204 @@ export type AuctionUncheckedUpdateWithoutWatchlistInput = {
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedUpdateOneWithoutAuctionNestedInput
+}
+
+export type AuctionCreateWithoutStakesInput = {
+  title: string
+  sellerName: string
+  category?: string
+  startingPrice: number
+  currentPrice?: number
+  status?: string
+  startTime?: Date | string | null
+  biddingStartTime?: Date | string | null
+  endTime: Date | string
+  imageUrl?: string | null
+  createdAt?: Date | string
+  version?: number
+  seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
+  winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
+  bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardCreateNestedOneWithoutAuctionInput
+}
+
+export type AuctionUncheckedCreateWithoutStakesInput = {
+  id?: number
+  title: string
+  sellerName: string
+  category?: string
+  startingPrice: number
+  currentPrice?: number
+  status?: string
+  startTime?: Date | string | null
+  biddingStartTime?: Date | string | null
+  endTime: Date | string
+  imageUrl?: string | null
+  createdAt?: Date | string
+  version?: number
+  winnerId?: number | null
+  sellerId: number
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedCreateNestedOneWithoutAuctionInput
+}
+
+export type AuctionCreateOrConnectWithoutStakesInput = {
+  where: Prisma.AuctionWhereUniqueInput
+  create: Prisma.XOR<Prisma.AuctionCreateWithoutStakesInput, Prisma.AuctionUncheckedCreateWithoutStakesInput>
+}
+
+export type AuctionUpsertWithoutStakesInput = {
+  update: Prisma.XOR<Prisma.AuctionUpdateWithoutStakesInput, Prisma.AuctionUncheckedUpdateWithoutStakesInput>
+  create: Prisma.XOR<Prisma.AuctionCreateWithoutStakesInput, Prisma.AuctionUncheckedCreateWithoutStakesInput>
+  where?: Prisma.AuctionWhereInput
+}
+
+export type AuctionUpdateToOneWithWhereWithoutStakesInput = {
+  where?: Prisma.AuctionWhereInput
+  data: Prisma.XOR<Prisma.AuctionUpdateWithoutStakesInput, Prisma.AuctionUncheckedUpdateWithoutStakesInput>
+}
+
+export type AuctionUpdateWithoutStakesInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  biddingStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
+  winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
+  bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUpdateOneWithoutAuctionNestedInput
+}
+
+export type AuctionUncheckedUpdateWithoutStakesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  biddingStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sellerId?: Prisma.IntFieldUpdateOperationsInput | number
+  bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedUpdateOneWithoutAuctionNestedInput
+}
+
+export type AuctionCreateWithoutLeaderboardInput = {
+  title: string
+  sellerName: string
+  category?: string
+  startingPrice: number
+  currentPrice?: number
+  status?: string
+  startTime?: Date | string | null
+  biddingStartTime?: Date | string | null
+  endTime: Date | string
+  imageUrl?: string | null
+  createdAt?: Date | string
+  version?: number
+  seller: Prisma.UserCreateNestedOneWithoutAuctionsInput
+  winner?: Prisma.UserCreateNestedOneWithoutWonAuctionsInput
+  bids?: Prisma.BidCreateNestedManyWithoutAuctionInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutAuctionInput
+}
+
+export type AuctionUncheckedCreateWithoutLeaderboardInput = {
+  id?: number
+  title: string
+  sellerName: string
+  category?: string
+  startingPrice: number
+  currentPrice?: number
+  status?: string
+  startTime?: Date | string | null
+  biddingStartTime?: Date | string | null
+  endTime: Date | string
+  imageUrl?: string | null
+  createdAt?: Date | string
+  version?: number
+  winnerId?: number | null
+  sellerId: number
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutAuctionInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutAuctionInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutAuctionInput
+}
+
+export type AuctionCreateOrConnectWithoutLeaderboardInput = {
+  where: Prisma.AuctionWhereUniqueInput
+  create: Prisma.XOR<Prisma.AuctionCreateWithoutLeaderboardInput, Prisma.AuctionUncheckedCreateWithoutLeaderboardInput>
+}
+
+export type AuctionUpsertWithoutLeaderboardInput = {
+  update: Prisma.XOR<Prisma.AuctionUpdateWithoutLeaderboardInput, Prisma.AuctionUncheckedUpdateWithoutLeaderboardInput>
+  create: Prisma.XOR<Prisma.AuctionCreateWithoutLeaderboardInput, Prisma.AuctionUncheckedCreateWithoutLeaderboardInput>
+  where?: Prisma.AuctionWhereInput
+}
+
+export type AuctionUpdateToOneWithWhereWithoutLeaderboardInput = {
+  where?: Prisma.AuctionWhereInput
+  data: Prisma.XOR<Prisma.AuctionUpdateWithoutLeaderboardInput, Prisma.AuctionUncheckedUpdateWithoutLeaderboardInput>
+}
+
+export type AuctionUpdateWithoutLeaderboardInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  biddingStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
+  winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
+  bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutAuctionNestedInput
+}
+
+export type AuctionUncheckedUpdateWithoutLeaderboardInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  sellerName?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  startTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  biddingStartTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sellerId?: Prisma.IntFieldUpdateOperationsInput | number
+  bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutAuctionNestedInput
 }
 
 export type AuctionCreateManySellerInput = {
@@ -1146,6 +1408,8 @@ export type AuctionUpdateWithoutSellerInput = {
   winner?: Prisma.UserUpdateOneWithoutWonAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionUncheckedUpdateWithoutSellerInput = {
@@ -1165,6 +1429,8 @@ export type AuctionUncheckedUpdateWithoutSellerInput = {
   winnerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionUncheckedUpdateManyWithoutSellerInput = {
@@ -1200,6 +1466,8 @@ export type AuctionUpdateWithoutWinnerInput = {
   seller?: Prisma.UserUpdateOneRequiredWithoutAuctionsNestedInput
   bids?: Prisma.BidUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionUncheckedUpdateWithoutWinnerInput = {
@@ -1219,6 +1487,8 @@ export type AuctionUncheckedUpdateWithoutWinnerInput = {
   sellerId?: Prisma.IntFieldUpdateOperationsInput | number
   bids?: Prisma.BidUncheckedUpdateManyWithoutAuctionNestedInput
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutAuctionNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutAuctionNestedInput
+  leaderboard?: Prisma.AuctionLeaderboardUncheckedUpdateOneWithoutAuctionNestedInput
 }
 
 export type AuctionUncheckedUpdateManyWithoutWinnerInput = {
@@ -1246,11 +1516,13 @@ export type AuctionUncheckedUpdateManyWithoutWinnerInput = {
 export type AuctionCountOutputType = {
   bids: number
   watchlist: number
+  stakes: number
 }
 
 export type AuctionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bids?: boolean | AuctionCountOutputTypeCountBidsArgs
   watchlist?: boolean | AuctionCountOutputTypeCountWatchlistArgs
+  stakes?: boolean | AuctionCountOutputTypeCountStakesArgs
 }
 
 /**
@@ -1277,6 +1549,13 @@ export type AuctionCountOutputTypeCountWatchlistArgs<ExtArgs extends runtime.Typ
   where?: Prisma.WatchlistWhereInput
 }
 
+/**
+ * AuctionCountOutputType without action
+ */
+export type AuctionCountOutputTypeCountStakesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuctionStakeWhereInput
+}
+
 
 export type AuctionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1298,6 +1577,8 @@ export type AuctionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   winner?: boolean | Prisma.Auction$winnerArgs<ExtArgs>
   bids?: boolean | Prisma.Auction$bidsArgs<ExtArgs>
   watchlist?: boolean | Prisma.Auction$watchlistArgs<ExtArgs>
+  stakes?: boolean | Prisma.Auction$stakesArgs<ExtArgs>
+  leaderboard?: boolean | Prisma.Auction$leaderboardArgs<ExtArgs>
   _count?: boolean | Prisma.AuctionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["auction"]>
 
@@ -1365,6 +1646,8 @@ export type AuctionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   winner?: boolean | Prisma.Auction$winnerArgs<ExtArgs>
   bids?: boolean | Prisma.Auction$bidsArgs<ExtArgs>
   watchlist?: boolean | Prisma.Auction$watchlistArgs<ExtArgs>
+  stakes?: boolean | Prisma.Auction$stakesArgs<ExtArgs>
+  leaderboard?: boolean | Prisma.Auction$leaderboardArgs<ExtArgs>
   _count?: boolean | Prisma.AuctionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AuctionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1383,6 +1666,8 @@ export type $AuctionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     winner: Prisma.$UserPayload<ExtArgs> | null
     bids: Prisma.$BidPayload<ExtArgs>[]
     watchlist: Prisma.$WatchlistPayload<ExtArgs>[]
+    stakes: Prisma.$AuctionStakePayload<ExtArgs>[]
+    leaderboard: Prisma.$AuctionLeaderboardPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1798,6 +2083,8 @@ export interface Prisma__AuctionClient<T, Null = never, ExtArgs extends runtime.
   winner<T extends Prisma.Auction$winnerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Auction$winnerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   bids<T extends Prisma.Auction$bidsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Auction$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   watchlist<T extends Prisma.Auction$watchlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Auction$watchlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stakes<T extends Prisma.Auction$stakesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Auction$stakesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuctionStakePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leaderboard<T extends Prisma.Auction$leaderboardArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Auction$leaderboardArgs<ExtArgs>>): Prisma.Prisma__AuctionLeaderboardClient<runtime.Types.Result.GetResult<Prisma.$AuctionLeaderboardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2307,6 +2594,49 @@ export type Auction$watchlistArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.WatchlistScalarFieldEnum | Prisma.WatchlistScalarFieldEnum[]
+}
+
+/**
+ * Auction.stakes
+ */
+export type Auction$stakesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuctionStake
+   */
+  select?: Prisma.AuctionStakeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuctionStake
+   */
+  omit?: Prisma.AuctionStakeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuctionStakeInclude<ExtArgs> | null
+  where?: Prisma.AuctionStakeWhereInput
+  orderBy?: Prisma.AuctionStakeOrderByWithRelationInput | Prisma.AuctionStakeOrderByWithRelationInput[]
+  cursor?: Prisma.AuctionStakeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuctionStakeScalarFieldEnum | Prisma.AuctionStakeScalarFieldEnum[]
+}
+
+/**
+ * Auction.leaderboard
+ */
+export type Auction$leaderboardArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuctionLeaderboard
+   */
+  select?: Prisma.AuctionLeaderboardSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuctionLeaderboard
+   */
+  omit?: Prisma.AuctionLeaderboardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuctionLeaderboardInclude<ExtArgs> | null
+  where?: Prisma.AuctionLeaderboardWhereInput
 }
 
 /**

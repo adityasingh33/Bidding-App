@@ -211,6 +211,7 @@ export type UserWhereInput = {
   sentMessages?: Prisma.MessageListRelationFilter
   receivedMessages?: Prisma.MessageListRelationFilter
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
+  stakes?: Prisma.AuctionStakeListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -225,6 +226,7 @@ export type UserOrderByWithRelationInput = {
   sentMessages?: Prisma.MessageOrderByRelationAggregateInput
   receivedMessages?: Prisma.MessageOrderByRelationAggregateInput
   wallet?: Prisma.WalletOrderByWithRelationInput
+  stakes?: Prisma.AuctionStakeOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -242,6 +244,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sentMessages?: Prisma.MessageListRelationFilter
   receivedMessages?: Prisma.MessageListRelationFilter
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
+  stakes?: Prisma.AuctionStakeListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -277,6 +280,7 @@ export type UserCreateInput = {
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -291,6 +295,7 @@ export type UserUncheckedCreateInput = {
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -304,6 +309,7 @@ export type UserUpdateInput = {
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -318,6 +324,7 @@ export type UserUncheckedUpdateInput = {
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -492,6 +499,20 @@ export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedMessagesInput, Prisma.UserUpdateWithoutReceivedMessagesInput>, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
 }
 
+export type UserCreateNestedOneWithoutStakesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStakesInput, Prisma.UserUncheckedCreateWithoutStakesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStakesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStakesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStakesInput, Prisma.UserUncheckedCreateWithoutStakesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStakesInput
+  upsert?: Prisma.UserUpsertWithoutStakesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStakesInput, Prisma.UserUpdateWithoutStakesInput>, Prisma.UserUncheckedUpdateWithoutStakesInput>
+}
+
 export type UserCreateNestedOneWithoutWalletInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutWalletInput, Prisma.UserUncheckedCreateWithoutWalletInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutWalletInput
@@ -516,6 +537,7 @@ export type UserCreateWithoutAuctionsInput = {
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuctionsInput = {
@@ -529,6 +551,7 @@ export type UserUncheckedCreateWithoutAuctionsInput = {
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuctionsInput = {
@@ -546,6 +569,7 @@ export type UserCreateWithoutWonAuctionsInput = {
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWonAuctionsInput = {
@@ -559,6 +583,7 @@ export type UserUncheckedCreateWithoutWonAuctionsInput = {
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWonAuctionsInput = {
@@ -587,6 +612,7 @@ export type UserUpdateWithoutAuctionsInput = {
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuctionsInput = {
@@ -600,6 +626,7 @@ export type UserUncheckedUpdateWithoutAuctionsInput = {
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutWonAuctionsInput = {
@@ -623,6 +650,7 @@ export type UserUpdateWithoutWonAuctionsInput = {
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWonAuctionsInput = {
@@ -636,6 +664,7 @@ export type UserUncheckedUpdateWithoutWonAuctionsInput = {
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBidsInput = {
@@ -648,6 +677,7 @@ export type UserCreateWithoutBidsInput = {
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBidsInput = {
@@ -661,6 +691,7 @@ export type UserUncheckedCreateWithoutBidsInput = {
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBidsInput = {
@@ -689,6 +720,7 @@ export type UserUpdateWithoutBidsInput = {
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBidsInput = {
@@ -702,6 +734,7 @@ export type UserUncheckedUpdateWithoutBidsInput = {
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWatchlistInput = {
@@ -714,6 +747,7 @@ export type UserCreateWithoutWatchlistInput = {
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWatchlistInput = {
@@ -727,6 +761,7 @@ export type UserUncheckedCreateWithoutWatchlistInput = {
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWatchlistInput = {
@@ -755,6 +790,7 @@ export type UserUpdateWithoutWatchlistInput = {
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWatchlistInput = {
@@ -768,6 +804,7 @@ export type UserUncheckedUpdateWithoutWatchlistInput = {
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentMessagesInput = {
@@ -780,6 +817,7 @@ export type UserCreateWithoutSentMessagesInput = {
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -793,6 +831,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -810,6 +849,7 @@ export type UserCreateWithoutReceivedMessagesInput = {
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedMessagesInput = {
@@ -823,6 +863,7 @@ export type UserUncheckedCreateWithoutReceivedMessagesInput = {
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedMessagesInput = {
@@ -851,6 +892,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -864,6 +906,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReceivedMessagesInput = {
@@ -887,6 +930,7 @@ export type UserUpdateWithoutReceivedMessagesInput = {
   watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
@@ -900,6 +944,77 @@ export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutStakesInput = {
+  email: string
+  password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionCreateNestedManyWithoutSellerInput
+  bids?: Prisma.BidCreateNestedManyWithoutUserInput
+  wonAuctions?: Prisma.AuctionCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStakesInput = {
+  id?: number
+  email: string
+  password: string
+  favoriteCategories?: Prisma.UserCreatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutSellerInput
+  bids?: Prisma.BidUncheckedCreateNestedManyWithoutUserInput
+  wonAuctions?: Prisma.AuctionUncheckedCreateNestedManyWithoutWinnerInput
+  watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutStakesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStakesInput, Prisma.UserUncheckedCreateWithoutStakesInput>
+}
+
+export type UserUpsertWithoutStakesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStakesInput, Prisma.UserUncheckedUpdateWithoutStakesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStakesInput, Prisma.UserUncheckedCreateWithoutStakesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStakesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStakesInput, Prisma.UserUncheckedUpdateWithoutStakesInput>
+}
+
+export type UserUpdateWithoutStakesInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUpdateManyWithoutSellerNestedInput
+  bids?: Prisma.BidUpdateManyWithoutUserNestedInput
+  wonAuctions?: Prisma.AuctionUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStakesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  favoriteCategories?: Prisma.UserUpdatefavoriteCategoriesInput | string[]
+  auctions?: Prisma.AuctionUncheckedUpdateManyWithoutSellerNestedInput
+  bids?: Prisma.BidUncheckedUpdateManyWithoutUserNestedInput
+  wonAuctions?: Prisma.AuctionUncheckedUpdateManyWithoutWinnerNestedInput
+  watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWalletInput = {
@@ -912,6 +1027,7 @@ export type UserCreateWithoutWalletInput = {
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageCreateNestedManyWithoutReceiverInput
+  stakes?: Prisma.AuctionStakeCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWalletInput = {
@@ -925,6 +1041,7 @@ export type UserUncheckedCreateWithoutWalletInput = {
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutUserInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutReceiverInput
+  stakes?: Prisma.AuctionStakeUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWalletInput = {
@@ -953,6 +1070,7 @@ export type UserUpdateWithoutWalletInput = {
   watchlist?: Prisma.WatchlistUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUpdateManyWithoutReceiverNestedInput
+  stakes?: Prisma.AuctionStakeUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWalletInput = {
@@ -966,6 +1084,7 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutReceiverNestedInput
+  stakes?: Prisma.AuctionStakeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -980,6 +1099,7 @@ export type UserCountOutputType = {
   watchlist: number
   sentMessages: number
   receivedMessages: number
+  stakes: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -989,6 +1109,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   watchlist?: boolean | UserCountOutputTypeCountWatchlistArgs
   sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
   receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
+  stakes?: boolean | UserCountOutputTypeCountStakesArgs
 }
 
 /**
@@ -1043,6 +1164,13 @@ export type UserCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends runtime
   where?: Prisma.MessageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStakesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuctionStakeWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1056,6 +1184,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
+  stakes?: boolean | Prisma.User$stakesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1089,6 +1218,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
+  stakes?: boolean | Prisma.User$stakesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1104,6 +1234,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sentMessages: Prisma.$MessagePayload<ExtArgs>[]
     receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
     wallet: Prisma.$WalletPayload<ExtArgs> | null
+    stakes: Prisma.$AuctionStakePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1511,6 +1642,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedMessages<T extends Prisma.User$receivedMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wallet<T extends Prisma.User$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$walletArgs<ExtArgs>>): Prisma.Prisma__WalletClient<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  stakes<T extends Prisma.User$stakesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$stakesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuctionStakePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2097,6 +2229,30 @@ export type User$walletArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   include?: Prisma.WalletInclude<ExtArgs> | null
   where?: Prisma.WalletWhereInput
+}
+
+/**
+ * User.stakes
+ */
+export type User$stakesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuctionStake
+   */
+  select?: Prisma.AuctionStakeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuctionStake
+   */
+  omit?: Prisma.AuctionStakeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuctionStakeInclude<ExtArgs> | null
+  where?: Prisma.AuctionStakeWhereInput
+  orderBy?: Prisma.AuctionStakeOrderByWithRelationInput | Prisma.AuctionStakeOrderByWithRelationInput[]
+  cursor?: Prisma.AuctionStakeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuctionStakeScalarFieldEnum | Prisma.AuctionStakeScalarFieldEnum[]
 }
 
 /**

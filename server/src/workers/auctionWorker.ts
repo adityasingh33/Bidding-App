@@ -24,6 +24,98 @@ export const auctionWorker = new Worker("auctionQueue", async (job) => {
 
       const winnerId = updatedAuction.bids.length > 0 ? updatedAuction.bids[0].userId : null
 
+      // --- Stake Settlement Logic ---
+      // Get all stakes for this auction
+      const allStakes = await prisma.auctionStake.findMany({
+        where: { auctionId, status: "LOCKED" }
+      });
+
+      if (allStakes.length > 0) {
+        // Get top 10 unique bidders
+        const topBids = await prisma.bid.findMany({
+          where: { auctionId },
+          orderBy: { amount: 'desc' },
+          distinct: ['userId'],
+          take: 10
+        });
+
+        const top10UserIds = topBids.map(b => b.userId);
+
+        for (const stake of allStakes) {
+          if (winnerId && stake.userId === winnerId) {
+            // Winner's stake is forfeited (consumed as payment)
+            await prisma.$transaction([
+              prisma.auctionStake.update({
+                where: { id: stake.id },
+                data: { status: "FORFEITED" }
+              }),
+              prisma.wallet.update({
+                where: { userId: stake.userId },
+                data: { lockedBalance: { decrement: stake.amount } }
+              }),
+              prisma.walletTransaction.create({
+                data: {
+                  wallet: { connect: { userId: stake.userId } },
+                  type: "DEBIT",
+                  amount: stake.amount,
+                  description: `Forfeited stake for winning auction #${auctionId}`
+                }
+              })
+            ]);
+          } else if (top10UserIds.includes(stake.userId)) {
+            // Ranks 2-10: Keep holding their stakes for final declaration
+            continue;
+          } else {
+            // Ranks 11+ and non-bidders: Refund immediately
+            await prisma.$transaction([
+              prisma.auctionStake.update({
+                where: { id: stake.id },
+                data: { status: "RELEASED" }
+              }),
+              prisma.wallet.update({
+                where: { userId: stake.userId },
+                data: { 
+                  lockedBalance: { decrement: stake.amount },
+                  balance: { increment: stake.amount }
+                }
+              }),
+              prisma.walletTransaction.create({
+                data: {
+                  wallet: { connect: { userId: stake.userId } },
+                  type: "UNLOCK",
+                  amount: stake.amount,
+                  description: `Refunded stake for auction #${auctionId}`
+                }
+              })
+            ]);
+          }
+        }
+      }
+
+      // --- Leaderboard Generation ---
+      const top20Bids = await prisma.bid.findMany({
+        where: { auctionId },
+        orderBy: { amount: 'desc' },
+        distinct: ['userId'],
+        take: 20
+      });
+
+      if (top20Bids.length > 0) {
+        const topBiddersJson = top20Bids.map((bid, index) => ({
+          rank: index + 1,
+          userId: bid.userId,
+          amount: bid.amount
+        }));
+
+        await prisma.auctionLeaderboard.create({
+           data: {
+             auctionId,
+             topBidders: topBiddersJson,
+             expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
+           }
+        });
+      }
+
       try {
         const io = getIO()
         io.to(`auction_${auctionId}`).emit("auctionEnded", {
@@ -38,7 +130,7 @@ export const auctionWorker = new Worker("auctionQueue", async (job) => {
       
       await redis.del("auctions_list").catch(() => {})
       await clearBidPrice(auctionId)
-      console.log(`[Worker] Auction ${auctionId} successfully ended.`)
+      console.log(`[Worker] Auction ${auctionId} successfully ended and stakes settled.`)
       } catch(err) {
       console.error(`[Worker] Failed to end auction ${auctionId}`, err)
       throw err // Let BullMQ retry

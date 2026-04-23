@@ -150,6 +150,8 @@ export const getAuctionById = async (req: Request, res: Response): Promise<void>
   }
 }
 
+import { auctionQueue } from "../jobs/queue.ts"
+
 export const endAuctionEarly = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(String(req.params.id))
@@ -174,34 +176,52 @@ export const endAuctionEarly = async (req: Request, res: Response): Promise<void
       return
     }
 
-    // Update auction status and endTime precisely
-    const updatedAuction = await prisma.auction.update({
+    // Set endTime to now to trigger natural expiration safely via queue
+    await prisma.auction.update({
       where: { id },
-      data: { 
-        status: "ENDED",
-        endTime: new Date()
-      },
-      include: {
-        bids: {
-          orderBy: { amount: "desc" },
-          take: 1
-        }
-      }
+      data: { endTime: new Date() }
     })
 
-    const winnerId = updatedAuction.bids.length > 0 ? updatedAuction.bids[0].userId : null
+    // Queue worker logic (which handles stakes and leaderboards correctly)
+    await auctionQueue.add("endAuction", { auctionId: id })
 
-    try {
-      getIO().to(`auction_${id}`).emit("auctionEnded", {
-        auctionId: id,
-        winnerId
-      })
-    } 
-    catch {}
-
-    res.status(200).json(updatedAuction)
+    res.status(200).json({ message: "Auction termination queued successfully" })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: "Failed to end auction" })
+  }
+}
+
+export const getAuctionLeaderboard = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const id = parseInt(req.params.id as string)
+
+    const auction = await prisma.auction.findUnique({
+      where: { id },
+    })
+
+    if (!auction) {
+      res.status(404).json({ error: "Auction not found" })
+      return
+    }
+
+    if (auction.status !== "ENDED") {
+      res.status(400).json({ error: "Leaderboard is only available after the auction ends" })
+      return
+    }
+
+    const leaderboard = await prisma.auctionLeaderboard.findUnique({
+      where: { auctionId: id }
+    })
+
+    if (!leaderboard) {
+      res.status(404).json({ error: "Leaderboard has expired or was never generated for this auction" })
+      return
+    }
+
+    res.status(200).json(leaderboard.topBidders)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Failed to fetch leaderboard" })
   }
 }

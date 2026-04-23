@@ -61,5 +61,19 @@ export const startAuctionJob = () => {
     }
   })
 
-  console.log("Auction cron job started (every 10s)")
+  // Run once daily at midnight to clean up expired leaderboards (30-day lifecycle)
+  cron.schedule("0 0 * * *", async () => {
+    try {
+      const deleted = await prisma.auctionLeaderboard.deleteMany({
+        where: { expiresAt: { lte: new Date() } }
+      })
+      if (deleted.count > 0) {
+        console.log(`[Cron] Cleaned up ${deleted.count} expired auction leaderboards.`)
+      }
+    } catch (err) {
+      console.error("[Cron] Failed to clean up leaderboards:", err)
+    }
+  })
+
+  console.log("Auction cron jobs started")
 }

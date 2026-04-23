@@ -43,6 +43,16 @@ export type Watchlist = Prisma.WatchlistModel
  */
 export type Message = Prisma.MessageModel
 /**
+ * Model AuctionStake
+ * 
+ */
+export type AuctionStake = Prisma.AuctionStakeModel
+/**
+ * Model AuctionLeaderboard
+ * 
+ */
+export type AuctionLeaderboard = Prisma.AuctionLeaderboardModel
+/**
  * Model Wallet
  * 
  */
