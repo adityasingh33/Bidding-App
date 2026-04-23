@@ -70,6 +70,13 @@ export const placeBid = async (req: Request, res: Response): Promise<void> => {
         })
         return
 
+      case "no_stake":
+        res.status(403).json({
+          status: "error",
+          message: result.message,
+        })
+        return
+
       case "error":
       default:
         res.status(500).json({

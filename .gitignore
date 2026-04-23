@@ -1,0 +1,15 @@
+# dependencies
+node_modules/
+
+# environments
+.env
+.env.local
+
+# Build folders
+dist/
+build/
+
+# Backups and zips
+*.zip
+server.zip
+client.zip
