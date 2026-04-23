@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.ts"
 import auctionRoutes from "./routes/auctionRoutes.ts"
 import bidRoutes from "./routes/bidRoutes.ts"
 import userRoutes from "./routes/userRoutes.ts"
+import walletRoutes from "./routes/walletRoutes.ts"
 import { authMiddleware } from "./middleware/authMiddlware.ts"
 import { initSocket } from "./socket.ts"
 import { startAuctionJob } from "./jobs/auctionJob.ts"
@@ -24,6 +25,7 @@ app.use("/auth", authRoutes)
 app.use("/auction", auctionRoutes)
 app.use("/bid", bidRoutes)
 app.use("/user", userRoutes)
+app.use("/wallet", walletRoutes)
 
 // Temporary protected route to test authorization
 app.get("/protected", authMiddleware, (req, res) => {
