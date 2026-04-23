@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { ShieldAlert, Loader2 } from "lucide-react"
 import API from "../services/api"
 
 interface BidBoxProps {
@@ -6,13 +7,18 @@ interface BidBoxProps {
   currentPrice: number
   status: string
   bids: Array<{ id: number; amount: number; userId: number }>
+  hasStaked: boolean
+  setHasStaked: (staked: boolean) => void
+  startingPrice: number
+  sellerId: number
 }
 
-const BidBox = ({ auctionId, currentPrice, status, bids }: BidBoxProps) => {
+const BidBox = ({ auctionId, currentPrice, status, bids, hasStaked, setHasStaked, startingPrice, sellerId }: BidBoxProps) => {
   const [amount, setAmount] = useState<number | "">("")
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [isFlashing, setIsFlashing] = useState(false)
+  const [isStaking, setIsStaking] = useState(false)
 
   const currentUser = JSON.parse(localStorage.getItem("user") || "null")
   
@@ -50,8 +56,62 @@ const BidBox = ({ auctionId, currentPrice, status, bids }: BidBoxProps) => {
     }
   }
 
-  if (status !== "ACTIVE") {
+  const handleStake = async () => {
+    setIsStaking(true)
+    setError("")
+    try {
+      await API.post(`/auction/${auctionId}/stake`)
+      setHasStaked(true)
+    } catch (err: any) {
+      setError(err.response?.data?.error || "Failed to enter auction. Check wallet balance.")
+    } finally {
+      setIsStaking(false)
+    }
+  }
+
+  if (status !== "ACTIVE" && status !== "JOINING") {
     return <div className="p-6 bg-rose-500/10 text-rose-400 text-center rounded-2xl border border-rose-500/20 font-semibold text-lg backdrop-blur-xl shadow-sm transition-all duration-300">This auction has ended.</div>
+  }
+
+  const stakeAmount = startingPrice * 0.05
+  const isSeller = currentUser && currentUser.id === sellerId
+
+  if (!hasStaked && !isSeller && status === "JOINING") {
+    return (
+      <div className="bg-slate-900/60 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-amber-500/20 shadow-lg text-center">
+        <ShieldAlert className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+        <h3 className="text-xl font-bold text-white mb-2">Auction Entry Restriected</h3>
+        <p className="text-slate-400 mb-6 text-sm">
+          To bid in this auction, you must lock a 5% stake of the starting price from your wallet. 
+          Your stake is refunded if you lose.
+        </p>
+        {error && <p className="mb-4 text-rose-400 text-sm font-bold bg-rose-500/10 p-2 rounded-lg">{error}</p>}
+        <button
+          onClick={handleStake}
+          disabled={isStaking}
+          className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition"
+        >
+          {isStaking ? <Loader2 className="animate-spin w-5 h-5" /> : `Lock Stake (₹${stakeAmount})`}
+        </button>
+      </div>
+    )
+  }
+
+  if (!hasStaked && !isSeller && status === "ACTIVE") {
+    return (
+      <div className="bg-slate-900/60 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-rose-500/20 shadow-lg text-center">
+        <h3 className="text-xl font-bold text-white mb-2">You haven't staked!</h3>
+        <p className="text-slate-400 mb-6 text-sm">Join the auction by locking a 5% stake.</p>
+        {error && <p className="mb-4 text-rose-400 text-sm font-bold bg-rose-500/10 p-2 rounded-lg">{error}</p>}
+        <button
+          onClick={handleStake}
+          disabled={isStaking}
+          className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition"
+        >
+          {isStaking ? <Loader2 className="animate-spin w-5 h-5" /> : `Stake ₹${stakeAmount} and Join`}
+        </button>
+      </div>
+    )
   }
 
   return (

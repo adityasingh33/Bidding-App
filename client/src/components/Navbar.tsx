@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
-import { CheckCircle, AlertTriangle, Bell, Inbox, LogOut, Package, History, Sun, Moon } from "lucide-react"
+import { CheckCircle, AlertTriangle, Bell, Inbox, LogOut, Package, History, Sun, Moon, Wallet } from "lucide-react"
 import { useUserActivity } from "../context/UserActivityContext"
 import { useTheme } from "../context/ThemeContext"
 
@@ -62,9 +62,11 @@ const Navbar = () => {
   }
 
   const navLinks = [
+    { name: "Home", path: "/" },
     { name: "Dashboard", path: "/dashboard" },
     { name: "Auctions", path: "/auctions" },
     { name: "Watchlist", path: "/watchlist" },
+    { name: "Wallet", path: "/wallet" },
     { name: "Create", path: "/create" },
   ]
 
@@ -211,10 +213,13 @@ const Navbar = () => {
                         <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{user?.email}</p>
                         <p className="text-xs text-emerald-400 mt-1 font-medium flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online</p>
                       </div>
-                      <Link to="/categories" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-slate-800/80 transition-colors mx-2 rounded-xl mt-1">
+                      <Link to="/categories" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors mx-2 rounded-xl mt-1">
                         <span className="w-4 h-4 flex items-center justify-center text-amber-400">⭐</span> Favorite Categories
                       </Link>
-                      <Link to="/my-auctions" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-slate-800/80 transition-colors mx-2 rounded-xl">
+                      <Link to="/wallet" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors mx-2 rounded-xl">
+                        <Wallet className="w-4 h-4 text-emerald-400" /> My Wallet
+                      </Link>
+                      <Link to="/my-auctions" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors mx-2 rounded-xl">
                         <Package className="w-4 h-4 text-indigo-400" /> Inventory
                       </Link>
                       <Link to="/my-bids" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-slate-800/80 transition-colors mx-2 rounded-xl">

@@ -4,7 +4,8 @@ import API from "../services/api"
 import socket from "../socket"
 import BidBox from "../components/BidBox"
 import CountdownTimer from "../components/CountdownTimer"
-import { Heart, MessageCircle } from "lucide-react"
+import RankBoardModal from "../components/RankBoardModal"
+import { Heart, MessageCircle, Trophy } from "lucide-react"
 import { useChat } from "../context/ChatContext"
 
 interface AuctionData {
@@ -29,6 +30,8 @@ const AuctionDetail = () => {
   
   const [auction, setAuction] = useState<AuctionData | null>(null)
   const [loading, setLoading] = useState(true)
+  const [hasStaked, setHasStaked] = useState(false)
+  const [isRankBoardOpen, setIsRankBoardOpen] = useState(false)
 
   // Fetch initial data
   useEffect(() => {
@@ -36,6 +39,13 @@ const AuctionDetail = () => {
       try {
         const res = await API.get(`/auction/${auctionId}`)
         setAuction(res.data)
+
+        if (localStorage.getItem("token")) {
+          try {
+            const stakeRes = await API.get(`/auction/${auctionId}/stake`)
+            setHasStaked(stakeRes.data.hasStaked)
+          } catch(e) {}
+        }
       } catch (err) {
         console.error("Failed to fetch auction", err)
       } finally {
@@ -134,6 +144,14 @@ const AuctionDetail = () => {
                 End Auction Early
               </button>
             )}
+            {auction.status === "ENDED" && (
+              <button 
+                onClick={() => setIsRankBoardOpen(true)}
+                className="px-4 py-1.5 bg-amber-500/10 hover:bg-amber-500 hover:text-white text-amber-500 border border-amber-500/20 text-sm font-medium rounded-xl flex items-center gap-2 transition-colors shadow-sm"
+              >
+                <Trophy className="w-4 h-4" /> View Rank Board
+              </button>
+            )}
           </div>
         </div>
         <div className={`px-5 py-2 rounded-full font-bold text-sm tracking-wide shadow-sm border ${auction.status === 'ACTIVE' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20'}`}>
@@ -174,6 +192,10 @@ const AuctionDetail = () => {
             currentPrice={auction.currentPrice || auction.startingPrice}
             status={auction.status}
             bids={auction.bids}
+            hasStaked={hasStaked}
+            setHasStaked={setHasStaked}
+            startingPrice={auction.startingPrice}
+            sellerId={auction.sellerId}
           />
         </div>
 
@@ -193,6 +215,12 @@ const AuctionDetail = () => {
           </div>
         </div>
       </div>
+
+      <RankBoardModal 
+        auctionId={auctionId} 
+        isOpen={isRankBoardOpen} 
+        onClose={() => setIsRankBoardOpen(false)} 
+      />
     </div>
   )
 }

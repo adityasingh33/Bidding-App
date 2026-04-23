@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import { useEffect } from "react"
 import { Toaster } from "react-hot-toast"
 import socket from "./socket"
@@ -13,6 +13,8 @@ import MyBids from "./pages/MyBids"
 import Watchlist from "./pages/Watchlist"
 import Dashboard from "./pages/Dashboard"
 import Categories from "./pages/Categories"
+import Home from "./pages/Home"
+import Wallet from "./pages/Wallet"
 import { UserActivityProvider, useUserActivity } from "./context/UserActivityContext"
 import { useTheme } from "./context/ThemeContext"
 import { ChatProvider } from "./context/ChatContext"
@@ -82,7 +84,7 @@ function AppContent() {
         <Navbar />
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Routes>
-            <Route path="/" element={<Navigate to="/auctions" replace />} />
+            <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -93,6 +95,7 @@ function AppContent() {
             <Route path="/my-bids" element={<MyBids />} />
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/categories" element={<Categories />} />
+            <Route path="/wallet" element={<Wallet />} />
           </Routes>
         </main>
       </div>
