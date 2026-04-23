@@ -46,6 +46,7 @@ export type BidResult =
   | { status: "auction_not_found"; message: string }
   | { status: "auction_ended"; message: string }
   | { status: "self_bid"; message: string }
+  | { status: "no_stake"; message: string }
   | { status: "error"; message: string }
 
 // ─────────────────────────────────────────────────────────────
@@ -81,6 +82,14 @@ export async function processBid(
 
   if (auction.sellerId === userId) {
     return { status: "self_bid", message: "Cannot bid on your own auction" }
+  }
+
+  // Check if user has staked for this auction
+  const stake = await prisma.auctionStake.findUnique({
+    where: { auctionId_userId: { auctionId, userId } }
+  })
+  if (!stake || stake.status !== "LOCKED") {
+    return { status: "no_stake", message: "You must stake 5% to enter this auction" }
   }
 
   // Check if they are already the highest bidder

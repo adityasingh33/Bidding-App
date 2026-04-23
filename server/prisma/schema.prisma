@@ -18,6 +18,7 @@ model User {
   sentMessages       Message[]   @relation("SentMessages")
   receivedMessages   Message[]   @relation("ReceivedMessages")
   wallet             Wallet?
+  stakes             AuctionStake[]
 }
 
 model Auction {
@@ -40,6 +41,8 @@ model Auction {
   winner        User?       @relation("WonAuctions", fields: [winnerId], references: [id])
   bids          Bid[]
   watchlist     Watchlist[]
+  stakes        AuctionStake[]
+  leaderboard   AuctionLeaderboard?
 }
 
 model Bid {
@@ -74,6 +77,28 @@ model Message {
 
   sender     User     @relation("SentMessages", fields: [senderId], references: [id])
   receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}
+
+model AuctionStake {
+  id         Int      @id @default(autoincrement())
+  auctionId  Int
+  userId     Int
+  amount     Float       // 5% of startingPrice at time of staking
+  status     String      @default("LOCKED")  // LOCKED | RELEASED | FORFEITED
+  createdAt  DateTime    @default(now())
+
+  auction    Auction  @relation(fields: [auctionId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@unique([auctionId, userId])  // One stake per user per auction
+}
+
+model AuctionLeaderboard {
+  auctionId   Int      @id
+  auction     Auction  @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+  
+  topBidders  Json     // Array of { rank: number, userId: number, amount: number }
+  expiresAt   DateTime // Set to +30 days after auction end
 }
 
 // ─── Wallet System ────────────────────────────────────────────
