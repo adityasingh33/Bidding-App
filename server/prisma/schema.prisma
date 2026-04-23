@@ -17,6 +17,7 @@ model User {
   watchlist          Watchlist[]
   sentMessages       Message[]   @relation("SentMessages")
   receivedMessages   Message[]   @relation("ReceivedMessages")
+  wallet             Wallet?
 }
 
 model Auction {
@@ -73,4 +74,34 @@ model Message {
 
   sender     User     @relation("SentMessages", fields: [senderId], references: [id])
   receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}
+
+// ─── Wallet System ────────────────────────────────────────────
+// Each user has one wallet that tracks balance and locked funds.
+// WalletTransaction provides a full audit trail of every credit,
+// debit, lock, and unlock operation with Razorpay references.
+
+model Wallet {
+  id            Int                @id @default(autoincrement())
+  userId        Int                @unique
+  balance       Float              @default(0)
+  lockedBalance Float              @default(0)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  user          User               @relation(fields: [userId], references: [id])
+  transactions  WalletTransaction[]
+}
+
+model WalletTransaction {
+  id                 Int      @id @default(autoincrement())
+  walletId           Int
+  type               String   // CREDIT | DEBIT | LOCK | UNLOCK
+  amount             Float
+  razorpayOrderId    String?
+  razorpayPaymentId  String?  @unique  // Unique to ensure idempotency
+  description        String?
+  createdAt          DateTime @default(now())
+
+  wallet             Wallet   @relation(fields: [walletId], references: [id])
 }
