@@ -79,9 +79,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center pr-6">
             <Link to="/" className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white hover:opacity-80 transition-opacity flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                <span className="text-slate-900 dark:text-white text-xl leading-none font-black block mt-[2px]">B</span>
-              </div>
+              <img src="/favicon.png" alt="BidSphere Logo" className="w-9 h-9 rounded-xl object-cover shadow-lg shadow-indigo-500/30" />
               <span className="hidden sm:block">
                 <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Bid</span>Sphere
               </span>
