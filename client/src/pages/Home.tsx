@@ -1,40 +1,108 @@
+// ─── Home Page — eBay-inspired clean layout ────────────────────
+// Sections:
+// 1. Horizontal Category Strip with emoji icons
+// 2. Auto-sliding Hero Banner
+// 3. Live Auctions Grid (eBay "Daily Deals" style)
+// 4. Mid-page promotional CTA
+// 5. Featured Categories (card grid)
+// 6. "Why BidSphere" trust strip
+
 import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  Gavel,
+  ShieldCheck,
+  Zap,
+  Trophy,
+  Clock,
+  TrendingUp,
+  Search,
+} from "lucide-react"
 import API from "../services/api"
 import AuctionCard from "../components/AuctionCard"
 import { AUCTION_CATEGORIES } from "../constants/categories"
 
+// ─── Category icon mapping ─────────────────────────────────────
+const CATEGORY_ICONS: Record<string, string> = {
+  "Antiques": "🏺",
+  "Art": "🎨",
+  "Baby": "🍼",
+  "Books": "📚",
+  "Business & Industrial": "🏭",
+  "Cameras & Photo": "📷",
+  "Cell Phones & Accessories": "📱",
+  "Clothing, Shoes & Accessories": "👗",
+  "Coins & Paper Money": "🪙",
+  "Collectibles": "🎴",
+  "Computers, Tablets & Networking": "💻",
+  "Consumer Electronics": "🎧",
+  "Crafts": "✂️",
+  "Dolls & Bears": "🧸",
+  "Entertainment Memorabilia": "🎬",
+  "Gift Cards & Coupons": "🎁",
+  "Health & Beauty": "💄",
+  "Home & Garden": "🏡",
+  "Jewelry & Watches": "💎",
+  "Music": "🎵",
+  "Musical Instruments & Gear": "🎸",
+  "Pet Supplies": "🐾",
+  "Pottery & Glass": "🏺",
+  "Real Estate": "🏠",
+  "Specialty Services": "🔧",
+  "Sporting Goods": "⚽",
+  "Sports Mem, Cards & Fan Shop": "🏆",
+  "Stamps": "📮",
+  "Tickets & Experiences": "🎟️",
+  "Toys & Hobbies": "🧩",
+  "Travel": "✈️",
+  "Video Games & Consoles": "🎮",
+  "Vehicles (Cars, Bikes, Boats)": "🚗",
+  "Other": "📦",
+}
+
+// Featured subset for the category strip
+const FEATURED_CATEGORIES = [
+  "Consumer Electronics",
+  "Clothing, Shoes & Accessories",
+  "Vehicles (Cars, Bikes, Boats)",
+  "Jewelry & Watches",
+  "Collectibles",
+  "Sporting Goods",
+  "Home & Garden",
+  "Art",
+  "Toys & Hobbies",
+  "Video Games & Consoles",
+  "Cell Phones & Accessories",
+  "Cameras & Photo",
+  "Books",
+  "Music",
+  "Antiques",
+]
+
 export default function Home() {
   const [activeAuctions, setActiveAuctions] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
 
-  // References for manual scrolling carousels
   const liveAuctionsRef = useRef<HTMLDivElement>(null)
-  const categoriesRef = useRef<HTMLDivElement>(null)
+  const categoriesStripRef = useRef<HTMLDivElement>(null)
 
   const heroBanners = [
     "/assets/hero_banner_1_1776433126809.png",
-    "/assets/hero_banner_2_1776433143240.png"
+    "/assets/hero_banner_2_1776433143240.png",
   ]
-
-  const staticBanner = "/assets/static_promo_banner_1776433159333.png"
-
-  const categoryImages: Record<string, string> = {
-    "Art": "/assets/cat_art_1776433175755.png",
-    "Vehicles (Cars, Bikes, Boats)": "/assets/cat_vehicles_1776433193875.png",
-    // We will use fallbacks for the rest
-  }
 
   // Fetch Live Auctions
   useEffect(() => {
     const fetchLiveAuctions = async () => {
       try {
-        const res = await API.get('/auction?limit=20')
-        // Filter out those that are currently ACTIVE status
-        const active = res.data.filter((a: any) => a.status === 'ACTIVE' || a.status === 'JOINING')
+        const res = await API.get("/auction?limit=20")
+        const active = res.data.filter(
+          (a: any) => a.status === "ACTIVE" || a.status === "JOINING"
+        )
         setActiveAuctions(active)
       } catch (err) {
         console.error("Failed to fetch live auctions", err)
@@ -45,7 +113,7 @@ export default function Home() {
     fetchLiveAuctions()
   }, [])
 
-  // Auto-sliding Hero Banner Hook
+  // Auto-sliding Hero Banner
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentHeroIndex((prev) => (prev + 1) % heroBanners.length)
@@ -53,178 +121,344 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [heroBanners.length])
 
-  // Scroll handler function for Carousels
-  const scrollCarousel = (ref: React.RefObject<HTMLDivElement|null>, direction: 'left' | 'right') => {
+  // Carousel scroll handler
+  const scrollCarousel = (
+    ref: React.RefObject<HTMLDivElement | null>,
+    direction: "left" | "right"
+  ) => {
     if (ref.current) {
-      const scrollAmount = direction === 'left' ? -350 : 350
+      const scrollAmount = direction === "left" ? -350 : 350
       ref.current.scrollBy({ left: scrollAmount, behavior: "smooth" })
     }
   }
 
   return (
-    <div className="w-full space-y-16 pb-16">
-      
-      {/* 1. Auto Sliding Hero Banner */}
-      <section className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl group border border-slate-200 dark:border-white/10 mt-6 lg:mt-0">
-        {heroBanners.map((banner, idx) => (
-          <div 
-            key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentHeroIndex ? "opacity-100" : "opacity-0"}`}
+    <div className="w-full space-y-0 pb-0 -mt-8">
+      {/* ─────────────────────────────────────────────────────────
+          1. CATEGORY STRIP — eBay-style horizontal icon row
+      ───────────────────────────────────────────────────────── */}
+      <section className="py-6 border-b border-slate-200 dark:border-white/10">
+        <div className="relative group/strip">
+          {/* Left Arrow */}
+          <button
+            onClick={() => scrollCarousel(categoriesStripRef, "left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full shadow-lg opacity-0 group-hover/strip:opacity-100 transition-opacity hover:bg-slate-50 dark:hover:bg-slate-700"
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent z-10"></div>
-            <img src={banner} alt="Hero Banner" className="w-full h-full object-cover" />
-            
-            <div className="absolute bottom-10 left-8 md:bottom-16 md:left-16 z-20 max-w-2xl">
-              <span className="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-300 font-bold tracking-wider text-xs rounded-full mb-4 border border-indigo-500/30 backdrop-blur-md pb-1 uppercase">Exclusivity Awaits</span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-4 drop-shadow-lg">
-                Discover Premium <br/> Digital Auctions
+            <ChevronLeft className="w-5 h-5 text-slate-600 dark:text-slate-300" />
+          </button>
+
+          <div
+            ref={categoriesStripRef}
+            className="flex overflow-x-auto gap-2 sm:gap-4 px-6"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {FEATURED_CATEGORIES.map((cat) => (
+              <Link
+                key={cat}
+                to={`/auctions?category=${encodeURIComponent(cat)}`}
+                className="flex flex-col items-center gap-2 min-w-[88px] py-2 px-1 group/cat"
+              >
+                <div className="w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-transparent group-hover/cat:border-indigo-500 flex items-center justify-center text-2xl sm:text-3xl transition-all duration-300 group-hover/cat:shadow-lg group-hover/cat:shadow-indigo-500/20 group-hover/cat:scale-105">
+                  {CATEGORY_ICONS[cat] || "📦"}
+                </div>
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 text-center leading-tight line-clamp-2 group-hover/cat:text-indigo-600 dark:group-hover/cat:text-indigo-400 transition-colors max-w-[84px]">
+                  {cat.split(",")[0].split("(")[0].trim()}
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          {/* Right Arrow */}
+          <button
+            onClick={() => scrollCarousel(categoriesStripRef, "right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full shadow-lg opacity-0 group-hover/strip:opacity-100 transition-opacity hover:bg-slate-50 dark:hover:bg-slate-700"
+          >
+            <ChevronRight className="w-5 h-5 text-slate-600 dark:text-slate-300" />
+          </button>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────
+          2. HERO BANNER — Auto-sliding with overlay
+      ───────────────────────────────────────────────────────── */}
+      <section className="relative w-full h-[280px] sm:h-[340px] md:h-[420px] lg:h-[480px] overflow-hidden group mt-6 rounded-2xl">
+        {heroBanners.map((banner, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              idx === currentHeroIndex ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/40 to-transparent z-10" />
+            <img
+              src={banner}
+              alt="Hero Banner"
+              className="w-full h-full object-cover"
+            />
+
+            <div className="absolute bottom-8 left-6 sm:bottom-12 sm:left-10 md:bottom-16 md:left-14 z-20 max-w-xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-4">
+                <Zap className="w-3.5 h-3.5 text-amber-400" />
+                <span className="text-xs font-bold text-white/90 tracking-wide uppercase">
+                  Live Auctions
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-[1.15] tracking-tight mb-3">
+                Score Unbeatable
+                <br />
+                Deals Today
               </h1>
-              <p className="text-slate-300 text-lg mb-8 max-w-lg">Secure the most exclusive assets in real-time. Experience the leading platform for verified high-end auctions.</p>
-              <Link to="/auctions" className="px-8 py-3.5 bg-white text-slate-900 hover:bg-slate-200 font-bold rounded-xl transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]">
-                Start Bidding
+              <p className="text-white/70 text-sm sm:text-base mb-6 max-w-md hidden sm:block">
+                Bid on thousands of items across every category. New auctions
+                added daily.
+              </p>
+              <Link
+                to="/auctions"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 hover:bg-slate-100 font-bold text-sm rounded-full transition-all shadow-xl hover:shadow-2xl active:scale-95"
+              >
+                Explore Auctions
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         ))}
 
         {/* Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
           {heroBanners.map((_, idx) => (
-            <button 
+            <button
               key={idx}
               onClick={() => setCurrentHeroIndex(idx)}
-              className={`w-2.5 h-2.5 rounded-full transition-all ${idx === currentHeroIndex ? "bg-white w-8" : "bg-white/40 hover:bg-white/80"}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                idx === currentHeroIndex
+                  ? "bg-white w-8"
+                  : "bg-white/40 w-2 hover:bg-white/70"
+              }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
         </div>
+
+        {/* Arrow Navigation */}
+        <button
+          onClick={() =>
+            setCurrentHeroIndex(
+              (prev) => (prev - 1 + heroBanners.length) % heroBanners.length
+            )
+          }
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/20"
+        >
+          <ChevronLeft className="w-5 h-5 text-white" />
+        </button>
+        <button
+          onClick={() =>
+            setCurrentHeroIndex((prev) => (prev + 1) % heroBanners.length)
+          }
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/20"
+        >
+          <ChevronRight className="w-5 h-5 text-white" />
+        </button>
       </section>
 
-      {/* 2. Live Auctions Carousel (Manual Slider) */}
-      <section className="relative">
-        <div className="flex justify-between items-end mb-6 px-2">
-          <div>
-            <h2 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="bg-rose-500 w-3 h-3 rounded-full animate-pulse shadow-[0_0_10px_rgba(244,63,94,0.8)]"></span>
-              Live Right Now
+      {/* ─────────────────────────────────────────────────────────
+          3. LIVE AUCTIONS — Grid layout with "See All"
+      ───────────────────────────────────────────────────────── */}
+      <section className="py-10">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              Live Auctions
             </h2>
-            <p className="text-slate-500 text-sm mt-1">Auctions accepting bids actively</p>
+            <span className="flex items-center gap-1.5 px-2.5 py-1 bg-rose-500/10 text-rose-500 rounded-full text-xs font-bold">
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+              LIVE
+            </span>
           </div>
-          <div className="flex gap-2">
-            <button 
-              onClick={() => scrollCarousel(liveAuctionsRef, 'left')}
-              className="p-2.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={() => scrollCarousel(liveAuctionsRef, 'right')}
-              className="p-2.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+          <Link
+            to="/auctions"
+            className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 transition-colors"
+          >
+            See all
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        <div 
-          ref={liveAuctionsRef}
-          className="flex overflow-x-auto gap-6 pb-6 px-2 snap-x snap-mandatory hide-scrollbar"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {loading ? (
-            Array.from({length: 4}).map((_, i) => (
-              <div key={i} className="w-[300px] md:w-[320px] flex-shrink-0 snap-start h-80 bg-slate-200 dark:bg-slate-800 animate-pulse rounded-2xl border border-slate-300 dark:border-white/5" />
-            ))
-          ) : activeAuctions.length > 0 ? (
-            activeAuctions.map(auction => (
-              <div key={auction.id} className="w-[300px] md:w-[320px] flex-shrink-0 snap-start transition-transform hover:-translate-y-1 duration-300">
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="h-[420px] bg-slate-100 dark:bg-slate-800/50 animate-pulse rounded-xl border border-slate-200 dark:border-white/5"
+              />
+            ))}
+          </div>
+        ) : activeAuctions.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {activeAuctions.slice(0, 8).map((auction) => (
+              <div
+                key={auction.id}
+                className="transition-transform hover:-translate-y-1 duration-300"
+              >
                 <AuctionCard auction={auction} />
               </div>
-            ))
-          ) : (
-            <div className="w-full py-16 flex flex-col items-center justify-center text-slate-500 bg-slate-100 dark:bg-slate-800/30 rounded-2xl border border-slate-200 dark:border-white/5 border-dashed">
-              <span className="text-4xl mb-3">📭</span>
-              <p className="font-semibold">No live auctions right now</p>
-              <Link to="/auctions" className="text-indigo-500 mt-2 hover:underline text-sm font-medium">Browse All Inventory</Link>
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="w-full py-20 flex flex-col items-center justify-center text-center bg-slate-50 dark:bg-slate-800/30 rounded-2xl border-2 border-dashed border-slate-200 dark:border-white/10">
+            <Gavel className="w-14 h-14 text-slate-300 dark:text-slate-600 mb-4" />
+            <p className="text-lg font-bold text-slate-600 dark:text-slate-400">
+              No live auctions right now
+            </p>
+            <p className="text-sm text-slate-500 mt-1 mb-5">
+              Check back soon or browse all listings
+            </p>
+            <Link
+              to="/auctions"
+              className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-full transition-colors"
+            >
+              Browse All Auctions
+            </Link>
+          </div>
+        )}
+
+        {/* Show more button if there are more than 8 */}
+        {!loading && activeAuctions.length > 8 && (
+          <div className="text-center mt-8">
+            <Link
+              to="/auctions"
+              className="inline-flex items-center gap-2 px-8 py-3 border-2 border-indigo-600 dark:border-indigo-500 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-500 dark:hover:text-white font-bold text-sm rounded-full transition-all duration-300"
+            >
+              Show More Auctions
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
       </section>
 
-      {/* 3. Static Promotional Banner */}
-      <section className="relative w-full h-[250px] md:h-[300px] rounded-3xl overflow-hidden shadow-2xl group border border-slate-200 dark:border-white/10">
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-transparent z-10"></div>
-        <img src={staticBanner} alt="Promotional Banner" className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
-        <div className="absolute inset-y-0 left-8 md:left-16 z-20 flex flex-col justify-center max-w-lg">
-          <span className="text-amber-400 font-bold uppercase tracking-widest text-xs mb-2">Sell With Confidence</span>
-          <h2 className="text-3xl md:text-4xl font-black text-white leading-tight mb-4">Ready to host your own luxury auction?</h2>
-          <Link to="/create" className="inline-flex max-w-max items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-            Create Auction <ArrowRight className="w-4 h-4" />
+      {/* ─────────────────────────────────────────────────────────
+          4. PROMOTIONAL CTA BANNER
+      ───────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 shadow-xl">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)]" />
+        <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-purple-400/20 rounded-full blur-3xl" />
+        <div className="absolute -left-10 -top-10 w-40 h-40 bg-indigo-300/20 rounded-full blur-3xl" />
+
+        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6 px-8 sm:px-12 py-10 sm:py-12">
+          <div className="flex-1 text-center sm:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 rounded-full mb-4">
+              <TrendingUp className="w-3.5 h-3.5 text-emerald-300" />
+              <span className="text-xs font-bold text-white/90 tracking-wide uppercase">
+                Start Selling
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3">
+              Turn your stuff into cash
+            </h2>
+            <p className="text-indigo-100 text-sm sm:text-base max-w-md">
+              List your first item in minutes. No experience needed — our tools
+              make it easy for anyone to sell.
+            </p>
+          </div>
+          <Link
+            to="/create"
+            className="px-8 py-3.5 bg-white text-indigo-700 hover:bg-slate-50 font-bold text-sm rounded-full shadow-xl hover:shadow-2xl transition-all active:scale-95 whitespace-nowrap flex items-center gap-2"
+          >
+            List an Item
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>
 
-      {/* 4. Categories Carousel (Manual Slider) */}
-      <section className="relative pb-10">
-        <div className="flex justify-between items-end mb-6 px-2">
-          <div>
-            <h2 className="text-2xl font-black text-slate-900 dark:text-white">Featured Categories</h2>
-            <p className="text-slate-500 text-sm mt-1">Explore inventory by curated segments</p>
-          </div>
-          <div className="flex gap-2">
-            <button 
-              onClick={() => scrollCarousel(categoriesRef, 'left')}
-              className="p-2.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={() => scrollCarousel(categoriesRef, 'right')}
-              className="p-2.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+      {/* ─────────────────────────────────────────────────────────
+          5. FEATURED CATEGORIES — Grid cards
+      ───────────────────────────────────────────────────────── */}
+      <section className="py-12">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Explore Popular Categories
+          </h2>
+          <Link
+            to="/categories"
+            className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 transition-colors"
+          >
+            See all
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        <div 
-          ref={categoriesRef}
-          className="flex overflow-x-auto gap-4 pb-6 px-2 snap-x snap-mandatory hide-scrollbar"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {AUCTION_CATEGORIES.map((cat, idx) => {
-            const hasImage = categoryImages[cat]
-            return (
-              <Link 
-                to={`/auctions?category=${encodeURIComponent(cat)}`} 
-                key={idx} 
-                className="w-[180px] md:w-[220px] lg:w-[250px] flex-shrink-0 snap-start h-48 md:h-64 rounded-2xl overflow-hidden relative group border border-slate-200 dark:border-white/10 shadow-lg"
-              >
-                {hasImage ? (
-                  <>
-                    <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors z-10"></div>
-                    <img src={categoryImages[cat]} alt={cat} className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" />
-                  </>
-                ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-900 transform transition-transform duration-700 group-hover:scale-105 z-0 flex items-center justify-center opacity-30">
-                     <span className="text-6xl blur-sm opacity-50">🖼️</span>
-                  </div>
-                )}
-                
-                {/* Category Card Text Area */}
-                <div className={`absolute bottom-0 left-0 w-full p-4 md:p-5 z-20 backdrop-blur-sm transition-all duration-300 ${hasImage ? 'bg-gradient-to-t from-slate-900/90 to-transparent' : 'bg-white/40 dark:bg-slate-900/60 border-t border-white/20'}`}>
-                  <h3 className={`font-bold text-lg md:text-xl drop-shadow-md ${hasImage ? 'text-white' : 'text-slate-900 dark:text-white'}`}>{cat}</h3>
-                  <div className="flex items-center gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
-                    <span className={`text-xs font-semibold ${hasImage ? 'text-indigo-300' : 'text-indigo-600 dark:text-indigo-400'}`}>View Items</span>
-                    <ArrowRight className={`w-3 h-3 ${hasImage ? 'text-indigo-300' : 'text-indigo-600 dark:text-indigo-400'}`} />
-                  </div>
-                </div>
-              </Link>
-            )
-          })}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {AUCTION_CATEGORIES.slice(0, 12).map((cat) => (
+            <Link
+              key={cat}
+              to={`/auctions?category=${encodeURIComponent(cat)}`}
+              className="group flex flex-col items-center gap-3 p-5 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-2xl hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/5 transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="w-14 h-14 flex items-center justify-center text-3xl bg-slate-50 dark:bg-slate-700/50 rounded-xl group-hover:bg-indigo-50 dark:group-hover:bg-indigo-500/10 transition-colors">
+                {CATEGORY_ICONS[cat] || "📦"}
+              </div>
+              <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 text-center leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+                {cat.split("(")[0].trim()}
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
-      
+
+      {/* ─────────────────────────────────────────────────────────
+          6. TRUST / WHY BIDSPHERE — Feature strip
+      ───────────────────────────────────────────────────────── */}
+      <section className="py-10 border-t border-slate-200 dark:border-white/10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="flex flex-col items-center text-center gap-3 p-4">
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              Secure Payments
+            </h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Every transaction is protected with Razorpay's bank-grade security
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center gap-3 p-4">
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              <Clock className="w-6 h-6" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              Real-Time Bidding
+            </h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Instant updates with live bid tracking powered by WebSockets
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center gap-3 p-4">
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-amber-100 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">
+              <Trophy className="w-6 h-6" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              Fair Auctions
+            </h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Transparent leaderboard system with 5% stake to prevent spam bids
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center text-center gap-3 p-4">
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400">
+              <Search className="w-6 h-6" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              Easy Discovery
+            </h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Browse by category, watchlist favorites, and get personalized
+              alerts
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
