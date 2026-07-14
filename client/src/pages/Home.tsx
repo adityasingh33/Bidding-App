@@ -1,6 +1,6 @@
 // ─── Home Page — eBay-inspired clean layout ────────────────────
 // Sections:
-// 1. Horizontal Category Strip with emoji icons
+// 1. Horizontal Category Strip with Lucide icons
 // 2. Auto-sliding Hero Banner
 // 3. Live Auctions Grid (eBay "Daily Deals" style)
 // 4. Mid-page promotional CTA
@@ -20,47 +20,82 @@ import {
   Clock,
   TrendingUp,
   Search,
+  Landmark,
+  Palette,
+  Baby,
+  BookOpen,
+  Factory,
+  Camera,
+  Smartphone,
+  Shirt,
+  Coins,
+  Album,
+  Laptop,
+  Headphones,
+  Scissors,
+  Heart,
+  Clapperboard,
+  Gift,
+  Sparkles,
+  Home as HomeIcon,
+  Gem,
+  Music,
+  Guitar,
+  PawPrint,
+  Wine,
+  Building2,
+  Wrench,
+  Dumbbell,
+  Medal,
+  Mail,
+  Ticket,
+  Puzzle,
+  Plane,
+  Gamepad2,
+  Car,
+  Package,
+  type LucideIcon,
 } from "lucide-react"
 import API from "../services/api"
 import AuctionCard from "../components/AuctionCard"
 import { AUCTION_CATEGORIES } from "../constants/categories"
 
 // ─── Category icon mapping ─────────────────────────────────────
-const CATEGORY_ICONS: Record<string, string> = {
-  "Antiques": "🏺",
-  "Art": "🎨",
-  "Baby": "🍼",
-  "Books": "📚",
-  "Business & Industrial": "🏭",
-  "Cameras & Photo": "📷",
-  "Cell Phones & Accessories": "📱",
-  "Clothing, Shoes & Accessories": "👗",
-  "Coins & Paper Money": "🪙",
-  "Collectibles": "🎴",
-  "Computers, Tablets & Networking": "💻",
-  "Consumer Electronics": "🎧",
-  "Crafts": "✂️",
-  "Dolls & Bears": "🧸",
-  "Entertainment Memorabilia": "🎬",
-  "Gift Cards & Coupons": "🎁",
-  "Health & Beauty": "💄",
-  "Home & Garden": "🏡",
-  "Jewelry & Watches": "💎",
-  "Music": "🎵",
-  "Musical Instruments & Gear": "🎸",
-  "Pet Supplies": "🐾",
-  "Pottery & Glass": "🏺",
-  "Real Estate": "🏠",
-  "Specialty Services": "🔧",
-  "Sporting Goods": "⚽",
-  "Sports Mem, Cards & Fan Shop": "🏆",
-  "Stamps": "📮",
-  "Tickets & Experiences": "🎟️",
-  "Toys & Hobbies": "🧩",
-  "Travel": "✈️",
-  "Video Games & Consoles": "🎮",
-  "Vehicles (Cars, Bikes, Boats)": "🚗",
-  "Other": "📦",
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  "Antiques": Landmark,
+  "Art": Palette,
+  "Baby": Baby,
+  "Books": BookOpen,
+  "Business & Industrial": Factory,
+  "Cameras & Photo": Camera,
+  "Cell Phones & Accessories": Smartphone,
+  "Clothing, Shoes & Accessories": Shirt,
+  "Coins & Paper Money": Coins,
+  "Collectibles": Album,
+  "Computers, Tablets & Networking": Laptop,
+  "Consumer Electronics": Headphones,
+  "Crafts": Scissors,
+  "Dolls & Bears": Heart,
+  "Entertainment Memorabilia": Clapperboard,
+  "Gift Cards & Coupons": Gift,
+  "Health & Beauty": Sparkles,
+  "Home & Garden": HomeIcon,
+  "Jewelry & Watches": Gem,
+  "Music": Music,
+  "Musical Instruments & Gear": Guitar,
+  "Pet Supplies": PawPrint,
+  "Pottery & Glass": Wine,
+  "Real Estate": Building2,
+  "Specialty Services": Wrench,
+  "Sporting Goods": Dumbbell,
+  "Sports Mem, Cards & Fan Shop": Medal,
+  "Stamps": Mail,
+  "Tickets & Experiences": Ticket,
+  "Toys & Hobbies": Puzzle,
+  "Travel": Plane,
+  "Video Games & Consoles": Gamepad2,
+  "Vehicles (Cars, Bikes, Boats)": Car,
+  "Other": Package,
 }
 
 // Featured subset for the category strip
@@ -85,15 +120,8 @@ const FEATURED_CATEGORIES = [
 export default function Home() {
   const [activeAuctions, setActiveAuctions] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0)
-
   const liveAuctionsRef = useRef<HTMLDivElement>(null)
   const categoriesStripRef = useRef<HTMLDivElement>(null)
-
-  const heroBanners = [
-    "/assets/hero_banner_1_1776433126809.png",
-    "/assets/hero_banner_2_1776433143240.png",
-  ]
 
   // Fetch Live Auctions
   useEffect(() => {
@@ -113,13 +141,7 @@ export default function Home() {
     fetchLiveAuctions()
   }, [])
 
-  // Auto-sliding Hero Banner
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHeroIndex((prev) => (prev + 1) % heroBanners.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [heroBanners.length])
+
 
   // Carousel scroll handler
   const scrollCarousel = (
@@ -158,8 +180,8 @@ export default function Home() {
                 to={`/auctions?category=${encodeURIComponent(cat)}`}
                 className="flex flex-col items-center gap-2 min-w-[88px] py-2 px-1 group/cat"
               >
-                <div className="w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-transparent group-hover/cat:border-indigo-500 flex items-center justify-center text-2xl sm:text-3xl transition-all duration-300 group-hover/cat:shadow-lg group-hover/cat:shadow-indigo-500/20 group-hover/cat:scale-105">
-                  {CATEGORY_ICONS[cat] || "📦"}
+                <div className="w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-transparent group-hover/cat:border-indigo-500 flex items-center justify-center transition-all duration-300 group-hover/cat:shadow-lg group-hover/cat:shadow-indigo-500/20 group-hover/cat:scale-105">
+                  {(() => { const Icon = CATEGORY_ICONS[cat] || Package; return <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-slate-600 dark:text-slate-300 group-hover/cat:text-indigo-500 transition-colors" />; })()}
                 </div>
                 <span className="text-[11px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 text-center leading-tight line-clamp-2 group-hover/cat:text-indigo-600 dark:group-hover/cat:text-indigo-400 transition-colors max-w-[84px]">
                   {cat.split(",")[0].split("(")[0].trim()}
@@ -182,82 +204,39 @@ export default function Home() {
           2. HERO BANNER — Auto-sliding with overlay
       ───────────────────────────────────────────────────────── */}
       <section className="relative w-full h-[280px] sm:h-[340px] md:h-[420px] lg:h-[480px] overflow-hidden group mt-6 rounded-2xl">
-        {heroBanners.map((banner, idx) => (
-          <div
-            key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              idx === currentHeroIndex ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/40 to-transparent z-10" />
-            <img
-              src={banner}
-              alt="Hero Banner"
-              className="w-full h-full object-cover"
-            />
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/40 to-transparent z-10" />
+          <img
+            src="/assets/hero_banner.png"
+            alt="Hero Banner"
+            className="w-full h-full object-cover"
+          />
 
-            <div className="absolute bottom-8 left-6 sm:bottom-12 sm:left-10 md:bottom-16 md:left-14 z-20 max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-4">
-                <Zap className="w-3.5 h-3.5 text-amber-400" />
-                <span className="text-xs font-bold text-white/90 tracking-wide uppercase">
-                  Live Auctions
-                </span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-[1.15] tracking-tight mb-3">
-                Score Unbeatable
-                <br />
-                Deals Today
-              </h1>
-              <p className="text-white/70 text-sm sm:text-base mb-6 max-w-md hidden sm:block">
-                Bid on thousands of items across every category. New auctions
-                added daily.
-              </p>
-              <Link
-                to="/auctions"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 hover:bg-slate-100 font-bold text-sm rounded-full transition-all shadow-xl hover:shadow-2xl active:scale-95"
-              >
-                Explore Auctions
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+          <div className="absolute bottom-8 left-6 sm:bottom-12 sm:left-10 md:bottom-16 md:left-14 z-20 max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-4">
+              <Zap className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-xs font-bold text-white/90 tracking-wide uppercase">
+                Live Auctions
+              </span>
             </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-[1.15] tracking-tight mb-3">
+              Score Unbeatable
+              <br />
+              Deals Today
+            </h1>
+            <p className="text-white/70 text-sm sm:text-base mb-6 max-w-md hidden sm:block">
+              Bid on thousands of items across every category. New auctions
+              added daily.
+            </p>
+            <Link
+              to="/auctions"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 hover:bg-slate-100 font-bold text-sm rounded-full transition-all shadow-xl hover:shadow-2xl active:scale-95"
+            >
+              Explore Auctions
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
-        ))}
-
-        {/* Indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-          {heroBanners.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentHeroIndex(idx)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                idx === currentHeroIndex
-                  ? "bg-white w-8"
-                  : "bg-white/40 w-2 hover:bg-white/70"
-              }`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
         </div>
-
-        {/* Arrow Navigation */}
-        <button
-          onClick={() =>
-            setCurrentHeroIndex(
-              (prev) => (prev - 1 + heroBanners.length) % heroBanners.length
-            )
-          }
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/20"
-        >
-          <ChevronLeft className="w-5 h-5 text-white" />
-        </button>
-        <button
-          onClick={() =>
-            setCurrentHeroIndex((prev) => (prev + 1) % heroBanners.length)
-          }
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/20"
-        >
-          <ChevronRight className="w-5 h-5 text-white" />
-        </button>
       </section>
 
       {/* ─────────────────────────────────────────────────────────
@@ -393,8 +372,8 @@ export default function Home() {
               to={`/auctions?category=${encodeURIComponent(cat)}`}
               className="group flex flex-col items-center gap-3 p-5 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 rounded-2xl hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/5 transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="w-14 h-14 flex items-center justify-center text-3xl bg-slate-50 dark:bg-slate-700/50 rounded-xl group-hover:bg-indigo-50 dark:group-hover:bg-indigo-500/10 transition-colors">
-                {CATEGORY_ICONS[cat] || "📦"}
+              <div className="w-14 h-14 flex items-center justify-center bg-slate-50 dark:bg-slate-700/50 rounded-xl group-hover:bg-indigo-50 dark:group-hover:bg-indigo-500/10 transition-colors">
+                {(() => { const Icon = CATEGORY_ICONS[cat] || Package; return <Icon className="w-7 h-7 text-slate-600 dark:text-slate-300 group-hover:text-indigo-500 transition-colors" />; })()}
               </div>
               <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 text-center leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
                 {cat.split("(")[0].trim()}
