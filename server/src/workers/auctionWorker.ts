@@ -11,9 +11,21 @@ export const auctionWorker = new Worker("auctionQueue", async (job) => {
     
     // Update auction status
     try {
+      // First, determine the winner from the highest bid
+      const topBid = await prisma.bid.findFirst({
+        where: { auctionId },
+        orderBy: { amount: "desc" },
+      })
+
+      const winnerId = topBid ? topBid.userId : null
+
+      // Persist both status AND winnerId to the DB
       const updatedAuction = await prisma.auction.update({
         where: { id: auctionId },
-        data: { status: "ENDED" },
+        data: {
+          status: "ENDED",
+          winnerId,
+        },
         include: {
           bids: {
             orderBy: { amount: "desc" },
@@ -22,7 +34,7 @@ export const auctionWorker = new Worker("auctionQueue", async (job) => {
         }
       })
 
-      const winnerId = updatedAuction.bids.length > 0 ? updatedAuction.bids[0].userId : null
+      // winnerId already determined above
 
       // --- Stake Settlement Logic ---
       // Get all stakes for this auction
@@ -63,8 +75,28 @@ export const auctionWorker = new Worker("auctionQueue", async (job) => {
               })
             ]);
           } else if (top10UserIds.includes(stake.userId)) {
-            // Ranks 2-10: Keep holding their stakes for final declaration
-            continue;
+            // Ranks 2-10: Release their stakes back to wallet
+            await prisma.$transaction([
+              prisma.auctionStake.update({
+                where: { id: stake.id },
+                data: { status: "RELEASED" }
+              }),
+              prisma.wallet.update({
+                where: { userId: stake.userId },
+                data: { 
+                  lockedBalance: { decrement: stake.amount },
+                  balance: { increment: stake.amount }
+                }
+              }),
+              prisma.walletTransaction.create({
+                data: {
+                  wallet: { connect: { userId: stake.userId } },
+                  type: "UNLOCK",
+                  amount: stake.amount,
+                  description: `Refunded stake for auction #${auctionId} (top 10 bidder)`
+                }
+              })
+            ]);
           } else {
             // Ranks 11+ and non-bidders: Refund immediately
             await prisma.$transaction([

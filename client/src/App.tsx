@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard"
 import Categories from "./pages/Categories"
 import Home from "./pages/Home"
 import Wallet from "./pages/Wallet"
+import ProtectedRoute from "./components/ProtectedRoute"
 import { UserActivityProvider, useUserActivity } from "./context/UserActivityContext"
 import { useTheme } from "./context/ThemeContext"
 import { ChatProvider } from "./context/ChatContext"
@@ -85,17 +86,17 @@ function AppContent() {
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/auctions" element={<Auctions />} />
             <Route path="/auctions/:id" element={<AuctionDetail />} />
-            <Route path="/create" element={<CreateAuction />} />
-            <Route path="/my-auctions" element={<MyAuctions />} />
-            <Route path="/my-bids" element={<MyBids />} />
-            <Route path="/watchlist" element={<Watchlist />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/wallet" element={<Wallet />} />
+            <Route path="/create" element={<ProtectedRoute><CreateAuction /></ProtectedRoute>} />
+            <Route path="/my-auctions" element={<ProtectedRoute><MyAuctions /></ProtectedRoute>} />
+            <Route path="/my-bids" element={<ProtectedRoute><MyBids /></ProtectedRoute>} />
+            <Route path="/watchlist" element={<ProtectedRoute><Watchlist /></ProtectedRoute>} />
+            <Route path="/categories" element={<ProtectedRoute><Categories /></ProtectedRoute>} />
+            <Route path="/wallet" element={<ProtectedRoute><Wallet /></ProtectedRoute>} />
           </Routes>
         </main>
       </div>

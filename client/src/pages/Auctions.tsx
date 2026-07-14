@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import AuctionCard from "../components/AuctionCard"
 import { SkeletonGrid } from "../components/SkeletonLoader"
 import { Clock, SearchX } from "lucide-react"
@@ -21,6 +22,7 @@ interface Auction {
 const CATEGORIES = ["ALL", ...AUCTION_CATEGORIES]
 
 const Auctions = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [auctions, setAuctions] = useState<Auction[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -28,7 +30,14 @@ const Auctions = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [maxPrice, setMaxPrice] = useState<number>(5000)
   const [endingSoon, setEndingSoon] = useState(false)
-  const [category, setCategory] = useState("ALL")
+  const [category, setCategory] = useState(() => {
+    // Read initial category from URL query param (e.g., /auctions?category=Electronics)
+    const urlCategory = searchParams.get("category")
+    if (urlCategory && AUCTION_CATEGORIES.includes(urlCategory)) {
+      return urlCategory
+    }
+    return "ALL"
+  })
 
   useEffect(() => {
     const fetchAuctions = async () => {
@@ -107,7 +116,17 @@ const Auctions = () => {
           {/* Category Dropdown */}
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              const newCat = e.target.value
+              setCategory(newCat)
+              // Sync to URL so the filter is shareable/bookmarkable
+              if (newCat === "ALL") {
+                searchParams.delete("category")
+              } else {
+                searchParams.set("category", newCat)
+              }
+              setSearchParams(searchParams, { replace: true })
+            }}
             className="w-full sm:w-auto px-4 py-3 bg-slate-950/50 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-300 focus:outline-none focus:border-indigo-500/80 focus:ring-2 focus:ring-indigo-500/20 appearance-none cursor-pointer transition-all shadow-sm"
             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundPosition: 'right 0.75rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.25em' }}
           >

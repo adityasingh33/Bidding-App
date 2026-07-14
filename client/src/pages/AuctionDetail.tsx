@@ -85,10 +85,20 @@ const AuctionDetail = () => {
       })
     })
 
+    socket.on("auctionStatusChange", (data) => {
+      if (data.auctionId === auctionId) {
+        setAuction((prev) => {
+          if (!prev) return prev
+          return { ...prev, status: data.status }
+        })
+      }
+    })
+
     return () => {
       socket.off("newBid")
       socket.off("timeExtended")
       socket.off("auctionEnded")
+      socket.off("auctionStatusChange")
     }
   }, [auctionId])
 
