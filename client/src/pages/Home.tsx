@@ -120,7 +120,6 @@ const FEATURED_CATEGORIES = [
 export default function Home() {
   const [activeAuctions, setActiveAuctions] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const liveAuctionsRef = useRef<HTMLDivElement>(null)
   const categoriesStripRef = useRef<HTMLDivElement>(null)
 
   // Fetch Live Auctions
