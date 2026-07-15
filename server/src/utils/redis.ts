@@ -1,15 +1,23 @@
 import Redis from "ioredis"
 
-// By default connects to localhost:6379
-export const redis = new Redis({
-  host: process.env.REDIS_HOST || '127.0.0.1',
-  port: parseInt(process.env.REDIS_PORT || '6379'),
-  maxRetriesPerRequest: null,
-  retryStrategy(times) {
-    // Retry quietly every 10 seconds to reduce CPU and console spam
-    return 10000 
-  }
-})
+// Support REDIS_URL (Upstash / cloud) or fall back to REDIS_HOST/PORT (local dev)
+const redisUrl = process.env.REDIS_URL
+
+export const redis = redisUrl
+  ? new Redis(redisUrl, {
+      maxRetriesPerRequest: null,
+      retryStrategy(times) {
+        return 10000
+      },
+    })
+  : new Redis({
+      host: process.env.REDIS_HOST || '127.0.0.1',
+      port: parseInt(process.env.REDIS_PORT || '6379'),
+      maxRetriesPerRequest: null,
+      retryStrategy(times) {
+        return 10000
+      },
+    })
 
 let warningLogged = false
 
